@@ -15,7 +15,6 @@ Web server for controlling all [picow-rgbw](https://github.com/knackwurstking/pi
 | ------ | -------------------- | ---------------------------- |
 | GET    | `/api/v1/device`     | _get all devices_            |
 | GET    | `/api/v1/device?id=` | _get device with :id number_ |
-| GET    | `/api/v1/`           | \_...\_                      |
 
 ## Response Data (`/api/v1/device?id=`)
 
@@ -26,8 +25,8 @@ type PWMPin struct {
     Duty  int `json:"duty"` // Duty cycle (goes from 0-100)
 }
 
-// Device data
-type Device struct {
+// PicoDevice data
+type PicoDevice struct {
     ID   int        `json:"id"`   // ID is unique
     Addr string     `json:"addr"` // Addr contains the ip and port <ip>:<port>
     RGBW [4]*PWMPin `json:"rgbw"` // RGBW holds all pins in use
