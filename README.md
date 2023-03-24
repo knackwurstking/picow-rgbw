@@ -1,12 +1,11 @@
 # picow-rgbw-web
 
 <!--toc:start-->
-
 - [picow-rgbw-web](#picow-rgbw-web)
   - [Api v1 Routing Table](#api-v1-routing-table)
   - [Response Data (`/api/v1/device?id=`)](#response-data-apiv1deviceid)
   - [NOTEs](#notes)
-  <!--toc:end-->
+<!--toc:end-->
 
 Web server for controlling all [picow-rgbw](https://github.com/knackwurstking/picow-rgbw.git) driven devices.
 
@@ -22,9 +21,9 @@ Web server for controlling all [picow-rgbw](https://github.com/knackwurstking/pi
 
 ```go
 type Device struct {
-  ID   int    `json:"id"`   // ID is unique
-  Addr string `json:"addr"` // <ip>:<port>
-  // TODO: ...
+    ID   int    `json:"id"`   // ID is unique
+    Addr string `json:"addr"` // <ip>:<port>
+    // TODO: ...
 }
 ```
 
