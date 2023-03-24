@@ -20,10 +20,17 @@ Web server for controlling all [picow-rgbw](https://github.com/knackwurstking/pi
 ## Response Data (`/api/v1/device?id=`)
 
 ```go
+// Pin gpio number and data
+type PWMPin struct {
+    Gp    int `json:"gp"`   // Gp which gpio pin is in use (goes from 0-28)
+    Duty  int `json:"duty"` // Duty cycle (goes from 0-100)
+}
+
+// Device data
 type Device struct {
-    ID   int    `json:"id"`   // ID is unique
-    Addr string `json:"addr"` // <ip>:<port>
-    // TODO: ...
+    ID   int        `json:"id"`   // ID is unique
+    Addr string     `json:"addr"` // Addr contains the ip and port <ip>:<port>
+    RGBW [4]*PWMPin `json:"rgbw"` // RGBW holds all pins in use
 }
 ```
 
