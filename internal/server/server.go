@@ -24,12 +24,12 @@ func NewHandler() *http.ServeMux {
 
 		mux.HandleFunc(group+"/devices", AddMiddleware(
 			api.NewDevices(group+"/devices"),
-			middleware.NewLogger,
+			middlewareHandlers...,
 		).ServeHTTP)
 
 		mux.HandleFunc(group+"/events", AddMiddleware(
 			api.NewEvents(group+"/events"),
-			middleware.NewLogger,
+			middlewareHandlers...,
 		).ServeHTTP)
 	}
 
@@ -37,6 +37,10 @@ func NewHandler() *http.ServeMux {
 }
 
 func New(addr string) *http.Server {
+	UseMiddleware(
+		middleware.NewLogger,
+	)
+
 	return &http.Server{
 		Addr:    addr,
 		Handler: NewHandler(),
