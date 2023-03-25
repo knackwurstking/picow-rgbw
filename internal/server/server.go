@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	api "github.com/knackwurstking/picow-rgbw-web/internal/api/v1"
+	"github.com/knackwurstking/picow-rgbw-web/internal/middleware"
 )
 
 var (
@@ -23,12 +24,12 @@ func NewHandler() *http.ServeMux {
 
 		mux.HandleFunc(group+"/devices", AddMiddleware(
 			api.NewDevices(group+"/devices"),
-			NewLoggerMiddleware,
+			middleware.NewLogger,
 		).ServeHTTP)
 
 		mux.HandleFunc(group+"/events", AddMiddleware(
 			api.NewEvents(group+"/events"),
-			NewLoggerMiddleware,
+			middleware.NewLogger,
 		).ServeHTTP)
 	}
 
