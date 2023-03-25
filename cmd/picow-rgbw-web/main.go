@@ -64,6 +64,7 @@ func main() {
 
 	// Start server (HTTP or HTTPS)
 	if http {
+		slog.Info("HTTP server running " + server.Addr)
 		if err := server.ListenAndServe(); err != nil {
 			slog.Error("Server error: " + err.Error())
 			os.Exit(1)
@@ -81,6 +82,7 @@ func main() {
 			os.Exit(1)
 		}
 
+		slog.Info("HTTPS server running " + server.Addr)
 		if err := server.ListenAndServeTLS(crt, key); err != nil {
 			slog.Error("Server error: " + err.Error())
 			os.Exit(1)
