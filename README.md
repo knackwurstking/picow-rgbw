@@ -12,11 +12,11 @@ Web server for controlling all [picow-rgbw](https://github.com/knackwurstking/pi
 
 ## Api v1 Routing Table
 
-| Method | Endpoint                | Description                      |
-| ------ | ----------------------- | -------------------------------- |
-| GET    | `/api/v1/device`        | _get all devices_                |
-| GET    | `/api/v1/device?id=`    | _get device per :id_             |
-| SSE    | `/events/device-update` | _sse event: device data changed_ |
+| Method | Endpoint                       | Description                      |
+| ------ | ------------------------------ | -------------------------------- |
+| GET    | `/api/v1/device`               | _get all devices_                |
+| GET    | `/api/v1/device?id=`           | _get device per :id_             |
+| SSE    | `/api/v1/events/device-update` | _sse event: device data changed_ |
 
 ## Response Data (`/api/v1/device?id=`)
 
