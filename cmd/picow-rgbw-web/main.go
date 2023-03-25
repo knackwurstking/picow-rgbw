@@ -26,33 +26,36 @@ func isDebug() bool {
 }
 
 func init() {
-	{ // flags
-		flag.StringVar(&host, "host", host, "Server host.")
-		flag.IntVar(&port, "port", port, "Server port.")
-		flag.BoolVar(&http, "http", http, "Start HTTP server.")
+	initFlags()
+	initLogger()
+}
 
-		if !debug {
-			flag.BoolVar(&debug, "debug", debug, "Enable debug log.")
-		}
+func initFlags() {
+	flag.StringVar(&host, "host", host, "Server host.")
+	flag.IntVar(&port, "port", port, "Server port.")
+	flag.BoolVar(&http, "http", http, "Start HTTP server.")
 
-		flag.Parse()
+	if !debug {
+		flag.BoolVar(&debug, "debug", debug, "Enable debug log.")
 	}
 
-	{ // logger
-		o := slog.HandlerOptions{
-			AddSource: true,
-		}
+	flag.Parse()
+}
 
-		if debug {
-			o.Level = slog.LevelDebug
-		} else {
-			o.Level = slog.LevelInfo
-		}
-
-		// NOTE: Need a custom Text handler for this someday (with color support)
-		h := o.NewJSONHandler(os.Stderr)
-		slog.SetDefault(slog.New(h))
+func initLogger() {
+	o := slog.HandlerOptions{
+		AddSource: true,
 	}
+
+	if debug {
+		o.Level = slog.LevelDebug
+	} else {
+		o.Level = slog.LevelInfo
+	}
+
+	// NOTE: Need a custom Text handler for this someday (with color support)
+	h := o.NewJSONHandler(os.Stderr)
+	slog.SetDefault(slog.New(h))
 }
 
 func main() {
@@ -66,15 +69,15 @@ func main() {
 			os.Exit(1)
 		}
 	} else {
-		crt := os.Getenv("HTTPS_CRT")
+		crt := os.Getenv("CERT_FILE")
 		if crt == "" {
-			slog.Error("Missing https certificate (env: HTTPS_CRT)")
+			slog.Error("Missing server certificate (env: CERT_FILE)")
 			os.Exit(1)
 		}
 
-		key := os.Getenv("HTTPS_KEY")
+		key := os.Getenv("KEY_FILE")
 		if key == "" {
-			slog.Error("Missing https certificate key (env: HTTPS_KEY)")
+			slog.Error("Missing server certificate key (env: KEY_FILE)")
 			os.Exit(1)
 		}
 

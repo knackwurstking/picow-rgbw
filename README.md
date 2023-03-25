@@ -3,7 +3,7 @@
 <!--toc:start-->
 - [picow-rgbw-web](#picow-rgbw-web)
   - [Api v1 Routing Table](#api-v1-routing-table)
-  - [Response Data (`/api/v1/device?id=`)](#response-data-apiv1deviceid)
+  - [Response Data (`/api/v1/device/:id`)](#response-data-apiv1deviceid)
   - [NOTEs](#notes)
 <!--toc:end-->
 
@@ -14,10 +14,10 @@ Web server for controlling all [picow-rgbw](https://github.com/knackwurstking/pi
 | Method | Endpoint                       | Description                      |
 | ------ | ------------------------------ | -------------------------------- |
 | GET    | `/api/v1/device`               | _get all devices_                |
-| GET    | `/api/v1/device?id=`           | _get device per :id_             |
+| GET    | `/api/v1/device/:id`           | _get device per :id_             |
 | SSE    | `/api/v1/events/device-update` | _sse event: device data changed_ |
 
-## Response Data (`/api/v1/device?id=`)
+## Response Data (`/api/v1/device/:id`)
 
 ```go
 // PWMPin
