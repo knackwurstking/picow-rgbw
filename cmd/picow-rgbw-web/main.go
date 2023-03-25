@@ -16,6 +16,15 @@ var (
 	debug = isDebug() // Debug logger level
 )
 
+func isDebug() bool {
+	switch os.Getenv("DEBUG") {
+	case "true", "1", "yes":
+		return true
+	default:
+		return false
+	}
+}
+
 func init() {
 	{ // flags
 		flag.StringVar(&host, "host", host, "Server host.")
@@ -73,14 +82,5 @@ func main() {
 			slog.Error("Server error: " + err.Error())
 			os.Exit(1)
 		}
-	}
-}
-
-func isDebug() bool {
-	switch os.Getenv("DEBUG") {
-	case "true", "1", "yes":
-		return true
-	default:
-		return false
 	}
 }
