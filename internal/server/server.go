@@ -5,7 +5,7 @@ import "net/http"
 func NewHandler() *http.ServeMux {
 	mux := http.NewServeMux()
 
-	// TODO: Add handler
+	// TODO: Add handler (groups?: "/api/v1", "/api/v1/devices", "/api/v1/events")
 
 	return mux
 }
