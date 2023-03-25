@@ -12,10 +12,11 @@ Web server for controlling all [picow-rgbw](https://github.com/knackwurstking/pi
 
 ## Api v1 Routing Table
 
-| Method | Endpoint             | Description          |
-| ------ | -------------------- | -------------------- |
-| GET    | `/api/v1/device`     | _get all devices_    |
-| GET    | `/api/v1/device?id=` | _get device per :id_ |
+| Method | Endpoint                | Description                      |
+| ------ | ----------------------- | -------------------------------- |
+| GET    | `/api/v1/device`        | _get all devices_                |
+| GET    | `/api/v1/device?id=`    | _get device per :id_             |
+| SSE    | `/events/device-update` | _sse event: device data changed_ |
 
 ## Response Data (`/api/v1/device?id=`)
 
@@ -42,3 +43,4 @@ type PicoDevice struct {
 - json logging using `slog` package
 - classic /api/v1 and serve static files directory
   - svelte frontend
+- sse events for "device-update"
