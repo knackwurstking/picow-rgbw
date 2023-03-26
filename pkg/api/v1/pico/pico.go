@@ -50,5 +50,5 @@ func (h *Handler) Scan(ipRange string) (devices []*Device, err error) {
 	// TODO: Scan ip range...
 	// ...
 
-	return devices, fmt.Errorf("Scanner Unimplemented!")
+	return devices, fmt.Errorf("Scanner Not Implemented!")
 }
