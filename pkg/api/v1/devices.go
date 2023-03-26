@@ -4,8 +4,9 @@ import (
 	"net/http"
 	"regexp"
 
-	"github.com/knackwurstking/picow-rgbw-web/internal/api/v1/pico"
 	"golang.org/x/exp/slog"
+
+	"github.com/knackwurstking/picow-rgbw-web/pkg/api/v1/pico"
 )
 
 type Devices struct {

@@ -3,8 +3,8 @@ package server
 import (
 	"net/http"
 
-	api "github.com/knackwurstking/picow-rgbw-web/internal/api/v1"
-	"github.com/knackwurstking/picow-rgbw-web/internal/middleware"
+	api "github.com/knackwurstking/picow-rgbw-web/pkg/api/v1"
+	"github.com/knackwurstking/picow-rgbw-web/pkg/middleware"
 )
 
 var (

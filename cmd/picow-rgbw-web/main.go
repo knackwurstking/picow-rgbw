@@ -5,8 +5,9 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/knackwurstking/picow-rgbw-web/internal/server"
 	"golang.org/x/exp/slog"
+
+	"github.com/knackwurstking/picow-rgbw-web/pkg/server"
 )
 
 var (
@@ -26,6 +27,8 @@ func isDebug() bool {
 }
 
 func init() {
+	// TODO: Loading (json) configuration?
+
 	initFlags()
 	initLogger()
 }
