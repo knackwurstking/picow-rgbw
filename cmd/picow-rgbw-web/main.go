@@ -35,6 +35,16 @@ func init() {
 
 	initFlags()
 	initLogger()
+
+	if devices, err := picoHandler.Scan(); err != nil {
+		slog.Error(err.Error())
+		os.Exit(1)
+	} else {
+		picoHandler.Devices = devices
+	}
+
+	slog.Debug(fmt.Sprintf("picoHandler.Devices: %#v", picoHandler.Devices))
+	os.Exit(100)
 }
 
 func initFlags() {
