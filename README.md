@@ -19,18 +19,20 @@ Web server for controlling all [picow-rgbw](https://github.com/knackwurstking/pi
 
 ## Response Data (`/api/v1/device/:id`)
 
+> package: [/internal/api/v1/pico/pico.go]
+
 ```go
-// PWMPin
-type PWMPin struct {
-    Gp    int `json:"gp"`   // Gp which gpio pin is in use (goes from 0-28) (unique)
-    Duty  int `json:"duty"` // Duty cycle (goes from 0-100)
+// GpPWM
+type GpPWM struct {
+    Nr   int `json:"nr"`   // Nr of gpio pin in use (gp0 - gp28)
+    Duty int `json:"duty"` // Duty cycle (goes from 0-100)
 }
 
-// PicoDevice
-type PicoDevice struct {
-    ID   int        `json:"id"`   // ID is unique
-    Addr string     `json:"addr"` // Addr contains the ip and port <ip>:<port>
-    RGBW [4]*PWMPin `json:"rgbw"` // RGBW holds all pins in use
+// Device
+type Device struct {
+    ID   int       `json:"id"`   // ID is unique
+    Addr string    `json:"addr"` // Addr contains the ip and port <ip>:<port>
+    RGBW [4]*GpPWM `json:"rgbw"` // RGBW holds all pins in use
 }
 ```
 
