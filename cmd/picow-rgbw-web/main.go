@@ -32,25 +32,16 @@ func isDebug() bool {
 }
 
 func init() {
-	// TODO: Loading (json) configuration?
-	picoHandler = pico.NewHandler() // TODO:: pass pre-configured pico devices
+	picoHandler = pico.NewHandler()
 
+	initConfig()
 	initFlags()
 	initLogger()
+	initPicoDevices()
+}
 
-	if ip, err := scanner.GetLocalIP(); err != nil {
-		slog.Warn(err.Error())
-	} else {
-		ip = strings.Join(strings.Split(ip, ".")[:3], ".") + ".0"
-		slog.Debug(fmt.Sprintf("Scan for pico devices (scan-range: %s)", ip))
-
-		// NOTE: Scan method is work in progress
-		if devices, err := picoHandler.Scan(ip); err != nil {
-			slog.Warn(err.Error())
-		} else {
-			picoHandler.Devices = devices
-		}
-	}
+func initConfig() {
+	// TODO: Loading (json) configuration?
 }
 
 func initFlags() {
@@ -83,6 +74,26 @@ func initLogger() {
 	// NOTE: Need a custom Text handler for this someday (with color support)
 	h := o.NewJSONHandler(os.Stderr)
 	slog.SetDefault(slog.New(h))
+}
+
+func initPicoDevices() {
+	// TODO: set pico devices from config first (request data from pico devices
+	//       and pass to picoHandler)
+
+	// Start the devices scanner
+	if ip, err := scanner.GetLocalIP(); err != nil {
+		slog.Warn(err.Error())
+	} else {
+		ip = strings.Join(strings.Split(ip, ".")[:3], ".") + ".0"
+		slog.Debug(fmt.Sprintf("Scan for pico devices (scan-range: %s)", ip))
+
+		// NOTE: Scan method is work in progress
+		if devices, err := picoHandler.Scan(ip); err != nil {
+			slog.Warn(err.Error())
+		} else {
+			picoHandler.Devices = devices
+		}
+	}
 }
 
 func main() {
