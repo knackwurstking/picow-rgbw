@@ -12,6 +12,8 @@ import (
 )
 
 var (
+	picoHandler *pico.Handler
+
 	host  string      // Host server will listen to
 	port  = 50833     // Port server will listen to
 	http  bool        // HTTP server (no HTTPS)
@@ -29,6 +31,7 @@ func isDebug() bool {
 
 func init() {
 	// TODO: Loading (json) configuration?
+	picoHandler = pico.NewHandler() // TODO:: pass pre-configured pico devices
 
 	initFlags()
 	initLogger()
@@ -68,7 +71,6 @@ func initLogger() {
 
 func main() {
 	// Get server (with handler)
-	picoHandler := pico.NewHandler() // TODO: init this first inside init function
 	server := server.New(fmt.Sprintf("%s:%d", host, port), picoHandler)
 
 	// Start server (HTTP or HTTPS)
