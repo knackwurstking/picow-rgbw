@@ -1,9 +1,11 @@
 package main
 
 import (
+	"encoding/json"
 	"flag"
 	"fmt"
 	"os"
+	"path/filepath"
 	"strings"
 
 	"golang.org/x/exp/slog"
@@ -14,6 +16,8 @@ import (
 )
 
 var (
+	applicationName = "picow-rgbw-web"
+
 	config = Config{
 		Port:    50833,
 		Debug:   isDebug(),
@@ -46,17 +50,32 @@ func init() {
 }
 
 func initConfig() {
-	// TODO: Loading (json) configuration?
+	home, err := os.UserHomeDir()
+	if err != nil {
+		slog.Error("Failed to get the users home directory: " + err.Error())
+		return
+	}
+
+	// Load "config.json" first. If missing, load user config "~/.config/picow-rgbw-web/config.json".
+	f, err := os.Open("config.json")
+	if err != nil {
+		f, err = os.Open(filepath.Join(home, ".config", applicationName, "config.json"))
+	}
+
+	if err == nil {
+		err = json.NewDecoder(f).Decode(&config)
+	}
+
+	if err != nil {
+		slog.Error("Load config failed: " + err.Error())
+	}
 }
 
 func initFlags() {
 	flag.StringVar(&config.Host, "host", config.Host, "Server host.")
 	flag.IntVar(&config.Port, "port", config.Port, "Server port.")
 	flag.BoolVar(&config.HTTP, "http", config.HTTP, "Start HTTP server.")
-
-	if !config.Debug {
-		flag.BoolVar(&config.Debug, "debug", config.Debug, "Enable debug log.")
-	}
+	flag.BoolVar(&config.Debug, "debug", config.Debug, "Enable debug log.")
 
 	// TODO: Add flags for... (Need to finish the scanner first)
 	//	...scan - enables the pico device scan
