@@ -2,7 +2,6 @@ package pico
 
 import (
 	"fmt"
-	"net"
 )
 
 // GpPWM
@@ -46,27 +45,10 @@ func NewHandler(devices ...*Device) *Handler {
 	}
 }
 
-// Scan for pico devices
-func (h *Handler) Scan() (devices []*Device, err error) {
-	// TODO: Scan the local network for pico devices
-	// first get the current (local) ip address (default scan 192.168.178.0)
-	localIP := localIP()
-	if localIP == "" {
-		return devices, fmt.Errorf("Local ip address not found!")
-	}
+// Scan for pico devices (ex. r: 192.168.178.0, 192.168.0.0)
+func (h *Handler) Scan(r string) (devices []*Device, err error) {
+	// TODO: Scan ip range...
+	// ...
 
-	return devices, nil
-}
-
-func localIP() string {
-	addrs, _ := net.InterfaceAddrs()
-	for _, a := range addrs {
-		if ipnet, ok := a.(*net.IPNet); ok && !ipnet.IP.IsLoopback() {
-			if ipnet.IP.To4() != nil {
-				return ipnet.IP.To4().String()
-			}
-		}
-	}
-
-	return ""
+	return devices, fmt.Errorf("Scanner Unimplemented!")
 }

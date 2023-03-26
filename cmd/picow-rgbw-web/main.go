@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"net"
 	"os"
 
 	"golang.org/x/exp/slog"
@@ -36,15 +37,16 @@ func init() {
 	initFlags()
 	initLogger()
 
-	if devices, err := picoHandler.Scan(); err != nil {
-		slog.Error(err.Error())
-		os.Exit(1)
+	if ip := localIP(); ip != "" {
+		if devices, err := picoHandler.Scan(ip); err == nil {
+			picoHandler.Devices = devices
+		} else {
+			slog.Error(err.Error())
+			os.Exit(1)
+		}
 	} else {
-		picoHandler.Devices = devices
+		slog.Warn("Local ip address not found!")
 	}
-
-	slog.Debug(fmt.Sprintf("picoHandler.Devices: %#v", picoHandler.Devices))
-	os.Exit(100)
 }
 
 func initFlags() {
@@ -77,6 +79,19 @@ func initLogger() {
 	// NOTE: Need a custom Text handler for this someday (with color support)
 	h := o.NewJSONHandler(os.Stderr)
 	slog.SetDefault(slog.New(h))
+}
+
+func localIP() string {
+	addrs, _ := net.InterfaceAddrs()
+	for _, a := range addrs {
+		if ipnet, ok := a.(*net.IPNet); ok && !ipnet.IP.IsLoopback() {
+			if ipnet.IP.To4() != nil {
+				return ipnet.IP.To4().String()
+			}
+		}
+	}
+
+	return ""
 }
 
 func main() {
