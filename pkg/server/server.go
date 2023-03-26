@@ -7,7 +7,6 @@ import (
 	api "github.com/knackwurstking/picow-rgbw-web/pkg/api/v1"
 	"github.com/knackwurstking/picow-rgbw-web/pkg/api/v1/pico"
 	"github.com/knackwurstking/picow-rgbw-web/pkg/middleware"
-	"golang.org/x/net/context"
 )
 
 var (
