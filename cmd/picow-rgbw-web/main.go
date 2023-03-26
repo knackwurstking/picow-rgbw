@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"strings"
 
 	"golang.org/x/exp/slog"
 
@@ -40,6 +41,9 @@ func init() {
 	if ip, err := scanner.GetLocalIP(); err != nil {
 		slog.Warn(err.Error())
 	} else {
+		ip = strings.Join(strings.Split(ip, ".")[:3], ".") + ".0"
+		slog.Debug(fmt.Sprintf("Scan for pico devices (scan-range: %s)", ip))
+
 		// NOTE: Scan method is work in progress
 		if devices, err := picoHandler.Scan(ip); err != nil {
 			slog.Warn(err.Error())
