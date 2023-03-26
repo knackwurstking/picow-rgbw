@@ -1,14 +1,19 @@
 package v1
 
-import "net/http"
+import (
+	"context"
+	"net/http"
+)
 
 type Events struct {
 	prefix string
+	ctx    context.Context
 }
 
-func NewEvents(prefixPath string) http.Handler {
+func NewEvents(prefixPath string, ctx context.Context) http.Handler {
 	return &Events{
 		prefix: prefixPath,
+		ctx:    ctx,
 	}
 }
 
