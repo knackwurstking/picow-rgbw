@@ -38,6 +38,7 @@ func NewHandler(handler *pico.Handler) *http.ServeMux {
 }
 
 func New(addr string, picoHandler *pico.Handler) *http.Server {
+	// TODO: Using context instead of pico handler here (key: "pico", value: "*pico.Handler")
 	UseMiddleware(
 		middleware.NewLogger,
 	)
