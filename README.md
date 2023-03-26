@@ -19,7 +19,7 @@ Web server for controlling all [picow-rgbw](https://github.com/knackwurstking/pi
 
 ## Response Data (`/api/v1/device/:id`)
 
-> package: [/internal/api/v1/pico/pico.go]
+> package: [pico](internal/api/v1/pico/pico.go)
 
 ```go
 // GpPWM
