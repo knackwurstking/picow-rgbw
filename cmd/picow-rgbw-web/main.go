@@ -3,12 +3,12 @@ package main
 import (
 	"flag"
 	"fmt"
-	"net"
 	"os"
 
 	"golang.org/x/exp/slog"
 
 	"github.com/knackwurstking/picow-rgbw-web/pkg/api/v1/pico"
+	"github.com/knackwurstking/picow-rgbw-web/pkg/scanner"
 	"github.com/knackwurstking/picow-rgbw-web/pkg/server"
 )
 
@@ -37,15 +37,15 @@ func init() {
 	initFlags()
 	initLogger()
 
-	if ip := localIP(); ip != "" {
-		if devices, err := picoHandler.Scan(ip); err == nil {
-			picoHandler.Devices = devices
-		} else {
-			slog.Error(err.Error())
-			os.Exit(1)
-		}
+	if ip, err := scanner.GetLocalIP(); err != nil {
+		slog.Warn(err.Error())
 	} else {
-		slog.Warn("Local ip address not found!")
+		// NOTE: Scan method is work in progress
+		if devices, err := picoHandler.Scan(ip); err != nil {
+			slog.Warn(err.Error())
+		} else {
+			picoHandler.Devices = devices
+		}
 	}
 }
 
@@ -79,19 +79,6 @@ func initLogger() {
 	// NOTE: Need a custom Text handler for this someday (with color support)
 	h := o.NewJSONHandler(os.Stderr)
 	slog.SetDefault(slog.New(h))
-}
-
-func localIP() string {
-	addrs, _ := net.InterfaceAddrs()
-	for _, a := range addrs {
-		if ipnet, ok := a.(*net.IPNet); ok && !ipnet.IP.IsLoopback() {
-			if ipnet.IP.To4() != nil {
-				return ipnet.IP.To4().String()
-			}
-		}
-	}
-
-	return ""
 }
 
 func main() {
