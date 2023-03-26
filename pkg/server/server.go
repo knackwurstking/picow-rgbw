@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	api "github.com/knackwurstking/picow-rgbw-web/pkg/api/v1"
+	"github.com/knackwurstking/picow-rgbw-web/pkg/api/v1/pico"
 	"github.com/knackwurstking/picow-rgbw-web/pkg/middleware"
 )
 
@@ -16,14 +17,14 @@ func UseMiddleware(h func(http.Handler) http.Handler) {
 	middlewareHandlers = append(middlewareHandlers, h)
 }
 
-func NewHandler() *http.ServeMux {
+func NewHandler(handler *pico.Handler) *http.ServeMux {
 	mux := http.NewServeMux()
 
 	{ // Group: "/api/v1"
 		group := "/api/v1"
 
 		mux.HandleFunc(group+"/devices", AddMiddleware(
-			api.NewDevices(group+"/devices"),
+			api.NewDevices(group+"/devices", handler),
 			middlewareHandlers...,
 		).ServeHTTP)
 
@@ -36,13 +37,13 @@ func NewHandler() *http.ServeMux {
 	return mux
 }
 
-func New(addr string) *http.Server {
+func New(addr string, picoHandler *pico.Handler) *http.Server {
 	UseMiddleware(
 		middleware.NewLogger,
 	)
 
 	return &http.Server{
 		Addr:    addr,
-		Handler: NewHandler(),
+		Handler: NewHandler(picoHandler),
 	}
 }

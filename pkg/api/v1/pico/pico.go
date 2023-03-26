@@ -35,7 +35,7 @@ type Handler struct {
 }
 
 // NewPico
-func NewPico(devices ...*Device) *Handler {
+func NewHandler(devices ...*Device) *Handler {
 	return &Handler{
 		Devices: devices,
 	}

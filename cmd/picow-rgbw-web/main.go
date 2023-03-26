@@ -7,6 +7,7 @@ import (
 
 	"golang.org/x/exp/slog"
 
+	"github.com/knackwurstking/picow-rgbw-web/pkg/api/v1/pico"
 	"github.com/knackwurstking/picow-rgbw-web/pkg/server"
 )
 
@@ -67,7 +68,8 @@ func initLogger() {
 
 func main() {
 	// Get server (with handler)
-	server := server.New(fmt.Sprintf("%s:%d", host, port))
+	picoHandler := pico.NewHandler() // TODO: init this first inside init function
+	server := server.New(fmt.Sprintf("%s:%d", host, port), picoHandler)
 
 	// Start server (HTTP or HTTPS)
 	if http {
