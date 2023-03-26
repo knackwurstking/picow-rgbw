@@ -54,7 +54,7 @@ func initFlags() {
 	flag.IntVar(&port, "port", port, "Server port.")
 	flag.BoolVar(&http, "http", http, "Start HTTP server.")
 
-	// TODO: Add flags for...
+	// TODO: Add flags for... (Need to finish the scanner first)
 	//	...scan - enables the pico device scan
 	//	...scan-range - 192.168.178.0 or 192.168.0.0
 
