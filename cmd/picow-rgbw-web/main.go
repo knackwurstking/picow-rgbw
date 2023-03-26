@@ -82,8 +82,9 @@ func initLogger() {
 }
 
 func initPicoDevices() {
-	// TODO: set pico devices from config first (request data from pico devices
-	//       and pass to picoHandler)
+	// TODO: set pico devices from config first
+	// TODO: set pico devices data, `Device.RGBW` (if not null)
+	// TODO: else request data from device (/rgbw/get_pins and /rgbw/get_duty)
 
 	// Start the devices scanner
 	if ip, err := scanner.GetLocalIP(); err != nil {
