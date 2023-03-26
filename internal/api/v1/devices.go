@@ -4,16 +4,19 @@ import (
 	"net/http"
 	"regexp"
 
+	"github.com/knackwurstking/picow-rgbw-web/internal/api/v1/pico"
 	"golang.org/x/exp/slog"
 )
 
 type Devices struct {
-	prefix string
+	prefix  string
+	handler *pico.Handler
 }
 
-func NewDevices(prefixPath string) http.Handler {
+func NewDevices(prefixPath string, handler *pico.Handler) http.Handler {
 	return &Devices{
-		prefix: prefixPath,
+		prefix:  prefixPath,
+		handler: handler,
 	}
 }
 
