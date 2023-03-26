@@ -14,12 +14,11 @@ import (
 )
 
 var (
-	picoHandler *pico.Handler
-
-	host  string      // Host server will listen to
-	port  = 50833     // Port server will listen to
-	http  bool        // HTTP server (no HTTPS)
-	debug = isDebug() // Debug logger level
+	config = Config{
+		Port:    50833,
+		Debug:   isDebug(),
+		Handler: pico.NewHandler(),
+	}
 )
 
 func isDebug() bool {
@@ -31,9 +30,15 @@ func isDebug() bool {
 	}
 }
 
-func init() {
-	picoHandler = pico.NewHandler()
+type Config struct {
+	Host    string        `json:"host"`
+	Port    int           `json:"port"`
+	HTTP    bool          `json:"http"`
+	Debug   bool          `json:"debug"`
+	Handler *pico.Handler `json:"pico-handler"`
+}
 
+func init() {
 	initConfig()
 	initFlags()
 	initLogger()
@@ -45,17 +50,17 @@ func initConfig() {
 }
 
 func initFlags() {
-	flag.StringVar(&host, "host", host, "Server host.")
-	flag.IntVar(&port, "port", port, "Server port.")
-	flag.BoolVar(&http, "http", http, "Start HTTP server.")
+	flag.StringVar(&config.Host, "host", config.Host, "Server host.")
+	flag.IntVar(&config.Port, "port", config.Port, "Server port.")
+	flag.BoolVar(&config.HTTP, "http", config.HTTP, "Start HTTP server.")
+
+	if !config.Debug {
+		flag.BoolVar(&config.Debug, "debug", config.Debug, "Enable debug log.")
+	}
 
 	// TODO: Add flags for... (Need to finish the scanner first)
 	//	...scan - enables the pico device scan
 	//	...scan-range - 192.168.178.0 or 192.168.0.0
-
-	if !debug {
-		flag.BoolVar(&debug, "debug", debug, "Enable debug log.")
-	}
 
 	flag.Parse()
 }
@@ -65,7 +70,7 @@ func initLogger() {
 		AddSource: true,
 	}
 
-	if debug {
+	if config.Debug {
 		o.Level = slog.LevelDebug
 	} else {
 		o.Level = slog.LevelInfo
@@ -88,20 +93,20 @@ func initPicoDevices() {
 		slog.Debug(fmt.Sprintf("Scan for pico devices (scan-range: %s)", ip))
 
 		// NOTE: Scan method is work in progress
-		if devices, err := picoHandler.Scan(ip); err != nil {
+		if devices, err := config.Handler.Scan(ip); err != nil {
 			slog.Warn(err.Error())
 		} else {
-			picoHandler.Devices = devices
+			config.Handler.Devices = devices
 		}
 	}
 }
 
 func main() {
 	// Get server (with handler)
-	server := server.New(fmt.Sprintf("%s:%d", host, port), picoHandler)
+	server := server.New(fmt.Sprintf("%s:%d", config.Host, config.Port), config.Handler)
 
 	// Start server (HTTP or HTTPS)
-	if http {
+	if config.HTTP {
 		slog.Info("HTTP server running " + server.Addr)
 		if err := server.ListenAndServe(); err != nil {
 			slog.Error("Server error: " + err.Error())
