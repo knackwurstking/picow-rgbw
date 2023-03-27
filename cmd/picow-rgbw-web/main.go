@@ -107,8 +107,7 @@ func initPicoDevices() {
 		slog.Debug(fmt.Sprintf("init pico device %+v", device))
 		for _, pin := range device.RGBW {
 			if pin != nil {
-				// A pin was set for this device (update pico device)
-				update = true
+				update = true // A pin was set for this device
 				break
 			}
 		}
