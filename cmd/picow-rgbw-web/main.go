@@ -52,7 +52,7 @@ func init() {
 func initConfig() {
 	home, err := os.UserHomeDir()
 	if err != nil {
-		slog.Error("Failed to get the users home directory: " + err.Error())
+		slog.Error("failed to get the users home directory: " + err.Error())
 		return
 	}
 
@@ -67,7 +67,7 @@ func initConfig() {
 	}
 
 	if err != nil {
-		slog.Error("Load config failed: " + err.Error())
+		slog.Error("load config failed: " + err.Error())
 	}
 }
 
@@ -101,9 +101,26 @@ func initLogger() {
 }
 
 func initPicoDevices() {
-	// TODO: set pico devices from config first
-	// TODO: set pico devices data, `Device.RGBW` (if not null)
-	// TODO: else request data from device (/rgbw/get_pins and /rgbw/get_duty)
+	for _, device := range config.Handler.Devices {
+		update := false
+
+		slog.Debug(fmt.Sprintf("init pico device %+v", device))
+		for _, pin := range device.RGBW {
+			if pin != nil {
+				// A pin was set for this device (update pico device)
+				update = true
+				break
+			}
+		}
+
+		if update {
+			// TODO:: update/set pico rgbw pins
+			slog.Debug("update the pico rgbw pins.")
+		} else {
+			// TODO: get rgbw pins (and duty) from pico
+			slog.Debug("get pico rgbw pins and the current duty.")
+		}
+	}
 
 	// Start the devices scanner
 	if ip, err := scanner.GetLocalIP(); err != nil {
