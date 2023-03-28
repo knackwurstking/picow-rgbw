@@ -35,7 +35,15 @@ func NewDevice(id int, addr string, rgbw [4]*GpPWM) *Device {
 
 // GetPins from pico device
 func (d *Device) GetPins() {
-	// TODO: ...
+	for i, n := range GetPins(d.Addr) {
+		// check if pin is disabled (not in use)
+		if n < 0 {
+			d.RGBW[i] = nil
+			continue
+		}
+
+		d.RGBW[i] = NewGpPWM(n)
+	}
 }
 
 // Set will POST the RGBW pins to pico device
