@@ -53,7 +53,7 @@ func (d *Device) SetPins() {
 
 // GetDuty from pico device
 func (d *Device) GetDuty() {
-	// TODO: ...
+	// TODO: get duty for each pin from device
 }
 
 // SetDuty to pico device for RGBW
