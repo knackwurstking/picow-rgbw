@@ -15,9 +15,11 @@ import (
 	"github.com/knackwurstking/picow-rgbw-web/pkg/server"
 )
 
-var (
+const (
 	applicationName = "picow-rgbw-web"
+)
 
+var (
 	config = Config{
 		Port:    50833,
 		Debug:   isDebug(),
