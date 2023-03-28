@@ -7,7 +7,7 @@ const (
 
 // GetPins returns a list with rgbw pins in use (-1 if not in use)
 func GetPins(addr string) (pins [4]int) {
-	// TODO: ...
+	// TODO: http get request to `PathGetPins` for `addr`, parse result and return pins
 
 	return pins
 }
