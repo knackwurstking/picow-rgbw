@@ -113,11 +113,10 @@ func initPicoDevices() {
 		}
 
 		if update {
-			// TODO:: update/set pico rgbw pins
-			slog.Debug("update the pico rgbw pins.")
+			device.SetPins()
 		} else {
-			// TODO: get rgbw pins (and duty) from pico
-			slog.Debug("get pico rgbw pins and the current duty.")
+			device.GetPins()
+			device.GetDuty()
 		}
 	}
 

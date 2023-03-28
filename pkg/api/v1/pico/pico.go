@@ -33,6 +33,46 @@ func NewDevice(id int, addr string, rgbw [4]*GpPWM) *Device {
 	}
 }
 
+// GetPins from pico device
+func (d *Device) GetPins() {
+	// TODO: ...
+}
+
+// Set will POST the RGBW pins to pico device
+func (d *Device) SetPins() {
+	// TODO: ...
+}
+
+// GetDuty from pico device
+func (d *Device) GetDuty() {
+	// TODO: ...
+}
+
+// SetDuty to pico device for RGBW
+func (d *Device) SetDuty(rgbw [4]int) {
+	// TODO: ...
+}
+
+// SetDutyR will only set the "r" duty for the pico device
+func (d *Device) SetDutyR(r int) {
+	// TODO: ...
+}
+
+// SetDutyG will only set the "r" duty for the pico device
+func (d *Device) SetDutyG(r int) {
+	// TODO: ...
+}
+
+// SetDutyB will only set the "r" duty for the pico device
+func (d *Device) SetDutyB(r int) {
+	// TODO: ...
+}
+
+// SetDutyW will only set the "r" duty for the pico device
+func (d *Device) SetDutyW(r int) {
+	// TODO: ...
+}
+
 // Handler for pico devices (and data)
 type Handler struct {
 	Devices []*Device `json:"devices"`
