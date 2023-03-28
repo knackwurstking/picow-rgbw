@@ -24,12 +24,12 @@ func NewHandler(ctx context.Context) *http.ServeMux {
 	{ // Group: "/api/v1"
 		group := "/api/v1"
 
-		mux.HandleFunc(group+"/devices", AddMiddleware(
+		mux.HandleFunc(group+"/devices", AddMiddlewareToHandler(
 			api.NewDevices(group+"/devices", ctx),
 			middlewareHandlers...,
 		).ServeHTTP)
 
-		mux.HandleFunc(group+"/events", AddMiddleware(
+		mux.HandleFunc(group+"/events", AddMiddlewareToHandler(
 			api.NewEvents(group+"/events", ctx),
 			middlewareHandlers...,
 		).ServeHTTP)
@@ -43,6 +43,7 @@ func New(addr string, picoHandler *pico.Handler) *http.Server {
 		middleware.NewLogger,
 	)
 
+	// TODO: use custom type as key (replace "pico")
 	ctx := context.WithValue(context.Background(), "pico", picoHandler)
 	return &http.Server{
 		Addr:    addr,

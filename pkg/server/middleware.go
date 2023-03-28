@@ -2,7 +2,7 @@ package server
 
 import "net/http"
 
-func AddMiddleware(h http.Handler, m ...func(http.Handler) http.Handler) http.Handler {
+func AddMiddlewareToHandler(h http.Handler, m ...func(http.Handler) http.Handler) http.Handler {
 	for _, mH := range reverseMiddleware(m) {
 		h = mH(h)
 	}
