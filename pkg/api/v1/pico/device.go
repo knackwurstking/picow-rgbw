@@ -2,15 +2,13 @@ package pico
 
 // Device
 type Device struct {
-	ID   int       `json:"id"`   // ID is unique
 	Addr string    `json:"addr"` // Addr contains the ip and port <ip>:<port>
 	RGBW [4]*GpPWM `json:"rgbw"` // RGBW holds all pins in use
 }
 
 // NewDevice
-func NewDevice(id int, addr string, rgbw [4]*GpPWM) *Device {
+func NewDevice(addr string, rgbw [4]*GpPWM) *Device {
 	return &Device{
-		ID:   id,
 		Addr: addr,
 		RGBW: rgbw,
 	}

@@ -2,8 +2,10 @@ package v1
 
 import (
 	"context"
+	"encoding/json"
 	"net/http"
 	"regexp"
+	"strconv"
 
 	"golang.org/x/exp/slog"
 )
@@ -21,30 +23,55 @@ func NewDevices(prefixPath string, ctx context.Context) http.Handler {
 }
 
 func (d *Devices) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	idRegEx := regexp.MustCompile(d.prefix + `\/\d+`)
+	idRegEx := regexp.MustCompile(d.prefix + `\/(\d+)`)
 
 	switch path := r.URL.Path; {
 	case path == d.prefix+"", path == d.prefix+"/":
-		_, err := getPicoFromCtx(d.ctx)
+		p, err := getPicoFromCtx(d.ctx)
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			return
 		}
 
-		// TODO: Return all pico devices as json data
+		err = json.NewEncoder(w).Encode(p.Devices)
+		if err != nil {
+			slog.Error(err.Error())
+			w.WriteHeader(http.StatusInternalServerError)
+			return
+		}
 
-		w.WriteHeader(http.StatusServiceUnavailable)
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusOK)
 	case idRegEx.MatchString(path):
-		_, err := getPicoFromCtx(d.ctx)
+		p, err := getPicoFromCtx(d.ctx)
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			return
 		}
-		// TODO: Regex for :id (type int) and return the pico device data if available
-		slog.Debug(":id regex match: " + path) // TODO: remove this
 
-		w.WriteHeader(http.StatusServiceUnavailable)
+		id, err := strconv.Atoi(idRegEx.FindStringSubmatch(path)[1])
+		if err != nil {
+			slog.Error("parsing id failed: " + err.Error()) // NOTE: should never happen
+			w.WriteHeader(http.StatusInternalServerError)
+			return
+		}
+
+		for i, device := range p.Devices {
+			if i == id {
+				if err = json.NewEncoder(w).Encode(device); err != nil {
+					slog.Error(err.Error())
+					w.WriteHeader(http.StatusInternalServerError)
+					return
+				}
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(http.StatusOK)
+				return
+			}
+		}
+
+		http.NotFound(w, r)
 	default:
-		w.WriteHeader(http.StatusNotFound)
+		http.NotFound(w, r)
 	}
 }
