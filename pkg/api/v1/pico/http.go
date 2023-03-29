@@ -10,7 +10,7 @@ import (
 
 // GetPins returns a list with rgbw pins in use (-1 if not in use)
 func GetPins(addr string) (pins [4]int, err error) {
-	r, err := http.Get(fmt.Sprintf("http://%s/%s", addr, PathGetPins))
+	r, err := http.Get(fmt.Sprintf("http://%s%s", addr, PathGetPins))
 	if err != nil {
 		return pins, err
 	}
@@ -19,6 +19,8 @@ func GetPins(addr string) (pins [4]int, err error) {
 	data, err := io.ReadAll(r.Body)
 	if err != nil {
 		return pins, err
+	} else if len(data) == 0 {
+		return pins, fmt.Errorf("no data returned from device " + addr)
 	}
 
 	for i, n := range strings.Split(strings.Trim(string(data), " \n"), " ") {
