@@ -13,13 +13,10 @@ const (
 
 	// StatusOffline device not reachable (offline?)
 	StatusOffline = 0
-
 	// StatusOK
 	StatusOK = http.StatusOK
-
 	// StatusInternalServerError
 	StatusInternalServerError = http.StatusInternalServerError
-
 	// StatusBadRequest
 	StatusBadRequest = http.StatusBadRequest
 )
