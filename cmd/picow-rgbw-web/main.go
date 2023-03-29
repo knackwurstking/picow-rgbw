@@ -115,10 +115,26 @@ func initPicoDevices() {
 		}
 
 		if update {
-			device.SetPins()
+			pins := [4]int{-1, -1, -1, -1}
+			for i, p := range device.RGBW {
+				if p == nil {
+					continue
+				}
+				pins[i] = p.Nr
+			}
+			if err := device.SetPins(pins); err != nil {
+				slog.Error(err.Error())
+			}
 		} else {
-			device.GetPins()
-			device.GetDuty()
+			err := device.GetPins()
+			if err != nil {
+				slog.Error(err.Error())
+			}
+
+			err = device.GetDuty()
+			if err != nil {
+				slog.Error(err.Error())
+			}
 		}
 	}
 

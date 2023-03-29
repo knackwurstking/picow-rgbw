@@ -34,51 +34,61 @@ func NewDevice(id int, addr string, rgbw [4]*GpPWM) *Device {
 }
 
 // GetPins from pico device
-func (d *Device) GetPins() {
-	for i, n := range GetPins(d.Addr) {
-		// check if pin is disabled (not in use)
-		if n < 0 {
-			d.RGBW[i] = nil
-			continue
+func (d *Device) GetPins() error {
+	if pins, ok := GetPins(d.Addr); ok {
+		for i, n := range pins {
+			// check if pin is disabled (not in use)
+			if n < 0 {
+				d.RGBW[i] = nil
+				continue
+			}
+
+			d.RGBW[i] = NewGpPWM(n)
 		}
 
-		d.RGBW[i] = NewGpPWM(n)
+		return nil
 	}
+
+	return fmt.Errorf("get pins from %s failed", d.Addr)
 }
 
-// Set will POST the RGBW pins to pico device
-func (d *Device) SetPins() {
-	// TODO: ...
+// Set will POST the RGBW pins to pico device (use -1 for a disabled pin)
+func (d *Device) SetPins(pins [4]int) error {
+	if ok := SetPins(d.Addr, pins); !ok {
+		return fmt.Errorf(
+			"set pins for %s failed (r=%d, g=%d, b=%d, w=%d)",
+			d.Addr, pins[0], pins[1], pins[2], pins[3],
+		)
+	}
+
+	return nil
 }
 
 // GetDuty from pico device
-func (d *Device) GetDuty() {
-	// TODO: get duty for each pin from device
+func (d *Device) GetDuty() error {
+	if duty, ok := GetDuty(d.Addr); ok {
+		for i, n := range duty {
+			if n < 0 && d.RGBW[i] != nil {
+				d.RGBW[i].Duty = n
+			}
+		}
+
+		return nil
+	}
+
+	return fmt.Errorf("get duty from %s failed", d.Addr)
 }
 
-// SetDuty to pico device for RGBW
-func (d *Device) SetDuty(rgbw [4]int) {
-	// TODO: ...
-}
+// SetDuty to pico device for RGBW (use -1 or 0 for a disabled pin)
+func (d *Device) SetDuty(duty [4]int) error {
+	if ok := SetDuty(d.Addr, duty); !ok {
+		return fmt.Errorf(
+			"set duty for %s failed (r=%d, g=%d, b=%d, w=%d)",
+			d.Addr, duty[0], duty[1], duty[2], duty[3],
+		)
+	}
 
-// SetDutyR will only set the "r" duty for the pico device
-func (d *Device) SetDutyR(r int) {
-	// TODO: ...
-}
-
-// SetDutyG will only set the "r" duty for the pico device
-func (d *Device) SetDutyG(r int) {
-	// TODO: ...
-}
-
-// SetDutyB will only set the "r" duty for the pico device
-func (d *Device) SetDutyB(r int) {
-	// TODO: ...
-}
-
-// SetDutyW will only set the "r" duty for the pico device
-func (d *Device) SetDutyW(r int) {
-	// TODO: ...
+	return nil
 }
 
 // Handler for pico devices (and data)
