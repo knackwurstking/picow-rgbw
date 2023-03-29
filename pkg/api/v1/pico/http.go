@@ -15,10 +15,12 @@ const (
 	StatusOffline = 0
 	// StatusOK
 	StatusOK = http.StatusOK
-	// StatusInternalServerError
-	StatusInternalServerError = http.StatusInternalServerError
 	// StatusBadRequest
 	StatusBadRequest = http.StatusBadRequest
+	// StatusNotFound
+	StatusNotFound = http.StatusNotFound
+	// StatusInternalServerError
+	StatusInternalServerError = http.StatusInternalServerError
 )
 
 // StatusText

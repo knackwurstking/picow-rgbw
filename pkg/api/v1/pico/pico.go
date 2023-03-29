@@ -38,7 +38,7 @@ func (d *Device) GetPins() error {
 	pins, status := GetPins(d.Addr)
 	if status != StatusOK {
 		return fmt.Errorf(
-			"device %s response status code %s",
+			"device %s status: %s",
 			d.Addr, StatusText(status),
 		)
 	}
@@ -60,8 +60,8 @@ func (d *Device) GetPins() error {
 func (d *Device) SetPins(pins [4]int) error {
 	if status := SetPins(d.Addr, pins); status != StatusOK {
 		return fmt.Errorf(
-			"set pins for %s failed (r=%d, g=%d, b=%d, w=%d)",
-			d.Addr, pins[0], pins[1], pins[2], pins[3],
+			"device %s status: %s (r=%d, g=%d, b=%d, w=%d)",
+			d.Addr, StatusText(status), pins[0], pins[1], pins[2], pins[3],
 		)
 	}
 
@@ -73,7 +73,7 @@ func (d *Device) GetDuty() error {
 	duty, status := GetDuty(d.Addr)
 	if status != StatusOK {
 		return fmt.Errorf(
-			"device %s response status code %s",
+			"device %s status: %s",
 			d.Addr, StatusText(status),
 		)
 	}
@@ -91,8 +91,8 @@ func (d *Device) GetDuty() error {
 func (d *Device) SetDuty(duty [4]int) error {
 	if status := SetDuty(d.Addr, duty); status != StatusOK {
 		return fmt.Errorf(
-			"set duty for %s failed (r=%d, g=%d, b=%d, w=%d)",
-			d.Addr, duty[0], duty[1], duty[2], duty[3],
+			"device %s status: %s (r=%d, g=%d, b=%d, w=%d)",
+			d.Addr, StatusText(status), duty[0], duty[1], duty[2], duty[3],
 		)
 	}
 
