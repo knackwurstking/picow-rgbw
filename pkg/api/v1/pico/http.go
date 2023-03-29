@@ -10,12 +10,17 @@ import (
 
 // GetPins returns a list with rgbw pins in use (-1 if not in use)
 func GetPins(addr string) (pins [4]int, err error) {
-	r, err := http.Get(fmt.Sprintf("http://%s%s", addr, PathGetPins))
+	url := fmt.Sprintf("http://%s%s", addr, PathGetPins)
+	r, err := http.Get(url)
 	if err != nil {
 		return pins, err
 	}
 
 	defer r.Body.Close()
+	if r.StatusCode != http.StatusOK {
+		return pins, fmt.Errorf("%s: %s", url, r.Status)
+	}
+
 	data, err := io.ReadAll(r.Body)
 	if err != nil {
 		return pins, err
@@ -29,19 +34,41 @@ func GetPins(addr string) (pins [4]int, err error) {
 			return pins, err
 		}
 
-		if gp < 0 {
-			// pin disabled
-			pins[i] = gp
-		}
+		pins[i] = gp
 	}
 
-	return pins, err
+	return pins, nil
 }
 
 func GetDuty(addr string) (duty [4]int, err error) {
-	// TODO: http get request to `PathGetDuty` for `addr`, parse result and return duty
+	url := fmt.Sprintf("http://%s%s", addr, PathGetDuty)
+	r, err := http.Get(url)
+	if err != nil {
+		return duty, err
+	}
 
-	return duty, fmt.Errorf("Under Construction")
+	defer r.Body.Close()
+	if r.StatusCode != http.StatusOK {
+		return duty, fmt.Errorf("%s: %s", url, r.Status)
+	}
+
+	data, err := io.ReadAll(r.Body)
+	if err != nil {
+		return duty, err
+	} else if len(data) == 0 {
+		return duty, err
+	}
+
+	for i, n := range strings.Split(strings.Trim(string(data), " \n"), " ") {
+		d, err := strconv.Atoi(n)
+		if err != nil {
+			return duty, err
+		}
+
+		duty[i] = d
+	}
+
+	return duty, nil
 }
 
 func SetDuty(addr string, rgbw [4]int) (err error) {
