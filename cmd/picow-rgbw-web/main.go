@@ -116,14 +116,26 @@ func initPicoDevices() {
 
 		if update {
 			pins := [4]int{-1, -1, -1, -1}
+			duty := [4]int{0, 0, 0, 0}
+
 			for i, p := range device.RGBW {
 				if p == nil {
 					continue
 				}
+
 				pins[i] = p.Nr
+				duty[i] = p.Duty
 			}
-			if err := device.SetPins(pins); err != nil {
-				slog.Error("set pins: " + err.Error())
+
+			err := device.SetPins(pins)
+			if err != nil {
+				slog.Error(fmt.Sprintf("set pins (%v): %s", pins, err.Error()))
+			} else {
+				slog.Debug(fmt.Sprintf("set duty (%v): %+v", duty, device))
+				err = device.SetDuty(duty)
+				if err != nil {
+					slog.Error(fmt.Sprintf("set duty (%v): %s", duty, err.Error()))
+				}
 			}
 		}
 

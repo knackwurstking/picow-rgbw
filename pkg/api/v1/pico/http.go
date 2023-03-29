@@ -9,7 +9,8 @@ import (
 )
 
 func GetDuty(addr string) (duty [4]int, err error) {
-	url := fmt.Sprintf("http://%s%s", addr, PathGetDuty)
+	url := fmt.Sprintf("http://%s%s", addr, PathGetDuty())
+
 	r, err := http.Get(url)
 	if err != nil {
 		return duty, err
@@ -41,7 +42,8 @@ func GetDuty(addr string) (duty [4]int, err error) {
 
 // GetPins returns a list with rgbw pins in use (-1 if not in use)
 func GetPins(addr string) (pins [4]int, err error) {
-	url := fmt.Sprintf("http://%s%s", addr, PathGetPins)
+	url := fmt.Sprintf("http://%s%s", addr, PathGetPins())
+
 	r, err := http.Get(url)
 	if err != nil {
 		return pins, err
@@ -72,13 +74,33 @@ func GetPins(addr string) (pins [4]int, err error) {
 }
 
 func SetDuty(addr string, rgbw [4]int) (err error) {
-	// TODO: ...
+	url := fmt.Sprintf("http://%s%s",
+		addr, PathSetDuty(rgbw[0], rgbw[1], rgbw[2], rgbw[3]))
 
-	return fmt.Errorf("Under Construction")
+	r, err := http.Post(url, "text/text", nil)
+	if err != nil {
+		return err
+	}
+
+	if r.StatusCode != http.StatusOK {
+		return fmt.Errorf("%s: %s", url, r.Status)
+	}
+
+	return nil
 }
 
 func SetPins(addr string, pins [4]int) (err error) {
-	// TODO: ...
+	url := fmt.Sprintf("http://%s%s",
+		addr, PathSetPins(pins[0], pins[1], pins[2], pins[3]))
 
-	return fmt.Errorf("Under Construction")
+	r, err := http.Post(url, "text/text", nil)
+	if err != nil {
+		return err
+	}
+
+	if r.StatusCode != http.StatusOK {
+		return fmt.Errorf("%s: %s", url, r.Status)
+	}
+
+	return nil
 }

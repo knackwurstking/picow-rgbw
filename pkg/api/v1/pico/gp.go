@@ -2,8 +2,8 @@ package pico
 
 // GpPWM
 type GpPWM struct {
-	Nr   int `json:"nr"` // Nr of gpio pin in use (gp0 - gp28)
-	Duty int `json:"-"`  // Duty cycle (goes from 0-100)
+	Nr   int `json:"nr"`   // Nr of gpio pin in use (gp0 - gp28)
+	Duty int `json:"duty"` // Duty cycle (goes from 0-100)
 }
 
 // NewGpPWM
