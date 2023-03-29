@@ -123,7 +123,7 @@ func initPicoDevices() {
 				pins[i] = p.Nr
 			}
 			if err := device.SetPins(pins); err != nil {
-				slog.Error("set pins:" + err.Error())
+				slog.Error("set pins: " + err.Error())
 			}
 		}
 
