@@ -123,19 +123,19 @@ func initPicoDevices() {
 				pins[i] = p.Nr
 			}
 			if err := device.SetPins(pins); err != nil {
-				slog.Error(err.Error())
+				slog.Error("set pins:" + err.Error())
 			}
 		}
 
 		// get pins, even after set pins (in case of a failure)
 		err := device.GetPins()
 		if err != nil {
-			slog.Error("get pins failed: " + err.Error())
+			slog.Error("get pins: " + err.Error())
 		}
 
 		err = device.GetDuty()
 		if err != nil {
-			slog.Error("get duty failed: " + err.Error())
+			slog.Error("get duty: " + err.Error())
 		}
 	}
 
