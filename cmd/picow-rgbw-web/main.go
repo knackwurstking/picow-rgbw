@@ -17,7 +17,7 @@ import (
 
 const (
 	applicationName       = "picow-rgbw-web"
-	defaultFileServerPath = "dist"
+	defaultFileServerPath = "frontend/dist"
 )
 
 var (

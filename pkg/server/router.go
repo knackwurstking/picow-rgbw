@@ -43,7 +43,10 @@ func NewRegExHandler(ctx context.Context, fileServerPath string) http.Handler {
 	}
 
 	{ // File Server
-		// TODO: create a file server
+		mux.Routes = append(mux.Routes, &Route{
+			Pattern: regexp.MustCompile("/"),
+			Handler: http.FileServer(http.Dir(fileServerPath)),
+		})
 	}
 
 	return mux
