@@ -1,0 +1,60 @@
+:root {
+  --theme-background: #212125;
+  --theme-surface: #212125;
+  --theme-primary: #ff3e00;
+  --theme-secondary: #5d5d78;
+  --theme-error: #d32f2f;
+
+  --theme-on-error: #ffffff;
+  --theme-on-primary: #ffffff;
+  --theme-on-secondary: #ffffff;
+  --theme-on-surface: #ffffff;
+
+  --theme-border: rgba(255, 255, 255, 0.1);
+
+  --theme-link: #40b3ff;
+  --theme-link--visited: #007dcf;
+
+  --theme-secondary--hover: rgba(93, 93, 120, 0.1);
+  --theme-secondary--focus: rgba(93, 93, 120, 0.25);
+
+  --theme-primary--hover: rgba(255, 62, 0, 0.1);
+  --theme-primary--focus: rgba(255, 62, 0, 0.25);
+}
+
+* {
+  box-sizing: border-box;
+  font-family: FiraCode;
+}
+
+html {
+  font-size: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 1rem;
+  background-color: var(--theme-background);
+  color: var(--theme-on-surface);
+}
+
+a {
+  color: var(--theme-link);
+}
+
+a:visited {
+  color: var(--theme-link--visited);
+}
+
+textarea {
+  padding: 4px 1ch;
+  color: var(--theme-on-surface);
+  background: var(--theme-surface);
+  border-radius: 4px;
+}
+
+textarea:focus {
+  border-color: var(--theme-primary);
+  outline: none;
+}
