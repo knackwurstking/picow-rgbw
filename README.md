@@ -35,14 +35,3 @@ type Device struct {
     RGBW [4]*GpPWM `json:"rgbw"` // RGBW holds all pins in use
 }
 ```
-
-## NOTEs
-
-- Which framework to use? Or do it pure go?
-  - pure go
-  - listening on port **50833**
-- json logging using `slog` package
-- classic /api/v1 and serve static files directory
-  - svelte frontend
-- sse events for "device-update"
-
