@@ -43,6 +43,7 @@ func NewRegExHandler(ctx context.Context, fileServerPath string) http.Handler {
 	}
 
 	{ // File Server
+		// TODO: change this to use frontend/frontend.go embed stuff
 		mux.Routes = append(mux.Routes, &Route{
 			Pattern: regexp.MustCompile("/"),
 			Handler: http.FileServer(http.Dir(fileServerPath)),
