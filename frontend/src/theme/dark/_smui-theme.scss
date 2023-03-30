@@ -1,0 +1,79 @@
+@use 'sass:color';
+
+@use '@material/theme/color-palette';
+
+// Svelte Colors! (Dark Theme)
+@use '@material/theme/index' as theme with (
+  $primary: #ff3e00,
+  $secondary: color.scale(#676778, $whiteness: -10%),
+  $surface: color.adjust(color-palette.$grey-900, $blue: +4),
+  $background: color.adjust(color-palette.$grey-900, $blue: +4),
+  $error: color-palette.$red-700
+);
+
+$link: #40b3ff;
+
+:root {
+  --theme-background: #{theme.$background};
+  --theme-surface: #{theme.$surface};
+  --theme-primary: #{theme.$primary};
+  --theme-secondary: #{theme.$secondary};
+  --theme-error: #{theme.$error};
+
+  --theme-on-error: #{theme.$on-error};
+  --theme-on-primary: #{theme.$on-primary};
+  --theme-on-secondary: #{theme.$on-secondary};
+  --theme-on-surface: #{theme.$on-surface};
+
+  --theme-border: #{rgba(theme.$on-surface, 0.1)};
+
+  --theme-link: #{$link};
+  --theme-link--visited: #{color.scale($link, $lightness: -35%)};
+
+  --theme-secondary--hover: #{rgba(theme.$secondary, 0.1)};
+  --theme-secondary--focus: #{rgba(theme.$secondary, 0.25)};
+
+  --theme-primary--hover: #{rgba(theme.$primary, 0.1)};
+  --theme-primary--focus: #{rgba(theme.$primary, 0.25)};
+}
+
+html {
+  font-size: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 1rem;
+  background-color: theme.$background;
+  color: theme.$on-surface;
+}
+
+*:not(.material-icons) {
+  box-sizing: border-box;
+  font-family: FiraCode !important;
+}
+
+a {
+  color: var(--theme-link);
+}
+
+a:visited {
+  color: var(--theme-link--visited);
+}
+
+textarea {
+  padding: 4px 1ch;
+  color: theme.$on-surface;
+  background: theme.$surface;
+  border-radius: 4px;
+
+  &:focus {
+    border-color: theme.$primary;
+    outline: none;
+  }
+}
+
+.mdc-top-app-bar {
+  background-color: theme.$surface !important;
+}
