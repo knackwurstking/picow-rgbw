@@ -8,7 +8,7 @@ import (
 	"github.com/knackwurstking/picow-rgbw-web/pkg/middleware"
 )
 
-func New(addr string, picoHandler *pico.Handler) *http.Server {
+func New(addr string, fileServerPath string, picoHandler *pico.Handler) *http.Server {
 	UseMiddleware(
 		middleware.NewLogger,
 	)
@@ -17,6 +17,6 @@ func New(addr string, picoHandler *pico.Handler) *http.Server {
 	ctx := context.WithValue(context.Background(), "pico", picoHandler)
 	return &http.Server{
 		Addr:    addr,
-		Handler: NewRegExHandler(ctx),
+		Handler: NewRegExHandler(ctx, fileServerPath),
 	}
 }

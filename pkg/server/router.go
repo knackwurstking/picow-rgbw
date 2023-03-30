@@ -17,7 +17,7 @@ type RegExHandler struct {
 	Routes []*Route
 }
 
-func NewRegExHandler(ctx context.Context) http.Handler {
+func NewRegExHandler(ctx context.Context, fileServerPath string) http.Handler {
 	mux := &RegExHandler{
 		Routes: make([]*Route, 0),
 	}
@@ -40,6 +40,10 @@ func NewRegExHandler(ctx context.Context) http.Handler {
 				middlewareHandlers...,
 			),
 		})
+	}
+
+	{ // File Server
+		// TODO: create a file server
 	}
 
 	return mux

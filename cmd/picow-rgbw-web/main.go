@@ -16,14 +16,16 @@ import (
 )
 
 const (
-	applicationName = "picow-rgbw-web"
+	applicationName       = "picow-rgbw-web"
+	defaultFileServerPath = "dist"
 )
 
 var (
 	config = Config{
-		Port:    50833,
-		Debug:   isDebug(),
-		Handler: pico.NewHandler(),
+		Port:           50833,
+		Debug:          isDebug(),
+		FileServerPath: defaultFileServerPath,
+		Handler:        pico.NewHandler(),
 	}
 )
 
@@ -37,11 +39,12 @@ func isDebug() bool {
 }
 
 type Config struct {
-	Host    string        `json:"host"`
-	Port    int           `json:"port"`
-	HTTP    bool          `json:"http"`
-	Debug   bool          `json:"debug"`
-	Handler *pico.Handler `json:"pico-handler"`
+	Host           string        `json:"host"`
+	Port           int           `json:"port"`
+	HTTP           bool          `json:"http"`
+	Debug          bool          `json:"debug"`
+	FileServerPath string        `json:"file-server-path"`
+	Handler        *pico.Handler `json:"pico-handler"`
 }
 
 func init() {
@@ -169,7 +172,11 @@ func initPicoDevices() {
 
 func main() {
 	// Get server (with handler)
-	server := server.New(fmt.Sprintf("%s:%d", config.Host, config.Port), config.Handler)
+	server := server.New(
+		fmt.Sprintf("%s:%d", config.Host, config.Port),
+		config.FileServerPath,
+		config.Handler,
+	)
 
 	// Start server (HTTP or HTTPS)
 	if config.HTTP {

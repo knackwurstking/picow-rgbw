@@ -45,3 +45,4 @@ type Device struct {
 - classic /api/v1 and serve static files directory
   - svelte frontend
 - sse events for "device-update"
+- svelte (typescript) frontend (update the config entry "file-server-path" defaults to "dist")

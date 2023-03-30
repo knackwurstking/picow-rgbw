@@ -3,6 +3,7 @@
     "port": 50833,
     "http": true,
     "debug": true,
+    "file-server-path": "dist",
     "pico-handler": {
         "devices": [
             {
