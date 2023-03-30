@@ -24,6 +24,6 @@ func (e *Events) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 		w.WriteHeader(http.StatusServiceUnavailable)
 	default:
-		w.WriteHeader(http.StatusNotFound)
+		http.NotFound(w, r)
 	}
 }
