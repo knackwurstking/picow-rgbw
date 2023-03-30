@@ -11,9 +11,6 @@
 </svelte:head>
 
 <main>
-  <!-- TODO: drawer component -->
-  <!-- TODO: top app bar with menu button on the left -->
-  <!-- TODO: view component for devices and groups -->
 </main>
 
 <style>
