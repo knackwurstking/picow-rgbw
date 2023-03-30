@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"regexp"
 
+	"github.com/knackwurstking/picow-rgbw-web/frontend"
 	api "github.com/knackwurstking/picow-rgbw-web/pkg/api/v1"
 )
 
@@ -17,7 +18,7 @@ type RegExHandler struct {
 	Routes []*Route
 }
 
-func NewRegExHandler(ctx context.Context, fileServerPath string) http.Handler {
+func NewRegExHandler(ctx context.Context) http.Handler {
 	mux := &RegExHandler{
 		Routes: make([]*Route, 0),
 	}
@@ -46,7 +47,7 @@ func NewRegExHandler(ctx context.Context, fileServerPath string) http.Handler {
 		// TODO: change this to use frontend/frontend.go embed stuff
 		mux.Routes = append(mux.Routes, &Route{
 			Pattern: regexp.MustCompile("/"),
-			Handler: http.FileServer(http.Dir(fileServerPath)),
+			Handler: http.FileServer(frontend.Dist()),
 		})
 	}
 
