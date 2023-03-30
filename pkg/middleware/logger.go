@@ -19,6 +19,7 @@ func NewLogger(h http.Handler) http.Handler {
 }
 
 func (l *Logger) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	// TODO: need to use a custom response writer (where i can get the status code for logging)
 	defer func(startTime time.Time) {
 		path := r.URL.Path
 		if r.URL.RawQuery != "" {
