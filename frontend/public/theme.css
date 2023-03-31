@@ -10,7 +10,7 @@
   --theme-on-secondary: #ffffff;
   --theme-on-surface: #ffffff;
 
-  --theme-border: rgba(255, 255, 255, 0.1);
+  --theme-border: rgba(255, 255, 255, 0.25);
 
   --theme-link: #40b3ff;
   --theme-link--visited: #007dcf;
