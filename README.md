@@ -37,4 +37,5 @@ type Device struct {
 
 ## TODOs
 
-- [ ] api route: POST "/api/v1/device" "application/json" `[<Device>, ...]`
+- [ ] api route: PUT "/api/v1/device" "application/json" `[<Device>, ...]`
+- [ ] api route: PUT "/api/v1/device/:id" "application/json" `<Device>`
