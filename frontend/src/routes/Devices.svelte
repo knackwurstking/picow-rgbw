@@ -14,3 +14,16 @@
     ...color preview somewhere
     ...color history (stored on client side)
 -->
+
+<div class="devices container">
+</div>
+
+<style>
+    div.devices.container {
+        display: flex;
+        width: 100%;
+        height: 100%;
+    }
+
+    /* TODO: handle orientation landscape and portrait via available pixel with */
+</style>
