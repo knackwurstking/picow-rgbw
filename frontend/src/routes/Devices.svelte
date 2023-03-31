@@ -26,6 +26,13 @@
                 <label><input type="checkbox" />Device 2</label>
                 <label><input type="checkbox" />Device 3</label>
                 <label><input type="checkbox" />Device 4</label>
+                <label><input type="checkbox" />Device 5</label>
+                <label><input type="checkbox" />Device 6</label>
+                <label><input type="checkbox" />Device 7</label>
+                <label><input type="checkbox" />Device 8</label>
+                <label><input type="checkbox" />Device 9</label>
+                <label><input type="checkbox" />Device 10</label>
+                <label><input type="checkbox" />Device 11</label>
             </div>
         </fieldset>
     </section>
@@ -76,14 +83,19 @@
     div.devices.container > section.list fieldset {
         margin: 16px;
         border-color: var(--theme-border);
+        overflow: hidden;
+        height: 90%;
     }
 
+    /* TODO: remove scroll bar */
     div.devices.container > section.list > fieldset > div.content.list {
         display: flex;
         flex-direction: column;
         overflow: hidden;
         overflow-y: auto;
         scroll-behavior: smooth;
+        width: 100%;
+        height: 100%;
     }
 
     div.devices.container > section.list > fieldset > div.content.list > label {
