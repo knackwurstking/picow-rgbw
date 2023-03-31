@@ -35,7 +35,6 @@
     .content {
         width: 100vw;
         height: 100vh;
-        overflow: auto;
-        scroll-behavior: smooth;
+        overflow: hidden;
     }
 </style>
