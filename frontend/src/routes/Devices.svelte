@@ -17,6 +17,17 @@
 
 <div class="devices container">
     <section class="list">
+        <fieldset>
+            <legend>Devices</legend>
+
+            <div class="content list">
+                <!-- TODO: do some custom checkbox style here (create component) -->
+                <label><input type="checkbox" />Device 1</label>
+                <label><input type="checkbox" />Device 2</label>
+                <label><input type="checkbox" />Device 3</label>
+                <label><input type="checkbox" />Device 4</label>
+            </div>
+        </fieldset>
     </section>
     <section class="ctrl">
     </section>
@@ -31,9 +42,9 @@
     }
 
     div.devices.container > section {
-        border: 1px solid red; 
         width: 100%;
         height: 100%;
+        overflow: hidden;
     }
 
     div.devices.container > section.list {
@@ -60,5 +71,24 @@
             width: 50%;
             height: 100%;
         }
+    }
+
+    div.devices.container > section.list fieldset {
+        margin: 16px;
+        border-color: var(--theme-border);
+    }
+
+    div.devices.container > section.list > fieldset > div.content.list {
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        overflow-y: auto;
+        scroll-behavior: smooth;
+    }
+
+    div.devices.container > section.list > fieldset > div.content.list > label {
+        margin: 8px;
+        padding: 16px;
+        border: 1px solid var(--theme-border);
     }
 </style>
