@@ -22,7 +22,11 @@
 
             <div class="content list">
                 <!-- TODO: do some custom checkbox style here (create component) -->
-                <label><input type="checkbox" />Device 1</label>
+                <label><input type="checkbox" on:change={(ev) => {
+                    if (ev.target.checked) {
+                        // TODO: add device to selected (devices list `let selected: string[] = []`)
+                    }
+                }} />Device 1</label>
                 <label><input type="checkbox" />Device 2</label>
                 <label><input type="checkbox" />Device 3</label>
                 <label><input type="checkbox" />Device 4</label>
