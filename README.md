@@ -4,7 +4,7 @@
 - [picow-rgbw-web](#picow-rgbw-web)
   - [Api v1 Routing Table](#api-v1-routing-table)
   - [Response Data (`/api/v1/device/:id`)](#response-data-apiv1deviceid)
-  - [NOTEs](#notes)
+  - [TODOs](#todos)
 <!--toc:end-->
 
 Web server for controlling all [picow-rgbw](https://github.com/knackwurstking/picow-rgbw.git) driven devices.
@@ -24,14 +24,17 @@ Web server for controlling all [picow-rgbw](https://github.com/knackwurstking/pi
 ```go
 // GpPWM
 type GpPWM struct {
-    Nr   int `json:"nr"`   // Nr of gpio pin in use (gp0 - gp28)
-    Duty int `json:"duty"` // Duty cycle (goes from 0-100)
+  Nr   int `json:"nr"`   // Nr of gpio pin in use (gp0 - gp28)
+  Duty int `json:"duty"` // Duty cycle (goes from 0-100)
 }
 
 // Device
 type Device struct {
-    ID   int       `json:"id"`   // ID is unique
-    Addr string    `json:"addr"` // Addr contains the ip and port <ip>:<port>
-    RGBW [4]*GpPWM `json:"rgbw"` // RGBW holds all pins in use
+  Addr string    `json:"addr"` // Addr contains the ip and port <ip>:<port>
+  RGBW [4]*GpPWM `json:"rgbw"` // RGBW holds all pins in use
 }
 ```
+
+## TODOs
+
+- [ ] api route: POST "/api/v1/device" "application/json" `[<Device>, ...]`
