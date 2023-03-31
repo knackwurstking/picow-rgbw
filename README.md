@@ -39,3 +39,5 @@ type Device struct {
 
 - [ ] api route: PUT "/api/v1/device" "application/json" `[<Device>, ...]`
 - [ ] api route: PUT "/api/v1/device/:id" "application/json" `<Device>`
+- [x] adding FileServer routes (pointing to /index.html) for "/devices" and "/login"
+- [ ] adding a sign up/in
