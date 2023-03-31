@@ -55,11 +55,11 @@
     }
 
     div.devices.container > section.list {
-        height: 50%;
+        height: 60%;
     }
 
     div.devices.container > section.ctrl {
-        height: 50%;
+        height: 40%;
     }
 
     /* default: mobile (portrait) */
@@ -84,7 +84,7 @@
         margin: 16px;
         border-color: var(--theme-border);
         overflow: hidden;
-        height: 90%;
+        height: calc(100% - 32px);
     }
 
     /* TODO: remove scroll bar */
