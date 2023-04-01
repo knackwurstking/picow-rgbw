@@ -10,6 +10,8 @@ export interface Device {
 
 export class Devices {
     get(): Device[] {
+        // TODO: do a "/api/v1/devices" call here parse and return the result
+
         return [];
     }
 }
