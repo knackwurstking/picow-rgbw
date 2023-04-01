@@ -18,10 +18,10 @@
 </svelte:head>
 
 <div class="devices container">
+
     <section class="list">
         <fieldset>
             <legend>Devices</legend>
-
             <div class="content list">
                 {#each devices as device }
                     <CheckLabel
@@ -39,8 +39,10 @@
             </div>
         </fieldset>
     </section>
+
     <section class="ctrl">
     </section>
+
 </div>
 
 <style>
