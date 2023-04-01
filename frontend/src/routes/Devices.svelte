@@ -1,5 +1,16 @@
 <script lang="ts">
-    import devices from "./devices";
+    import { onMount } from "svelte";
+
+    import CheckLabel from "../components/CheckLabel.svelte";
+
+    import Devices, { type Device } from "./devices";
+
+    let devices: Device[] = [];
+    let selected: Device[] = [];
+
+    onMount(() => {
+        devices = Devices.get();
+    });
 </script>
 
 <svelte:head>
@@ -21,22 +32,19 @@
             <legend>Devices</legend>
 
             <div class="content list">
-                <!-- TODO: do some custom checkbox style here (create component) -->
-                <label><input type="checkbox" on:change={(ev) => {
-                    if (ev.target.checked) {
-                        // TODO: add device to selected (devices list `let selected: string[] = []`)
-                    }
-                }} />Device 1</label>
-                <label><input type="checkbox" />Device 2</label>
-                <label><input type="checkbox" />Device 3</label>
-                <label><input type="checkbox" />Device 4</label>
-                <label><input type="checkbox" />Device 5</label>
-                <label><input type="checkbox" />Device 6</label>
-                <label><input type="checkbox" />Device 7</label>
-                <label><input type="checkbox" />Device 8</label>
-                <label><input type="checkbox" />Device 9</label>
-                <label><input type="checkbox" />Device 10</label>
-                <label><input type="checkbox" />Device 11</label>
+                {#each devices as device }
+                    <CheckLabel
+                        checked={!!selected.find(d => d === device)}
+                        label={device.addr}
+                        on:change={() => {
+                            if (!!selected.find(d => d === device)) {
+                                selected = selected.filter(d => d != device);
+                            } else {
+                                selected = [...selected, device];
+                            }
+                        }}
+                    />
+                {/each}
             </div>
         </fieldset>
     </section>
@@ -100,11 +108,5 @@
         scroll-behavior: smooth;
         width: 100%;
         height: 100%;
-    }
-
-    div.devices.container > section.list > fieldset > div.content.list > label {
-        margin: 8px;
-        padding: 16px;
-        border: 1px solid var(--theme-border);
     }
 </style>
