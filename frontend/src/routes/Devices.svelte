@@ -9,8 +9,8 @@
     let selected: Device[] = [];
     $: console.log("selected:", selected);
 
-    onMount(() => {
-        devices = Devices.get();
+    onMount(async () => {
+        devices = await Devices.get();
     });
 </script>
 
