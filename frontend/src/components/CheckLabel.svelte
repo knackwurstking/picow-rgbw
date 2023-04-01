@@ -7,7 +7,11 @@
     export let label: string = "";
 </script>
 
-<label><input type="checkbox" checked={checked} on:change={() => dispatch("change", { checked: checked })} />{label}</label>
+<label><input
+    type="checkbox"
+    checked={checked}
+    on:change={() => dispatch("change", { checked: checked })}
+/>{label}</label>
 
 <style>
     label {
