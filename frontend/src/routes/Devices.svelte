@@ -10,7 +10,7 @@
     $: console.log("selected:", selected);
 
     onMount(async () => {
-        devices = await Api.get();
+        devices = await Api.devices();
     });
 </script>
 
