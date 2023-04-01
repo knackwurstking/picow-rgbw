@@ -137,8 +137,9 @@
 
     div.devices.container > section.ctrl fieldset div.content {
         width: calc(100% - 16px);
-        height: calc(100% - 64px - 16px);
-        margin-bottom: 0;
+        height: calc(100% - 64px - 20px);
+        margin-bottom: 4px;
+        padding-bottom: 4px;
         border-bottom: 1px solid var(--theme-border);
     }
 
