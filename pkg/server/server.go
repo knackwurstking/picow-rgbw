@@ -9,9 +9,8 @@ import (
 )
 
 func New(addr string, picoHandler *pico.Handler) *http.Server {
-	UseMiddleware(
-		middleware.NewLogger,
-	)
+	UseMiddleware(middleware.NewLogger)
+	UseMiddleware(middleware.NewCORS)
 
 	// TODO: use custom type as key (replace "pico")
 	ctx := context.WithValue(context.Background(), "pico", picoHandler)

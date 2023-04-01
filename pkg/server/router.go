@@ -23,8 +23,6 @@ func NewRegExHandler(ctx context.Context) http.Handler {
 		Routes: make([]*Route, 0),
 	}
 
-	// TODO: Adding CORS middleware for "/api"
-
 	{ // Group: "/api/v1"
 		group := "/api/v1"
 
