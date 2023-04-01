@@ -1,7 +1,8 @@
 :root {
   --theme-background: #212125;
   --theme-surface: #212125;
-  --theme-primary: #ff3e00;
+  /*--theme-primary: #ff3e00;*/
+  --theme-primary: #3abb00;
   --theme-secondary: #5d5d78;
   --theme-error: #d32f2f;
 
