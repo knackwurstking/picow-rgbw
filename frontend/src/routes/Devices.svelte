@@ -7,6 +7,7 @@
 
     let devices: Device[] = [];
     let selected: Device[] = [];
+    $: console.log("selected:", selected);
 
     onMount(() => {
         devices = Devices.get();
