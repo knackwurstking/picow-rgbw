@@ -5,18 +5,18 @@
 
     import Api, { type Device } from "../ts/api";
 
-    let selectedDevices: Device[] = [];
-    $: console.log("selected:", selectedDevices);
+    let selected: Device[] = [];
+    $: console.log("selected:", selected);
 
     let devices: Device[] = [];
     $: {
-        const newSelectedDevices = []
-        for (const selectedDevice of selectedDevices) {
-            if (!!devices.find(d => d.addr === selectedDevice.addr)) {
-                newSelectedDevices.push(selectedDevice)
+        const newSelected = []
+        for (const s of selected) {
+            if (!!devices.find(d => d.addr === s.addr)) {
+                newSelected.push(s)
             }
         }
-        selectedDevices = newSelectedDevices
+        selected = newSelected
     }
 
     onMount(async () => {
@@ -36,13 +36,13 @@
             <div class="content list">
                 {#each devices as device }
                     <CheckLabel
-                        checked={!!selectedDevices.find(sd => sd.addr === device.addr)}
+                        checked={!!selected.find(sd => sd.addr === device.addr)}
                         label={device.addr}
                         on:change={() => {
-                            if (!!selectedDevices.find(d => d === device)) {
-                                selectedDevices = selectedDevices.filter(d => d != device);
+                            if (!!selected.find(d => d === device)) {
+                                selected = selected.filter(d => d != device);
                             } else {
-                                selectedDevices = [...selectedDevices, device];
+                                selected = [...selected, device];
                             }
                         }}
                     />
