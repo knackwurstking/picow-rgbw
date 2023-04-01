@@ -2,6 +2,8 @@
     import { onMount } from "svelte";
 
     import CheckLabel from "../components/CheckLabel.svelte";
+    import ColorPicker from "../components/ColorPicker.svelte";
+    import PowerToggle from "../components/PowerToggle.svelte";
 
     import Api, { type Device } from "../ts/api";
 
@@ -52,6 +54,15 @@
     </section>
 
     <section class="ctrl">
+        <fieldset>
+            <legend>Control</legend>
+            <div class="content">
+                <ColorPicker />
+            </div>
+            <div class="bottom">
+                <PowerToggle />
+            </div>
+        </fieldset>
     </section>
 
 </div>
@@ -112,5 +123,30 @@
         scroll-behavior: smooth;
         width: 100%;
         height: 100%;
+    }
+
+    div.devices.container > section.ctrl > fieldset {
+        margin: 16px;
+        height: calc(100% - 32px);
+        border-color: var(--theme-border);
+    }
+
+    div.devices.container > section.ctrl > fieldset > div {
+        margin: 8px;
+    }
+
+    div.devices.container > section.ctrl fieldset div.content {
+        width: calc(100% - 16px);
+        height: calc(100% - 64px - 16px);
+        margin-bottom: 0;
+        border-bottom: 1px solid var(--theme-border);
+    }
+
+    div.devices.container > section.ctrl fieldset div.bottom {
+        width: calc(100% - 16px);
+        height: 64px;
+        bottom: 0;
+        left: 0;
+        margin-top: 0;
     }
 </style>
