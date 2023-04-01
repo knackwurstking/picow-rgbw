@@ -3,14 +3,14 @@
 
     import CheckLabel from "../components/CheckLabel.svelte";
 
-    import Devices, { type Device } from "./devices";
+    import Api, { type Device } from "../ts/api";
 
     let devices: Device[] = [];
     let selected: Device[] = [];
     $: console.log("selected:", selected);
 
     onMount(async () => {
-        devices = await Devices.get();
+        devices = await Api.get();
     });
 </script>
 

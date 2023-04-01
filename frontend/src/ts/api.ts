@@ -8,12 +8,18 @@ export interface Device {
     rgbw: GpPWM[];
 }
 
-export class Devices {
-    async get(): Promise<Device[]> {
+export class Api {
+    protocol: ("http:" | "https:")
+
+    constructor() {
+        this.protocol = "http:"
+    }
+
+    async get(host: string | null = null): Promise<Device[]> {
         // TODO: do a "/api/v1/devices" call here parse and return the result
 
         return [];
     }
 }
 
-export default new Devices();
+export default new Api();
