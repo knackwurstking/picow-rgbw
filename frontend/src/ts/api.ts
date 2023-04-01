@@ -36,7 +36,8 @@ export class Api {
     }
 
     url(key: string, ...param: any): string {
-        return `${this.protocol}//${this.host}${this.paths[this.version][key](...param)}`
+        const origin = !!this.host ? `${this.protocol}//${this.host}` : ""
+        return `${origin}${this.paths[this.version][key](...param)}`
     }
 
     async devices(): Promise<Device[]> {
