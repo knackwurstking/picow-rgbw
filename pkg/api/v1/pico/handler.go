@@ -16,6 +16,10 @@ func NewHandler(devices ...*Device) *Handler {
 	}
 }
 
+func (h *Handler) Get(addr string) *Device {
+	return nil
+}
+
 // Scan for pico devices (ex. r: 192.168.178.0, 192.168.0.0)
 func (h *Handler) Scan(ipRange string) (devices []*Device, err error) {
 	// TODO: Scan ip range...

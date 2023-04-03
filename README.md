@@ -4,7 +4,6 @@
 - [picow-rgbw-web](#picow-rgbw-web)
   - [Api v1 Routing Table](#api-v1-routing-table)
   - [Response Data (`/api/v1/device/:id`)](#response-data-apiv1deviceid)
-  - [TODOs](#todos)
 <!--toc:end-->
 
 Web server for controlling all [picow-rgbw](https://github.com/knackwurstking/picow-rgbw.git) driven devices.
@@ -13,8 +12,9 @@ Web server for controlling all [picow-rgbw](https://github.com/knackwurstking/pi
 
 | Method | Endpoint                       | Description                      |
 | ------ | ------------------------------ | -------------------------------- |
-| GET    | `/api/v1/device`               | _get all devices_                |
-| GET    | `/api/v1/device/:id`           | _get device per :id_             |
+| GET    | `/api/v1/devices`              | _get all devices_                |
+| PUT    | `/api/v1/devices`              | _set rgbw for devices_           |
+| GET    | `/api/v1/devices/:id`          | _get device per :id_             |
 | SSE    | `/api/v1/events/device-update` | _sse event: device data changed_ |
 
 ## Response Data (`/api/v1/device/:id`)
@@ -34,10 +34,3 @@ type Device struct {
   RGBW [4]*GpPWM `json:"rgbw"` // RGBW holds all pins in use
 }
 ```
-
-## TODOs
-
-- [ ] api route: PUT "/api/v1/device" "application/json" `[<Device>, ...]`
-- [ ] api route: PUT "/api/v1/device/:id" "application/json" `<Device>`
-- [x] adding FileServer routes (pointing to /index.html) for "/devices" and "/login"
-- [ ] adding a sign up/in
