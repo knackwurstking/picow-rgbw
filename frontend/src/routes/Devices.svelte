@@ -74,9 +74,11 @@
                     on:change={(ev) => {
                         switch (ev.detail.state) {
                             case "set":
+                                // TODO: put device to ReqPutDevices
                                 console.log("set led...");
                                 break;
                             case "off":
+                                // TODO: put device to ReqPutDevices
                                 console.log("turn off led...");
                                 break;
                         }
