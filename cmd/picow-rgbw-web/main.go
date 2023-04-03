@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"golang.org/x/exp/slog"
+	"github.com/gookit/slog"
 
 	"github.com/knackwurstking/picow-rgbw-web/pkg/api/v1/pico"
 	"github.com/knackwurstking/picow-rgbw-web/pkg/scanner"
@@ -87,19 +87,24 @@ func initFlags() {
 }
 
 func initLogger() {
-	o := slog.HandlerOptions{
-		AddSource: true,
-	}
+	slog.Configure(func(l *slog.SugaredLogger) {
+		f := l.Formatter.(*slog.TextFormatter)
+		f.EnableColor = true
+	})
 
-	if config.Debug {
-		o.Level = slog.LevelDebug
-	} else {
-		o.Level = slog.LevelInfo
-	}
+	//o := slog.HandlerOptions{
+	//	AddSource: true,
+	//}
 
-	// NOTE: Need a custom Text handler for this someday (with color support)
-	h := o.NewJSONHandler(os.Stderr)
-	slog.SetDefault(slog.New(h))
+	//if config.Debug {
+	//	o.Level = slog.LevelDebug
+	//} else {
+	//	o.Level = slog.LevelInfo
+	//}
+
+	//// NOTE: Need a custom Text handler for this someday (with color support)
+	//h := o.NewTextHandler(os.Stderr)
+	//slog.SetDefault(slog.New(h))
 }
 
 func initPicoDevices() {
@@ -188,25 +193,25 @@ func main() {
 	if config.HTTP {
 		slog.Info("HTTP server running " + server.Addr)
 		if err := server.ListenAndServe(); err != nil {
-			slog.Error("Server error: " + err.Error())
+			slog.Fatal("Server error: " + err.Error())
 			os.Exit(1)
 		}
 	} else {
 		crt := os.Getenv("CERT_FILE")
 		if crt == "" {
-			slog.Error("Missing server certificate (env: CERT_FILE)")
+			slog.Fatal("Missing server certificate (env: CERT_FILE)")
 			os.Exit(1)
 		}
 
 		key := os.Getenv("KEY_FILE")
 		if key == "" {
-			slog.Error("Missing server certificate key (env: KEY_FILE)")
+			slog.Fatal("Missing server certificate key (env: KEY_FILE)")
 			os.Exit(1)
 		}
 
 		slog.Info("HTTPS server running " + server.Addr)
 		if err := server.ListenAndServeTLS(crt, key); err != nil {
-			slog.Error("Server error: " + err.Error())
+			slog.Fatal("Server error: " + err.Error())
 			os.Exit(1)
 		}
 	}

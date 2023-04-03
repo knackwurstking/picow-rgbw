@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"time"
 
-	"golang.org/x/exp/slog"
+	"github.com/gookit/slog"
 )
 
 type Logger struct {

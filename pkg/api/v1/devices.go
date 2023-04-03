@@ -8,7 +8,7 @@ import (
 	"strconv"
 	"strings"
 
-	"golang.org/x/exp/slog"
+	"github.com/gookit/slog"
 )
 
 type Devices struct {
