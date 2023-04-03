@@ -30,7 +30,7 @@ export class Api {
         this.paths = {
             v1: {
                 devices: () => "/api/v1/devices",
-                device: (id) => `/api/v1/device${id}`,
+                device: (id) => `/api/v1/devices/${id}`,
             }
         }
     }
