@@ -24,8 +24,12 @@
         user-select: none;
     }
 
+    label:hover {
+        background-color: var(--theme-primary--hover);
+    }
+
     label.checked {
-        background-color: var(--theme-primary);
+        background-color: var(--theme-primary--focus);
     }
 
     label input {

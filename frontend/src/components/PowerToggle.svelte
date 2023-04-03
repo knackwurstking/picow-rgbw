@@ -24,7 +24,15 @@
         font-weight: bolder;
         border-color: var(--theme-border);
         color: var(--theme-on-surface);
-        transition: transform 0.1s ease;
+        transition: transform 0.1s ease, background-color 0.1 ease;
+    }
+
+    div.container button:hover {
+        background-color: var(--theme-primary--hover);
+    }
+
+    div.container button:active {
+        background-color: var(--theme-primary--focus);
     }
 
     div.container button.off {
@@ -36,7 +44,6 @@
     }
 
     div.container button:active {
-        transition: transform 0.25s ease;
-        transform: scale(0.5);
+        transform: scale(0.99);
     }
 </style>
