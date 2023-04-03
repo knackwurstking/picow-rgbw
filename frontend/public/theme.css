@@ -1,5 +1,5 @@
 :root {
-  --theme-background: #212125;
+  --theme-background: #111111;
   --theme-surface: #212125;
   --theme-primary: #ff3e00;
   /*--theme-primary: #3abb00;*/
@@ -12,6 +12,7 @@
   --theme-on-surface: #ffffff;
 
   --theme-border: rgba(255, 255, 255, 0.25);
+  --theme-border-radius: 5px;
 
   --theme-link: #40b3ff;
   --theme-link--visited: #007dcf;
@@ -33,11 +34,12 @@ body {
   font-size: 1rem;
   background-color: var(--theme-background);
   color: var(--theme-on-surface);
-  font-family: FiraCode;
 }
 
 * {
   box-sizing: border-box;
+  font-family: FiraCode;
+  border-radius: var(--theme-border-radius);
 }
 
 a {
