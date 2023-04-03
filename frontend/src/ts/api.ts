@@ -11,8 +11,16 @@ export interface Device {
     rgbw: Gp[];
 }
 
+export type ReqPutDevices = ReqPutDevice[]
+
+export interface ReqPutDevice {
+    addr: string;
+    rgbw: Duty[]
+}
+
 export interface ApiPathsV1 {
     devices: () => string;
+    putDevices: () => string;
     device: (id: string) => string
 }
 
@@ -33,6 +41,7 @@ export class Api {
         this.paths = {
             v1: {
                 devices: () => "/api/v1/devices",
+                putDevices: () => "/api/v1/devices",
                 device: (id) => `/api/v1/devices/${id}`,
             }
         }
@@ -52,6 +61,19 @@ export class Api {
         }
 
         return await resp.json() as Device[]
+    }
+
+    async updateDevices(data: ReqPutDevices[]): Promise<void> {
+        const url = this.url("updateDevices");
+        const resp = await fetch(url, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+        });
+
+        if (!resp.ok) {
+            throw `response error: ${resp.statusText} (${url})`
+        }
     }
 }
 
