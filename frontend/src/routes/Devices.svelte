@@ -149,6 +149,5 @@
         padding: 8px;
         margin-top: 0;
         border-top: 1px solid var(--theme-border);
-        border-bottom: 1px solid red;
     }
 </style>
