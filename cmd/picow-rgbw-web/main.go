@@ -115,8 +115,18 @@ func initPicoDevices() {
 		}
 
 		if update {
-			pins := [4]int{-1, -1, -1, -1}
-			duty := [4]int{0, 0, 0, 0}
+			pins := [4]pico.GpPin{
+				pico.GpPinDisabled,
+				pico.GpPinDisabled,
+				pico.GpPinDisabled,
+				pico.GpPinDisabled,
+			}
+			duty := [4]pico.Duty{
+				pico.DutyMin,
+				pico.DutyMin,
+				pico.DutyMin,
+				pico.DutyMin,
+			}
 
 			for i, p := range device.RGBW {
 				if p == nil {

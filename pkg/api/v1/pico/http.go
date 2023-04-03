@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-func GetDuty(addr string) (duty [4]int, err error) {
+func GetDuty(addr string) (duty [4]Duty, err error) {
 	url := fmt.Sprintf("http://%s%s", addr, PathGetDuty())
 
 	r, err := http.Get(url)
@@ -34,14 +34,14 @@ func GetDuty(addr string) (duty [4]int, err error) {
 			return duty, err
 		}
 
-		duty[i] = d
+		duty[i] = Duty(d)
 	}
 
 	return duty, nil
 }
 
 // GetPins returns a list with rgbw pins in use (-1 if not in use)
-func GetPins(addr string) (pins [4]int, err error) {
+func GetPins(addr string) (pins [4]GpPin, err error) {
 	url := fmt.Sprintf("http://%s%s", addr, PathGetPins())
 
 	r, err := http.Get(url)
@@ -67,13 +67,13 @@ func GetPins(addr string) (pins [4]int, err error) {
 			return pins, err
 		}
 
-		pins[i] = gp
+		pins[i] = GpPin(gp)
 	}
 
 	return pins, nil
 }
 
-func SetDuty(addr string, rgbw [4]int) (err error) {
+func SetDuty(addr string, rgbw [4]Duty) (err error) {
 	url := fmt.Sprintf("http://%s%s",
 		addr, PathSetDuty(rgbw[0], rgbw[1], rgbw[2], rgbw[3]))
 
@@ -89,7 +89,7 @@ func SetDuty(addr string, rgbw [4]int) (err error) {
 	return nil
 }
 
-func SetPins(addr string, pins [4]int) (err error) {
+func SetPins(addr string, pins [4]GpPin) (err error) {
 	url := fmt.Sprintf("http://%s%s",
 		addr, PathSetPins(pins[0], pins[1], pins[2], pins[3]))
 

@@ -31,7 +31,7 @@ func (d *Device) GetDuty() error {
 }
 
 // SetDuty to pico device for RGBW (use -1 or 0 for a disabled pin)
-func (d *Device) SetDuty(duty [4]int) error {
+func (d *Device) SetDuty(duty [4]Duty) error {
 	return SetDuty(d.Addr, duty)
 }
 
@@ -56,6 +56,6 @@ func (d *Device) GetPins() error {
 }
 
 // Set will POST the RGBW pins to pico device (use -1 for a disabled pin)
-func (d *Device) SetPins(pins [4]int) error {
+func (d *Device) SetPins(pins [4]GpPin) error {
 	return SetPins(d.Addr, pins)
 }

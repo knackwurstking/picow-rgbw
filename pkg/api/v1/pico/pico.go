@@ -2,7 +2,6 @@ package pico
 
 import (
 	"fmt"
-	"strconv"
 )
 
 func PathGetDuty() string {
@@ -15,10 +14,10 @@ func PathGetPins() string {
 
 // PathSetDuty returns the server path to change the current duty cycle
 // (use -1 or 0 if pin is not in use)
-func PathSetDuty(r, g, b, w int) string {
+func PathSetDuty(r, g, b, w Duty) string {
 	query := ""
 
-	for i, n := range [4]int{r, g, b, w} {
+	for i, n := range [4]Duty{r, g, b, w} {
 		switch i {
 		case 0:
 			query += "r="
@@ -30,7 +29,7 @@ func PathSetDuty(r, g, b, w int) string {
 			query += "w="
 		}
 
-		query += strconv.Itoa(n)
+		query += n.String()
 
 		if i < 3 {
 			query += "&"
@@ -40,10 +39,10 @@ func PathSetDuty(r, g, b, w int) string {
 	return fmt.Sprintf("/rgbw/set_pwm?%s", query)
 }
 
-func PathSetPins(r, g, b, w int) string {
+func PathSetPins(r, g, b, w GpPin) string {
 	query := ""
 
-	for i, n := range [4]int{r, g, b, w} {
+	for i, n := range [4]GpPin{r, g, b, w} {
 		switch i {
 		case 0:
 			query += "r="
@@ -55,7 +54,7 @@ func PathSetPins(r, g, b, w int) string {
 			query += "w="
 		}
 
-		query += strconv.Itoa(n)
+		query += n.String()
 
 		if i < 3 {
 			query += "&"
