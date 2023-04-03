@@ -21,6 +21,11 @@
         selected = newSelected
     }
 
+    let r: number = 100;
+    let g: number = 100;
+    let b: number = 100;
+    let w: number = 100;
+
     onMount(async () => {
         devices = await Api.devices();
     });
@@ -57,10 +62,26 @@
         <fieldset>
             <legend>Control</legend>
             <div class="content">
-                <ColorPicker />
+                <ColorPicker
+                    bind:r={r}
+                    bind:g={g}
+                    bind:b={b}
+                    bind:w={w}
+                />
             </div>
             <div class="bottom">
-                <PowerToggle />
+                <PowerToggle
+                    on:change={(ev) => {
+                        switch (ev.detail.state) {
+                            case "set":
+                                console.log("set led...");
+                                break;
+                            case "off":
+                                console.log("turn off led...");
+                                break;
+                        }
+                    }}
+                />
             </div>
         </fieldset>
     </section>
