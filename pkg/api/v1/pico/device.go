@@ -22,7 +22,7 @@ func (d *Device) GetDuty() error {
 	}
 
 	for i, n := range duty {
-		if n < 0 && d.RGBW[i] != nil {
+		if n < DutyMin && d.RGBW[i] != nil {
 			d.RGBW[i].Duty = Duty(n)
 		}
 	}
