@@ -1,11 +1,14 @@
-export interface GpPWM {
-    nr: number;
-    duty: number;
+export type GpPin = number;
+export type Duty = number;
+
+export interface Gp {
+    nr: GpPin;
+    duty: Duty;
 }
 
 export interface Device {
     addr: string;
-    rgbw: GpPWM[];
+    rgbw: Gp[];
 }
 
 export interface ApiPathsV1 {
