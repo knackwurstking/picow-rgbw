@@ -52,14 +52,16 @@ func (d *Devices) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 func (d *Devices) devices(w http.ResponseWriter, r *http.Request) {
 	p, err := getPicoFromCtx(d.ctx)
 	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
+		http.Error(w, http.StatusText(http.StatusInternalServerError),
+			http.StatusInternalServerError)
 		return
 	}
 
 	err = json.NewEncoder(w).Encode(p.Devices)
 	if err != nil {
 		slog.Error(err.Error())
-		w.WriteHeader(http.StatusInternalServerError)
+		http.Error(w, http.StatusText(http.StatusInternalServerError),
+			http.StatusInternalServerError)
 		return
 	}
 
@@ -70,7 +72,8 @@ func (d *Devices) devices(w http.ResponseWriter, r *http.Request) {
 func (d *Devices) device(w http.ResponseWriter, r *http.Request, id int) {
 	p, err := getPicoFromCtx(d.ctx)
 	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
+		http.Error(w, http.StatusText(http.StatusInternalServerError),
+			http.StatusInternalServerError)
 		return
 	}
 
@@ -78,7 +81,8 @@ func (d *Devices) device(w http.ResponseWriter, r *http.Request, id int) {
 		if i == id {
 			if err = json.NewEncoder(w).Encode(device); err != nil {
 				slog.Error(err.Error())
-				w.WriteHeader(http.StatusInternalServerError)
+				http.Error(w, http.StatusText(http.StatusInternalServerError),
+					http.StatusInternalServerError)
 				return
 			}
 
@@ -155,7 +159,11 @@ func (d *Devices) putDevices(w http.ResponseWriter, r *http.Request) {
 			status = s
 		case <-doneCh:
 			if doneCount == 0 {
-				w.WriteHeader(status)
+				if status >= 200 && status < 300 {
+					w.WriteHeader(status)
+				} else {
+					http.Error(w, http.StatusText(status), status)
+				}
 				return
 			}
 		}

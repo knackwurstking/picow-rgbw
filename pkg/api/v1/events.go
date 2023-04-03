@@ -22,7 +22,8 @@ func (e *Events) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	case e.prefix + "/device-update":
 		// TODO: Add connection to sse event handlers (see pirgb-web for reference)
 
-		w.WriteHeader(http.StatusServiceUnavailable)
+		http.Error(w, http.StatusText(http.StatusServiceUnavailable),
+			http.StatusServiceUnavailable)
 	default:
 		http.NotFound(w, r)
 	}
