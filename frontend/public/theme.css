@@ -18,10 +18,10 @@
   --theme-link--visited: #007dcf;
 
   --theme-secondary--hover: rgba(93, 93, 120, 0.1);
-  --theme-secondary--focus: rgba(93, 93, 120, 0.25);
+  --theme-secondary--focus: rgba(93, 93, 120, 0.35);
 
   --theme-primary--hover: rgba(255, 62, 0, 0.1);
-  --theme-primary--focus: rgba(255, 62, 0, 0.25);
+  --theme-primary--focus: rgba(255, 62, 0, 0.35);
 }
 
 html {
