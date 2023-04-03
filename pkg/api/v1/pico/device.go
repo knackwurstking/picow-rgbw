@@ -22,7 +22,15 @@ func (d *Device) GetDuty() error {
 	}
 
 	for i, n := range duty {
-		if n < DutyMin && d.RGBW[i] != nil {
+		if d.RGBW[i] == nil {
+			d.RGBW[i] = NewGp(GpPinDisabled)
+		}
+
+		if n < DutyMin {
+			d.RGBW[i].Duty = Duty(DutyMin)
+		} else if n > DutyMax {
+			d.RGBW[i].Duty = Duty(DutyMax)
+		} else {
 			d.RGBW[i].Duty = Duty(n)
 		}
 	}
@@ -43,13 +51,11 @@ func (d *Device) GetPins() error {
 	}
 
 	for i, n := range pins {
-		// check if pin is disabled (not in use)
-		if n < 0 {
+		if n >= GpPinMin && n <= GpPinMax {
+			d.RGBW[i] = NewGp(GpPin(n))
+		} else {
 			d.RGBW[i] = NewGp(GpPinDisabled)
-			continue
 		}
-
-		d.RGBW[i] = NewGp(GpPin(n))
 	}
 
 	return nil

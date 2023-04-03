@@ -3,9 +3,12 @@ package pico
 import "strconv"
 
 const (
+	GpPinMin      = GpPin(0)
+	GpPinMax      = GpPin(28)
 	GpPinDisabled = GpPin(-1)
-	DutyMin       = Duty(0)
-	DutyMax       = Duty(100)
+
+	DutyMin = Duty(0)
+	DutyMax = Duty(100)
 )
 
 type GpPin int
