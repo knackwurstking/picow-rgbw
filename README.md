@@ -4,6 +4,7 @@
 - [picow-rgbw-web](#picow-rgbw-web)
   - [Api v1 Routing Table](#api-v1-routing-table)
   - [Response Data (`/api/v1/device/:id`)](#response-data-apiv1deviceid)
+  - [TODOs](#todos)
 <!--toc:end-->
 
 Web server for controlling all [picow-rgbw](https://github.com/knackwurstking/picow-rgbw.git) driven devices.
@@ -34,3 +35,10 @@ type Device struct {
   RGBW [4]*GpPWM `json:"rgbw"` // RGBW holds all pins in use
 }
 ```
+
+## TODOs
+
+- [ ] Makefile
+  - [ ] script: "build"
+  - [ ] script: "install" (no root) (copy empty a basic config.json file
+        if not exists)
