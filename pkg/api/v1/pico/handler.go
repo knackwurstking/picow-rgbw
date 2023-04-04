@@ -17,6 +17,12 @@ func NewHandler(devices ...*Device) *Handler {
 }
 
 func (h *Handler) Get(addr string) *Device {
+	for _, d := range h.Devices {
+		if d.Addr == addr {
+			return d
+		}
+	}
+
 	return nil
 }
 
