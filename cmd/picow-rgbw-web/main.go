@@ -119,52 +119,54 @@ func initPicoDevices() {
 			}
 		}
 
-		if update {
-			pins := [4]pico.GpPin{
-				pico.GpPinDisabled,
-				pico.GpPinDisabled,
-				pico.GpPinDisabled,
-				pico.GpPinDisabled,
-			}
-			duty := [4]pico.Duty{
-				pico.DutyMin,
-				pico.DutyMin,
-				pico.DutyMin,
-				pico.DutyMin,
-			}
-
-			for i, p := range device.RGBW {
-				if p == nil {
-					continue
-				}
-
-				pins[i] = p.Nr
-				duty[i] = p.Duty
-			}
-
-			slog.Debug(fmt.Sprintf("set pins (%v): %+v", pins, device))
-			err := device.SetPins(pins)
+		if !update {
+			// get pins, even after set pins (in case of a failure)
+			err := device.GetPins()
 			if err != nil {
-				slog.Error(fmt.Sprintf("set pins (%v): %s", pins, err.Error()))
-			} else {
-				slog.Debug(fmt.Sprintf("set duty (%v): %+v", duty, device))
-				err = device.SetDuty(duty)
-				if err != nil {
-					slog.Error(fmt.Sprintf("set duty (%v): %s", duty, err.Error()))
-				}
+				slog.Error("get pins: " + err.Error())
+			}
+
+			err = device.GetDuty()
+			if err != nil {
+				slog.Error("get duty: " + err.Error())
 			}
 		}
 
-		// get pins, even after set pins (in case of a failure)
-		err := device.GetPins()
-		if err != nil {
-			slog.Error("get pins: " + err.Error())
+		pins := [4]pico.GpPin{
+			pico.GpPinDisabled,
+			pico.GpPinDisabled,
+			pico.GpPinDisabled,
+			pico.GpPinDisabled,
+		}
+		duty := [4]pico.Duty{
+			pico.DutyMin,
+			pico.DutyMin,
+			pico.DutyMin,
+			pico.DutyMin,
 		}
 
-		err = device.GetDuty()
-		if err != nil {
-			slog.Error("get duty: " + err.Error())
+		for i, p := range device.RGBW {
+			if p == nil {
+				continue
+			}
+
+			pins[i] = p.Nr
+			duty[i] = p.Duty
 		}
+
+		slog.Debug(fmt.Sprintf("set pins (%v): %+v", pins, device))
+		err := device.SetPins(pins)
+		if err != nil {
+			slog.Error(fmt.Sprintf("set pins (%v): %s", pins, err.Error()))
+		} else {
+			slog.Debug(fmt.Sprintf("set duty (%v): %+v", duty, device))
+			err = device.SetDuty(duty)
+			if err != nil {
+				slog.Error(fmt.Sprintf("set duty (%v): %s", duty, err.Error()))
+			}
+		}
+
+		return
 	}
 
 	// Start the devices scanner
