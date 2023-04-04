@@ -1,11 +1,11 @@
 # picow-rgbw-web
 
 <!--toc:start-->
+
 - [picow-rgbw-web](#picow-rgbw-web)
   - [Api v1 Routing Table](#api-v1-routing-table)
-  - [Response Data (`/api/v1/device/:id`)](#response-data-apiv1deviceid)
   - [TODOs](#todos)
-<!--toc:end-->
+  <!--toc:end-->
 
 Web server for controlling all [picow-rgbw](https://github.com/knackwurstking/picow-rgbw.git) driven devices.
 
@@ -13,16 +13,25 @@ Web server for controlling all [picow-rgbw](https://github.com/knackwurstking/pi
 
 TODO: find a better way for this
 
-| Method | Endpoint                       | Description                      |
-| ------ | ------------------------------ | -------------------------------- |
-| GET    | `/api/v1/devices`              | _get all devices_                |
-| PUT    | `/api/v1/devices`              | _set rgbw for devices_           |
-| GET    | `/api/v1/devices/:id`          | _get device per :id_             |
-| SSE    | `/api/v1/events/device-update` | _sse event: device data changed_ |
+| Method | Endpoint                       | Request             | Response        |
+| ------ | ------------------------------ | ------------------- | --------------- |
+| GET    | `/api/v1/devices`              | -                   | `[]pico.Device` |
+| PUT    | `/api/v1/devices`              | `[]v1.ReqPutDevice` | -               |
+| GET    | `/api/v1/devices/:id`          | -                   | `pico.Device`   |
+| SSE    | `/api/v1/events/device-update` | @TODO               | @TODO           |
 
-Response Data (`/api/v1/device/:id`)
+### Quick Overview for Request and Response (Body)
 
-> package: [pico](internal/api/v1/pico/pico.go)
+> package: [v1](internal/api/v1)
+
+```go
+type ReqPutDevice struct {
+  Addr string       `json:"addr"`
+  RGBW [4]pico.Duty `json:"rgbw"`
+}
+```
+
+> package: [pico](internal/api/v1/pico)
 
 ```go
 type GpPin int
@@ -35,9 +44,10 @@ type Gp struct {
   Duty Duty  `json:"duty"` // Duty cycle (goes from 0-100)
 }
 
-type ReqPutDevice struct {
-  Addr string  `json:"addr"`
-  RGBW [4]Duty `json:"rgbw"`
+// Device
+type Device struct {
+  Addr string `json:"addr"` // Addr contains the ip and port <ip>:<port>
+  RGBW [4]*Gp `json:"rgbw"` // RGBW holds all pins in use
 }
 ```
 
