@@ -11,6 +11,8 @@ Web server for controlling all [picow-rgbw](https://github.com/knackwurstking/pi
 
 ## Api v1 Routing Table
 
+TODO: find a better way for this
+
 | Method | Endpoint                       | Description                      |
 | ------ | ------------------------------ | -------------------------------- |
 | GET    | `/api/v1/devices`              | _get all devices_                |
@@ -23,16 +25,19 @@ Web server for controlling all [picow-rgbw](https://github.com/knackwurstking/pi
 > package: [pico](internal/api/v1/pico/pico.go)
 
 ```go
+type GpPin int
+
+type Duty int
+
 // GpPWM
-type GpPWM struct {
-  Nr   int `json:"nr"`   // Nr of gpio pin in use (gp0 - gp28)
-  Duty int `json:"duty"` // Duty cycle (goes from 0-100)
+type Gp struct {
+  Nr   GpPin `json:"nr"`   // Nr of gpio pin in use (gp0 - gp28)
+  Duty Duty  `json:"duty"` // Duty cycle (goes from 0-100)
 }
 
-// Device
-type Device struct {
-  Addr string    `json:"addr"` // Addr contains the ip and port <ip>:<port>
-  RGBW [4]*GpPWM `json:"rgbw"` // RGBW holds all pins in use
+type ReqPutDevice struct {
+  Addr string  `json:"addr"`
+  RGBW [4]Duty `json:"rgbw"`
 }
 ```
 
