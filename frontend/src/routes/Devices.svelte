@@ -71,18 +71,18 @@
             </div>
             <div class="bottom">
                 <PowerToggle
-                    on:change={(ev) => {
+                    on:change={async (ev) => {
                         switch (ev.detail.state) {
                             case "set":
-                                Api.putDevices(
+                                await Api.putDevices(
                                     ...selected.map(d => ({
                                         addr: d.addr,
-                                        rgbw: d.rgbw.map(c => c.duty),
+                                        rgbw: [r, g, b, w],
                                     })),
                                 );
                                 break;
                             case "off":
-                                Api.putDevices(
+                                await Api.putDevices(
                                     ...selected.map(d => ({
                                         addr: d.addr,
                                         rgbw: [0, 0, 0, 0],
