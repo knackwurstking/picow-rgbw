@@ -61,7 +61,17 @@ Example Response
 
 ### **PUT** _"/api/v1/devices"_
 
-TODO: example request (and response) with curl
+Update device(s) duty for rgbw pins
+
+Example Request
+
+```bash
+curl -X PUT http://localhost:50833/api/v1/devices \
+  -H 'Content-Type: application/json'\
+  -d '[{ "addr": "192.168.178.50:80", "rgbw": [100,100,100,100] }]'
+```
+
+No Response (http status 200 on success)
 
 ### **GET** _"/api/v1/devices/:id"_
 
