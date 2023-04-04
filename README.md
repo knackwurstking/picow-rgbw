@@ -3,7 +3,12 @@
 <!--toc:start-->
 - [picow-rgbw-web](#picow-rgbw-web)
   - [Api v1 Routing Table](#api-v1-routing-table)
-    - [Quick Overview for Request and Response (Body)](#quick-overview-for-request-and-response-body)
+    - [Go Types for Request/Response](#go-types-for-requestresponse)
+  - [Api V1](#api-v1)
+    - [*GET* **"/api/v1/devices"**](#get-apiv1devices)
+    - [*PUT* **"/api/v1/devices"**](#put-apiv1devices)
+    - [*GET* **"/api/v1/devices/:id"**](#get-apiv1devicesid)
+    - [*GET* **"/api/v1/events/device-update"**](#get-apiv1eventsdevice-update)
   - [TODOs](#todos)
 <!--toc:end-->
 
@@ -20,7 +25,7 @@ TODO: find a better way for this
 | GET    | `/api/v1/devices/:id`          | -                   | `pico.Device`   |
 | SSE    | `/api/v1/events/device-update` | @TODO               | @TODO           |
 
-### Quick Overview for Request and Response (Body)
+### Go Types for Request/Response
 
 > package: [v1](internal/api/v1)
 
@@ -50,6 +55,44 @@ type Device struct {
   RGBW [4]*Gp `json:"rgbw"` // RGBW holds all pins in use
 }
 ```
+
+## Api V1
+
+### *GET* **"/api/v1/devices"**
+
+Example Request
+
+```bash
+curl http://localhost:50833/api/v1/devices
+```
+
+Example Response
+
+```json
+[
+  {
+    "addr": "192.168.178.50:80",
+    "rgbw": [
+      { "nr": 0, "duty": 0 },
+      { "nr": 1, "duty": 0 },
+      { "nr": 2, "duty": 0 },
+      { "nr": 3, "duty": 0 }
+    ]
+  }
+]
+```
+
+### *PUT* **"/api/v1/devices"**
+
+TODO: example request (and response) with curl
+
+### *GET* **"/api/v1/devices/:id"**
+
+TODO: example request (and response) with curl
+
+### *GET* **"/api/v1/events/device-update"**
+
+> work in progress
 
 ## TODOs
 
