@@ -38,17 +38,6 @@ func (d *Device) GetDuty() error {
 	return nil
 }
 
-// SetDuty to pico device for RGBW (use -1 or 0 for a disabled pin)
-func (d *Device) SetDuty(duty [4]Duty) error {
-	err := SetDuty(d.Addr, duty)
-	if err == nil {
-		for i, gp := range d.RGBW {
-			gp.Duty = duty[i]
-		}
-	}
-	return err
-}
-
 // GetPins from pico device
 func (d *Device) GetPins() error {
 	pins, err := GetPins(d.Addr)
@@ -67,7 +56,24 @@ func (d *Device) GetPins() error {
 	return nil
 }
 
+// SetDuty to pico device for RGBW (use -1 or 0 for a disabled pin)
+func (d *Device) SetDuty(duty [4]Duty) error {
+	err := SetDuty(d.Addr, duty)
+	if err == nil {
+		for i, gp := range d.RGBW {
+			gp.Duty = duty[i]
+		}
+	}
+	return err
+}
+
 // Set will POST the RGBW pins to pico device (use -1 for a disabled pin)
 func (d *Device) SetPins(pins [4]GpPin) error {
-	return SetPins(d.Addr, pins)
+	err := SetPins(d.Addr, pins)
+	if err == nil {
+		for i, gp := range d.RGBW {
+			gp.Nr = pins[i]
+		}
+	}
+	return err
 }
