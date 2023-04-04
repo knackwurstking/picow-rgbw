@@ -47,8 +47,13 @@
                         label={device.addr}
                         on:change={() => {
                             if (!!selected.find(d => d === device)) {
+                                // remove device from selected
                                 selected = selected.filter(d => d != device);
                             } else {
+                                console.log(device);
+                                if (!!device.rgbw.find(d => d.duty > 0)) {
+                                    [r, g, b, w] = device.rgbw.map(d => d.duty);
+                                }
                                 selected = [...selected, device];
                             }
                         }}
