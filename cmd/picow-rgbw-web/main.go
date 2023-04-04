@@ -142,6 +142,7 @@ func initPicoDevices() {
 				duty[i] = p.Duty
 			}
 
+			slog.Debug(fmt.Sprintf("set pins (%v): %+v", pins, device))
 			err := device.SetPins(pins)
 			if err != nil {
 				slog.Error(fmt.Sprintf("set pins (%v): %s", pins, err.Error()))
