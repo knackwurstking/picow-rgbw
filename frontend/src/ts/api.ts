@@ -62,7 +62,7 @@ export class Api {
     }
 
     async putDevices(...data: ReqPutDevice[]): Promise<void> {
-        const url = this.url("updateDevices");
+        const url = this.url("putDevices");
         const resp = await fetch(url, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },

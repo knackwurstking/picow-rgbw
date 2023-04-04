@@ -31,7 +31,7 @@ func (d *Devices) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		switch r.Method {
 		case http.MethodGet:
 			d.devices(w, r)
-		case http.MethodPost:
+		case http.MethodPut:
 			d.putDevices(w, r)
 		default:
 			http.NotFound(w, r)
@@ -158,6 +158,7 @@ func (d *Devices) putDevices(w http.ResponseWriter, r *http.Request) {
 
 			status = s
 		case <-doneCh:
+			doneCount -= 1
 			if doneCount == 0 {
 				if status >= 200 && status < 300 {
 					w.WriteHeader(status)
