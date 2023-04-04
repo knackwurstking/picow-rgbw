@@ -3,6 +3,7 @@ package v1
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"regexp"
 	"strconv"
@@ -140,8 +141,8 @@ func (d *Devices) putDevices(w http.ResponseWriter, r *http.Request) {
 				return
 			}
 
+			slog.Debug(fmt.Sprintf("set rgbw (%v) for %s", rd.RGBW, device.Addr))
 			if err := device.SetDuty(rd.RGBW); err != nil {
-
 				statusCh <- http.StatusInternalServerError
 				return
 			}
