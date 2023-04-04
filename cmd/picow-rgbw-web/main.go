@@ -130,6 +130,8 @@ func initPicoDevices() {
 			if err != nil {
 				slog.Error("get duty: " + err.Error())
 			}
+
+			return
 		}
 
 		pins := [4]pico.GpPin{
@@ -165,8 +167,6 @@ func initPicoDevices() {
 				slog.Error(fmt.Sprintf("set duty (%v): %s", duty, err.Error()))
 			}
 		}
-
-		return
 	}
 
 	// Start the devices scanner
