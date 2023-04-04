@@ -108,6 +108,7 @@ func initLogger() {
 }
 
 func initPicoDevices() {
+	// TODO: run code inside a go func
 	for _, device := range config.Handler.Devices {
 		update := false
 
