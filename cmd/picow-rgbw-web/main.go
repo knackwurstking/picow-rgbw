@@ -131,7 +131,7 @@ func initPicoDevices() {
 				slog.Error("get duty: " + err.Error())
 			}
 
-			return
+			continue
 		}
 
 		pins := [4]pico.GpPin{
