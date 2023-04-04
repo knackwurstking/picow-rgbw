@@ -1,0 +1,9 @@
+[Unit]
+Description=picow-rgbw web server
+After=network.target
+
+[Service]
+ExecStart=%h/.local/bin/picow-rgbw-web
+
+[Install]
+WantedBy=default.target

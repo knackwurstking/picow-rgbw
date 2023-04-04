@@ -1,0 +1,17 @@
+{
+    "http": true,
+    "debug": true,
+    "pico-handler": {
+        "devices": [
+            {
+                "Addr": "192.168.178.50:80",
+                "rgbw": [
+                    { "nr": 0, "duty": 0 },
+                    { "nr": 1, "duty": 0 },
+                    { "nr": 2, "duty": 0 },
+                    { "nr": 3, "duty": 0 }
+                ]
+            }
+        ]
+    }
+}
