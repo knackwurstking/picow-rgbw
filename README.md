@@ -43,6 +43,8 @@ curl http://localhost:50833/api/v1/devices
 
 Example Response
 
+<a id="devices-list"></a>
+
 ```json
 [
   {
@@ -63,7 +65,27 @@ TODO: example request (and response) with curl
 
 ### **GET** _"/api/v1/devices/:id"_
 
-TODO: example request (and response) with curl
+Get pico device and data per id ([device index from devices list](#devices-list))
+
+Example Request
+
+```bash
+curl http://localhost:50833/api/v1/devices/0
+```
+
+Example Response
+
+```json
+{
+  "addr": "192.168.178.50:80",
+  "rgbw": [
+    { "nr": 0, "duty": 0 },
+    { "nr": 1, "duty": 0 },
+    { "nr": 2, "duty": 0 },
+    { "nr": 3, "duty": 0 }
+  ]
+}
+```
 
 ### **GET** _"/api/v1/events/device-update"_
 
