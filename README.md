@@ -20,7 +20,7 @@ TODO: find a better way for this
 | GET    | `/api/v1/devices/:id`          | _get device per :id_             |
 | SSE    | `/api/v1/events/device-update` | _sse event: device data changed_ |
 
-## Response Data (`/api/v1/device/:id`)
+Response Data (`/api/v1/device/:id`)
 
 > package: [pico](internal/api/v1/pico/pico.go)
 
