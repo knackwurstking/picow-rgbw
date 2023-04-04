@@ -105,3 +105,6 @@ Example Response
   - [ ] script: "build"
   - [ ] script: "install" (no root) (copy empty a basic config.json file
         if not exists)
+- [ ] Add `Offline` field to `pico.Device` (disable device on the frontend)
+- [ ] frontend: scan and refresh devices (icon) hutton
+- [ ] frontend: display the current color for each device
