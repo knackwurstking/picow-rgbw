@@ -74,12 +74,20 @@
                     on:change={(ev) => {
                         switch (ev.detail.state) {
                             case "set":
-                                // TODO: put device to ReqPutDevices
-                                console.log("set led...");
+                                Api.putDevices(
+                                    ...selected.map(d => ({
+                                        addr: d.addr,
+                                        rgbw: d.rgbw.map(c => c.duty),
+                                    })),
+                                );
                                 break;
                             case "off":
-                                // TODO: put device to ReqPutDevices
-                                console.log("turn off led...");
+                                Api.putDevices(
+                                    ...selected.map(d => ({
+                                        addr: d.addr,
+                                        rgbw: [0, 0, 0, 0],
+                                    })),
+                                );
                                 break;
                         }
                     }}
