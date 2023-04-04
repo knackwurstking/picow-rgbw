@@ -1,11 +1,11 @@
 # picow-rgbw-web
 
 <!--toc:start-->
-
 - [picow-rgbw-web](#picow-rgbw-web)
   - [Api v1 Routing Table](#api-v1-routing-table)
+    - [Quick Overview for Request and Response (Body)](#quick-overview-for-request-and-response-body)
   - [TODOs](#todos)
-  <!--toc:end-->
+<!--toc:end-->
 
 Web server for controlling all [picow-rgbw](https://github.com/knackwurstking/picow-rgbw.git) driven devices.
 
