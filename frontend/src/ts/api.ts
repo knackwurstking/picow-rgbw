@@ -11,8 +11,6 @@ export interface Device {
     rgbw: Gp[];
 }
 
-export type ReqPutDevices = ReqPutDevice[]
-
 export interface ReqPutDevice {
     addr: string;
     rgbw: Duty[]
@@ -63,7 +61,7 @@ export class Api {
         return await resp.json() as Device[]
     }
 
-    async updateDevices(data: ReqPutDevices[]): Promise<void> {
+    async updateDevices(...data: ReqPutDevice[]): Promise<void> {
         const url = this.url("updateDevices");
         const resp = await fetch(url, {
             method: "PUT",
