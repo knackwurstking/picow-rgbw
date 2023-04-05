@@ -9,7 +9,6 @@
     import Api, { type Device } from "../ts/api";
 
     let selected: Device[] = [];
-    $: console.log("selected:", selected);
 
     let devices: Device[] = [];
     $: {
