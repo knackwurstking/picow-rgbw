@@ -108,3 +108,4 @@ Example Response
 - [ ] Add `Offline` field to `pico.Device` (disable device on the frontend)
 - [ ] frontend: scan and refresh devices (icon) hutton
 - [ ] frontend: display the current color for each device
+- [ ] update ctrl container to always show the color for the last device in `selected`
