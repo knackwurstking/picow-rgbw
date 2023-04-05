@@ -12,13 +12,13 @@
 
     let devices: Device[] = [];
     $: {
-        const newSelected = []
+        const newSelected = [];
         for (const s of selected) {
-            if (!!devices.find(d => d.addr === s.addr)) {
-                newSelected.push(s)
+            if (!!devices.find((d) => d.addr === s.addr)) {
+                newSelected.push(s);
             }
         }
-        selected = newSelected
+        selected = newSelected;
     }
 
     let r: number = 100;
@@ -36,25 +36,39 @@
 </svelte:head>
 
 <div class="devices container">
-
     <section class="list">
         <fieldset>
             <legend>Devices</legend>
             <div class="content list">
-                {#each devices as device }
+                {#each devices as device}
                     <CheckLabel
-                        checked={!!selected.find(sd => sd.addr === device.addr)}
+                        checked={!!selected.find(
+                            (sd) => sd.addr === device.addr
+                        )}
                         label={device.addr}
                         on:change={() => {
-                            if (!!selected.find(d => d === device)) {
+                            if (!!selected.find((d) => d === device)) {
                                 // remove device from selected
-                                selected = selected.filter(d => d != device);
+                                selected = selected.filter((d) => d != device);
                             } else {
-                                console.log(device);
-                                if (!!device.rgbw.find(d => d.duty > 0)) {
-                                    [r, g, b, w] = device.rgbw.map(d => d.duty);
-                                }
                                 selected = [...selected, device];
+                            }
+
+                            if (!selected.length) {
+                                [r, g, b, w] = [100, 100, 100, 100];
+                            } else {
+                                if (
+                                    selected.find(
+                                        (device) =>
+                                            !!device.rgbw.find(
+                                                (gp) => gp.duty > 0
+                                            )
+                                    )
+                                ) {
+                                    [r, g, b, w] = selected[
+                                        selected.length - 1
+                                    ].rgbw.map((d) => d.duty);
+                                }
                             }
                         }}
                     />
@@ -67,12 +81,7 @@
         <fieldset>
             <legend>Control</legend>
             <div class="content">
-                <ColorPicker
-                    bind:r={r}
-                    bind:g={g}
-                    bind:b={b}
-                    bind:w={w}
-                />
+                <ColorPicker bind:r bind:g bind:b bind:w />
             </div>
             <div class="bottom">
                 <PowerToggle
@@ -80,18 +89,18 @@
                         switch (ev.detail.state) {
                             case "set":
                                 await Api.putDevices(
-                                    ...selected.map(d => ({
+                                    ...selected.map((d) => ({
                                         addr: d.addr,
                                         rgbw: [r, g, b, w],
-                                    })),
+                                    }))
                                 );
                                 break;
                             case "off":
                                 await Api.putDevices(
-                                    ...selected.map(d => ({
+                                    ...selected.map((d) => ({
                                         addr: d.addr,
                                         rgbw: [0, 0, 0, 0],
-                                    })),
+                                    }))
                                 );
                                 break;
                         }
@@ -100,7 +109,6 @@
             </div>
         </fieldset>
     </section>
-
 </div>
 
 <style>
