@@ -93,7 +93,7 @@
                         height: 90%;
                     "
                     on:click={async () => {
-                        // TODO: refresh devices list
+                        devices = await Api.devices();
                     }}>Refresh</Button
                 >
                 <PowerToggle
