@@ -135,7 +135,7 @@
 
     /* default: mobile (portrait) */
 
-    @media (min-width: 1025px) {
+    @media (min-width: 769px) {
         div.devices.container {
             flex-direction: row;
         }
