@@ -1,10 +1,10 @@
 <script lang="ts">
     import { onMount } from "svelte";
 
+    import Button from "../components/Button.svelte";
     import CheckLabel from "../components/CheckLabel.svelte";
     import ColorPicker from "../components/ColorPicker.svelte";
     import PowerToggle from "../components/PowerToggle.svelte";
-    import Button from "../components/Button.svelte";
 
     import Api, { type Device } from "../ts/api";
 
