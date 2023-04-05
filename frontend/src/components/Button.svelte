@@ -5,8 +5,8 @@
 </script>
 
 <button
+    {...$$props}
     on:click={() => dispatch("click")}
-    {...$$restProps}
 ><slot></slot></button>
 
 <style>
