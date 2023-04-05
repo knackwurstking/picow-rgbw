@@ -84,6 +84,7 @@
                 <ColorPicker bind:r bind:g bind:b bind:w />
             </div>
             <div class="bottom">
+                <!-- TODO: adding reload/refresh/re-scan devices button? -->
                 <PowerToggle
                     on:change={async (ev) => {
                         switch (ev.detail.state) {
@@ -158,7 +159,6 @@
         height: calc(100% - 32px);
     }
 
-    /* TODO: remove scroll bar */
     div.devices.container > section.list > fieldset > div.content.list {
         display: flex;
         flex-direction: column;
@@ -171,6 +171,7 @@
 
     div.devices.container > section.ctrl > fieldset {
         margin: 16px;
+        padding-bottom: 0;
         height: calc(100% - 32px);
         border-color: var(--theme-border);
     }
