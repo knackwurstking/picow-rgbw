@@ -1,9 +1,14 @@
 package pico
 
+import (
+	"net/url"
+)
+
 // Device
 type Device struct {
-	Addr string `json:"addr"` // Addr contains the ip and port <ip>:<port>
-	RGBW [4]*Gp `json:"rgbw"` // RGBW holds all pins in use
+	Addr    string `json:"addr"`    // Addr contains the ip and port <ip>:<port>
+	Offline bool   `json:"offline"` // Offline
+	RGBW    [4]*Gp `json:"rgbw"`    // RGBW holds all pins in use
 }
 
 // NewDevice
@@ -18,6 +23,10 @@ func NewDevice(addr string, rgbw [4]*Gp) *Device {
 func (d *Device) GetDuty() error {
 	duty, err := GetDuty(d.Addr)
 	if err != nil {
+		if d.isUrlError(err) {
+			d.Offline = true
+		}
+
 		return err
 	}
 
@@ -35,6 +44,7 @@ func (d *Device) GetDuty() error {
 		}
 	}
 
+	d.Offline = false
 	return nil
 }
 
@@ -42,6 +52,10 @@ func (d *Device) GetDuty() error {
 func (d *Device) GetPins() error {
 	pins, err := GetPins(d.Addr)
 	if err != nil {
+		if d.isUrlError(err) {
+			d.Offline = true
+		}
+
 		return err
 	}
 
@@ -53,6 +67,7 @@ func (d *Device) GetPins() error {
 		}
 	}
 
+	d.Offline = false
 	return nil
 }
 
@@ -64,6 +79,13 @@ func (d *Device) SetDuty(duty [4]Duty) error {
 			gp.Duty = duty[i]
 		}
 	}
+
+	if d.isUrlError(err) {
+		d.Offline = true
+	} else {
+		d.Offline = false
+	}
+
 	return err
 }
 
@@ -75,5 +97,21 @@ func (d *Device) SetPins(pins [4]GpPin) error {
 			gp.Nr = pins[i]
 		}
 	}
+
+	if d.isUrlError(err) {
+		d.Offline = true
+	} else {
+		d.Offline = false
+	}
+
 	return err
+}
+
+func (d *Device) isUrlError(err error) bool {
+	switch err.(type) {
+	case *url.Error:
+		return true
+	}
+
+	return false
 }
