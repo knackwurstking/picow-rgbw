@@ -1,56 +1,51 @@
 <script lang="ts" <>
     import { createEventDispatcher } from "svelte";
 
+    import Button from "./Button.svelte";
+
     const dispatch = createEventDispatcher();
 </script>
 
-<div class="container">
-    <button class="off" on:click={() => dispatch("change", { state: "off" })}
-        >OFF</button
-    >
-    <button class="set" on:click={() => dispatch("change", { state: "set" })}
-        >SET</button
-    >
+<div class="container"
+    {...$$restProps}
+>
+    <Button
+        style="
+            width: 40%;
+            height: 100%;
+            max-width: 100px;
+        "
+        class="off"
+        on:click={() => dispatch("change", { state: "off" })}
+    ><span class="off">OFF</span></Button>
+    <Button
+        style="
+            width: 40%;
+            height: 100%;
+            max-width: 100px;
+        "
+        class="set"
+        on:click={() => dispatch("change", { state: "set" })}
+    ><span class="set">SET<span></Button>
 </div>
 
 <style>
     div.container {
-        width: 100%;
-        height: 100%;
         display: flex;
         justify-content: space-evenly;
         align-items: center;
     }
 
-    div.container button {
-        height: 90%;
-        width: 40%;
-        max-width: 100px;
-        background-color: var(--theme-surface);
+    div.container span {
         font-size: 1.5rem;
         font-weight: bolder;
-        border-color: var(--theme-border);
-        color: var(--theme-on-surface);
-        transition: transform 0.1s ease, background-color 0.1 ease;
     }
 
-    div.container button:hover {
-        background-color: var(--theme-primary--hover);
-    }
-
-    div.container button:active {
-        background-color: var(--theme-primary--focus);
-    }
-
-    div.container button.off {
+    div.container span.off {
         text-shadow: 0 0 0.25rem red;
     }
 
-    div.container button.set {
+    div.container span.set {
         text-shadow: 0 0 0.35rem green;
-    }
-
-    div.container button:active {
-        transform: scale(0.99);
     }
 </style>

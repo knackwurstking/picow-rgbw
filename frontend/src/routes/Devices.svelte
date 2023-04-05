@@ -4,6 +4,7 @@
     import CheckLabel from "../components/CheckLabel.svelte";
     import ColorPicker from "../components/ColorPicker.svelte";
     import PowerToggle from "../components/PowerToggle.svelte";
+    import Button from "../components/Button.svelte";
 
     import Api, { type Device } from "../ts/api";
 
@@ -84,8 +85,22 @@
                 <ColorPicker bind:r bind:g bind:b bind:w />
             </div>
             <div class="bottom">
-                <!-- TODO: adding reload/refresh/re-scan devices button? -->
+                <!-- TODO: replace refresh button with an icon type button? -->
+                <Button
+                    style="
+                        width: 30%;
+                        max-width: 90px;
+                        height: 90%;
+                    "
+                    on:click={async () => {
+                        // TODO: refresh devices list
+                    }}>Refresh</Button
+                >
                 <PowerToggle
+                    style="
+                        width: 60%;
+                        height: 100%;
+                    "
                     on:change={async (ev) => {
                         switch (ev.detail.state) {
                             case "set":
@@ -187,6 +202,9 @@
     }
 
     div.devices.container > section.ctrl fieldset div.bottom {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
         width: calc(100% - 16px);
         height: 64px;
         bottom: 0;
