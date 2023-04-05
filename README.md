@@ -109,4 +109,4 @@ Example Response
 - [ ] frontend: scan and refresh devices (icon) hutton
 - [ ] frontend: display the current color for each device
 - [x] update ctrl container to always show the color for the last device in `selected`
-- [ ] Fix small screen controls (frontend)
+- [ ] ~fix small screen controls (frontend)~
