@@ -5,9 +5,11 @@
 
     export let checked: boolean = false;
     export let label: string = "";
+    export let offline: boolean = false;
 </script>
 
 <label class:checked><input
+    disabled={offline}
     type="checkbox"
     checked={checked}
     on:change={() => dispatch("change", { checked: checked })}

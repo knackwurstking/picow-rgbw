@@ -8,6 +8,7 @@ export interface Gp {
 
 export interface Device {
     addr: string;
+    offline: boolean;
     rgbw: Gp[];
 }
 

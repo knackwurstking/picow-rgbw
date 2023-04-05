@@ -45,6 +45,7 @@
                         checked={!!selected.find(
                             (sd) => sd.addr === device.addr
                         )}
+                        offline={device.offline}
                         label={device.addr}
                         on:change={() => {
                             if (!!selected.find((d) => d === device)) {
