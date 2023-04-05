@@ -45,11 +45,11 @@
     }
 
     input[type="range"]::-moz-range-progress {
-      background-color: var(--theme-primary); 
+        background-color: var(--theme-primary);
     }
 
-    input[type="range"]::-moz-range-track {  
-      background-color: var(--theme-secondary);
+    input[type="range"]::-moz-range-track {
+        background-color: var(--theme-secondary);
     }
 
     div.input {

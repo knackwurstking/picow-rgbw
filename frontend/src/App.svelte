@@ -13,13 +13,11 @@
 
 <svelte:head>
     <!-- SMUI Light Theme -->
-    <link rel="stylesheet"
-        href="/theme.css"
-    />
+    <link rel="stylesheet" href="/theme.css" />
     <title>Pico Web | Home</title>
 </svelte:head>
 
-<Router url="{url}">
+<Router {url}>
     <div class="content">
         <!-- TODO: adding route for "login" -->
         <Route path="/devices"><Devices /></Route>

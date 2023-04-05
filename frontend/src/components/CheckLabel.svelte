@@ -8,12 +8,14 @@
     export let offline: boolean = false;
 </script>
 
-<label class:checked><input
-    disabled={offline}
-    type="checkbox"
-    checked={checked}
-    on:change={() => dispatch("change", { checked: checked })}
-/>{label}</label>
+<label class:checked
+    ><input
+        disabled={offline}
+        type="checkbox"
+        {checked}
+        on:change={() => dispatch("change", { checked: checked })}
+    />{label}</label
+>
 
 <style>
     label {

@@ -42,9 +42,8 @@
             <div class="content list">
                 {#each devices as device}
                     <CheckLabel
-                        checked={!device.offline && !!selected.find(
-                            (sd) => sd.addr === device.addr
-                        )}
+                        checked={!device.offline &&
+                            !!selected.find((sd) => sd.addr === device.addr)}
                         offline={device.offline}
                         label={device.addr}
                         on:change={() => {

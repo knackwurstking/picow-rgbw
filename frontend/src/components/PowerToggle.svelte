@@ -1,18 +1,16 @@
-<script lang="ts"<>
+<script lang="ts" <>
     import { createEventDispatcher } from "svelte";
 
     const dispatch = createEventDispatcher();
 </script>
 
 <div class="container">
-    <button
-        class="off"
-        on:click={() => dispatch("change", { state: "off" })}
-    >OFF</button>
-    <button
-        class="set"
-        on:click={() => dispatch("change", { state: "set" })}
-    >SET</button>
+    <button class="off" on:click={() => dispatch("change", { state: "off" })}
+        >OFF</button
+    >
+    <button class="set" on:click={() => dispatch("change", { state: "set" })}
+        >SET</button
+    >
 </div>
 
 <style>
@@ -48,7 +46,7 @@
         text-shadow: 0 0 0.25rem red;
     }
 
-    div.container button.set{
+    div.container button.set {
         text-shadow: 0 0 0.35rem green;
     }
 
