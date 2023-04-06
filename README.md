@@ -9,6 +9,7 @@
     - [**POST** _"/api/v1/devices"_](#post-apiv1devices)
     - [**GET** _"/api/v1/devices/:id"_](#get-apiv1devicesid)
     - [**GET** _"/api/v1/events/device-update"_](#get-apiv1eventsdevice-update)
+    - [**POST** _"/api/v1/pico"_](#post-apiv1pico)
   - [TODOs](#todos)
   <!--toc:end-->
 
@@ -24,7 +25,7 @@ TODO: find a better way for this
 | POST   | [`/api/v1/devices`](#post-apiv1devices)                         |
 | GET    | [`/api/v1/devices/:id`](#get-apiv1devicesid)                    |
 | SSE    | [`/api/v1/events/device-update`](#get-apiv1eventsdevice-update) |
-| POST   | [`/api/v1/pico`]()                                              |
+| POST   | [`/api/v1/pico`](#post-apiv1pico)                               |
 
 ## Api V1
 
