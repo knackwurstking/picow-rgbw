@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"net/url"
 	"strconv"
 	"strings"
 )
@@ -103,4 +104,13 @@ func SetPins(addr string, pins [4]GpPin) (err error) {
 	}
 
 	return nil
+}
+
+func IsUrlError(err error) bool {
+	switch err.(type) {
+	case *url.Error:
+		return true
+	}
+
+	return false
 }
