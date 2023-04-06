@@ -9,19 +9,19 @@ import (
 	"github.com/knackwurstking/picow-rgbw-web/pkg/api/v1/pico"
 )
 
-type Pico struct {
+type PicoW struct {
 	prefix string
 	ctx    context.Context
 }
 
-func NewPico(prefixPath string, ctx context.Context) http.Handler {
-	return &Pico{
+func NewPicoW(prefixPath string, ctx context.Context) http.Handler {
+	return &PicoW{
 		prefix: prefixPath,
 		ctx:    ctx,
 	}
 }
 
-func (p *Pico) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (p *PicoW) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case http.MethodPost:
 		p.postPico(w, r)
@@ -30,7 +30,7 @@ func (p *Pico) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func (p *Pico) postPico(w http.ResponseWriter, r *http.Request) {
+func (p *PicoW) postPico(w http.ResponseWriter, r *http.Request) {
 	if !hasJSONContent(w, r) {
 		return
 	}

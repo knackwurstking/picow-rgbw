@@ -1,7 +1,6 @@
 # picow-rgbw-web
 
 <!--toc:start-->
-
 - [picow-rgbw-web](#picow-rgbw-web)
   - [Api v1 Routing Table](#api-v1-routing-table)
   - [Api V1](#api-v1)
@@ -9,9 +8,9 @@
     - [**POST** _"/api/v1/devices"_](#post-apiv1devices)
     - [**GET** _"/api/v1/devices/:id"_](#get-apiv1devicesid)
     - [**GET** _"/api/v1/events/device-update"_](#get-apiv1eventsdevice-update)
-    - [**POST** _"/api/v1/pico"_](#post-apiv1pico)
+    - [**POST** _"/api/v1/picow"_](#post-apiv1picow)
   - [TODOs](#todos)
-  <!--toc:end-->
+<!--toc:end-->
 
 Web server for controlling all [picow-rgbw](https://github.com/knackwurstking/picow-rgbw.git) driven devices.
 
@@ -25,7 +24,7 @@ TODO: find a better way for this
 | POST   | [`/api/v1/devices`](#post-apiv1devices)                         |
 | GET    | [`/api/v1/devices/:id`](#get-apiv1devicesid)                    |
 | SSE    | [`/api/v1/events/device-update`](#get-apiv1eventsdevice-update) |
-| POST   | [`/api/v1/pico`](#post-apiv1pico)                               |
+| POST   | [`/api/v1/picow`](#post-apiv1picow)                               |
 
 ## Api V1
 
@@ -102,14 +101,14 @@ Example Response
 
 > work in progress
 
-### **POST** _"/api/v1/pico"_
+### **POST** _"/api/v1/picow"_
 
 This will wait for new picow devices and updates the pico devices handler
 
 Example Request: _(Only picow devices will send requests here)_
 
 ```bash
-curl -X POST http://localhost:50833/api/v1/pico\
+curl -X POST http://localhost:50833/api/v1/picow\
   -H "Content-Type: application/json"\
   -d '{"addr": "192.168.178.50:80", "rgbw": [{"nr": 0, "duty": 0}, {"nr": 1, "duty": 0}, {"nr": 2, "duty": 0}, {"nr": 3, "duty": 0}]}}'
 ```
