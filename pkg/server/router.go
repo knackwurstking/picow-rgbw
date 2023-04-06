@@ -41,6 +41,14 @@ func NewRegExHandler(ctx context.Context) http.Handler {
 				middlewareHandlers...,
 			),
 		})
+
+		mux.Routes = append(mux.Routes, &Route{
+			Pattern: regexp.MustCompile(group + "/pico"),
+			Handler: AddMiddlewareToHandler(
+				api.NewPico(group+"/pico", ctx),
+				middlewareHandlers...,
+			),
+		})
 	}
 
 	{ // File Server
