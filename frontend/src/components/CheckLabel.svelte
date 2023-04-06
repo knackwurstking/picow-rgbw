@@ -19,6 +19,9 @@
     />
     {label}
     <StatusLED
+        style="
+            float: right;
+        "
         active={!offline}
     />
 </label>
