@@ -121,7 +121,7 @@ curl -X POST http://localhost:50833/api/v1/pico\
         if not exists)
 - [x] Add `Offline` field to `pico.Device` (disable device on the frontend)
 - [x] ~Frontend: scan and refresh devices (icon) hutton~
-  - [ ] Scan method (`pico.Handler.Scan` or `pico.Device.Scan`?) still missing
+- [ ] Scan method (`pico.Handler.Scan` or `pico.Device.Scan`?) still missing
 - [ ] Frontend: display the current color for each device
 - [x] Update ctrl container to always show the color for the last device in `selected`
 - [ ] ~Fix small screen controls (frontend)~
