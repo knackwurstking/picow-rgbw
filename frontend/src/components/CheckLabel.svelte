@@ -8,14 +8,17 @@
     export let offline: boolean = false;
 </script>
 
-<label class:checked
-    ><input
+<label class:checked>
+    <input
         disabled={offline}
         type="checkbox"
         {checked}
         on:change={() => dispatch("change", { checked: checked })}
-    />{label}</label
->
+    />
+    {label}
+    <!-- TODO: Add a status LED showing if a device is online or offline
+               (simple green/red pulse, right position, center) -->
+</label>
 
 <style>
     label {
