@@ -18,8 +18,6 @@
         on:change={() => dispatch("change", { checked: checked })}
     />
     {label}
-    <!-- TODO: Add a status LED showing if a device is online or offline
-               (simple green/red pulse, right position, center) -->
     <StatusLED
         active={!offline}
     />
