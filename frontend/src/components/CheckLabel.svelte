@@ -1,6 +1,8 @@
 <script lang="ts">
     import { createEventDispatcher } from "svelte";
 
+    import StatusLED from "./StatusLED.svelte";
+
     const dispatch = createEventDispatcher();
 
     export let checked: boolean = false;
@@ -18,6 +20,9 @@
     {label}
     <!-- TODO: Add a status LED showing if a device is online or offline
                (simple green/red pulse, right position, center) -->
+    <StatusLED
+        active={!offline}
+    />
 </label>
 
 <style>
