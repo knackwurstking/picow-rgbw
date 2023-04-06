@@ -106,7 +106,7 @@ Example Response
   - [ ] script: "install" (no root) (copy empty a basic config.json file
         if not exists)
 - [x] Add `Offline` field to `pico.Device` (disable device on the frontend)
-- [x] frontend: scan and refresh devices ~(icon)~ hutton
+- [x] ~frontend: scan and refresh devices (icon) hutton~
   - [ ] scan method (`pico.Handler.Scan` or `pico.Device.Scan`?) still missing
 - [ ] frontend: display the current color for each device
 - [x] update ctrl container to always show the color for the last device in `selected`
