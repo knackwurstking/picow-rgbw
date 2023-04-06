@@ -64,7 +64,7 @@ func (p *PicoW) postPico(w http.ResponseWriter, r *http.Request) {
 		_ = device.GetDuty()
 
 		if update {
-			handler.Devices = append(handler.Devices, device)
+			handler.Add(device)
 		}
 	}()
 
