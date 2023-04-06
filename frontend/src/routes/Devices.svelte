@@ -1,7 +1,6 @@
 <script lang="ts">
     import { onMount } from "svelte";
 
-    import Button from "../components/Button.svelte";
     import CheckLabel from "../components/CheckLabel.svelte";
     import ColorPicker from "../components/ColorPicker.svelte";
     import PowerToggle from "../components/PowerToggle.svelte";
@@ -84,20 +83,9 @@
                 <ColorPicker bind:r bind:g bind:b bind:w />
             </div>
             <div class="bottom">
-                <!-- TODO: replace refresh button with an icon type button? -->
-                <Button
-                    style="
-                        width: 30%;
-                        max-width: 90px;
-                        height: 90%;
-                    "
-                    on:click={async () => {
-                        devices = await Api.devices();
-                    }}>Refresh</Button
-                >
                 <PowerToggle
                     style="
-                        width: 60%;
+                        width: 100%;
                         height: 100%;
                     "
                     on:change={async (ev) => {
