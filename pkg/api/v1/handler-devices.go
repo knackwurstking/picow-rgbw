@@ -7,7 +7,6 @@ import (
 	"net/http"
 	"regexp"
 	"strconv"
-	"strings"
 
 	"github.com/gookit/slog"
 )
@@ -51,15 +50,12 @@ func (d *Devices) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 func (d *Devices) devices(w http.ResponseWriter, r *http.Request) {
-	p, err := getPicoHandlerFromCtx(d.ctx)
-	if err != nil {
-		http.Error(w, http.StatusText(http.StatusInternalServerError),
-			http.StatusInternalServerError)
+	handler, ok := getHandler(w, d.ctx)
+	if !ok {
 		return
 	}
 
-	err = json.NewEncoder(w).Encode(p.Devices)
-	if err != nil {
+	if err := json.NewEncoder(w).Encode(handler.Devices); err != nil {
 		slog.Error(err.Error())
 		http.Error(w, http.StatusText(http.StatusInternalServerError),
 			http.StatusInternalServerError)
@@ -71,16 +67,14 @@ func (d *Devices) devices(w http.ResponseWriter, r *http.Request) {
 }
 
 func (d *Devices) device(w http.ResponseWriter, r *http.Request, id int) {
-	p, err := getPicoHandlerFromCtx(d.ctx)
-	if err != nil {
-		http.Error(w, http.StatusText(http.StatusInternalServerError),
-			http.StatusInternalServerError)
+	handler, ok := getHandler(w, d.ctx)
+	if !ok {
 		return
 	}
 
-	for i, device := range p.Devices {
+	for i, device := range handler.Devices {
 		if i == id {
-			if err = json.NewEncoder(w).Encode(device); err != nil {
+			if err := json.NewEncoder(w).Encode(device); err != nil {
 				slog.Error(err.Error())
 				http.Error(w, http.StatusText(http.StatusInternalServerError),
 					http.StatusInternalServerError)
@@ -97,18 +91,12 @@ func (d *Devices) device(w http.ResponseWriter, r *http.Request, id int) {
 }
 
 func (d *Devices) putDevices(w http.ResponseWriter, r *http.Request) {
-	// check for content type (json)
-	if !strings.HasPrefix(r.Header.Get("Content-Type"), "application/json") {
-		http.Error(w, http.StatusText(http.StatusBadRequest),
-			http.StatusBadRequest)
+	if !hasJSONContent(w, r) {
 		return
 	}
 
-	// get *pico.Handler from context
-	p, err := getPicoHandlerFromCtx(d.ctx)
-	if err != nil {
-		http.Error(w, http.StatusText(http.StatusInternalServerError),
-			http.StatusInternalServerError)
+	handler, ok := getHandler(w, d.ctx)
+	if !ok {
 		return
 	}
 
@@ -133,7 +121,7 @@ func (d *Devices) putDevices(w http.ResponseWriter, r *http.Request) {
 				doneCh <- struct{}{}
 			}()
 
-			device := p.Get(rd.Addr)
+			device := handler.Get(rd.Addr)
 			if device == nil {
 				http.Error(w, http.StatusText(http.StatusBadRequest),
 					http.StatusBadRequest)

@@ -4,7 +4,6 @@ import (
 	"context"
 	"encoding/json"
 	"net/http"
-	"strings"
 
 	"github.com/gookit/slog"
 	"github.com/knackwurstking/picow-rgbw-web/pkg/api/v1/pico"
@@ -25,7 +24,6 @@ func NewPico(prefixPath string, ctx context.Context) http.Handler {
 func (p *Pico) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case http.MethodPost:
-		// TODO: see README
 		p.postPico(w, r)
 	default:
 		http.NotFound(w, r)
@@ -33,16 +31,12 @@ func (p *Pico) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 func (p *Pico) postPico(w http.ResponseWriter, r *http.Request) {
-	if !strings.HasPrefix(r.Header.Get("Content-Type"), "application/json") {
-		http.Error(w, http.StatusText(http.StatusBadRequest),
-			http.StatusBadRequest)
+	if !hasJSONContent(w, r) {
 		return
 	}
 
-	handler, err := getPicoHandlerFromCtx(p.ctx)
-	if err != nil {
-		http.Error(w, http.StatusText(http.StatusInternalServerError),
-			http.StatusInternalServerError)
+	handler, ok := getHandler(w, p.ctx)
+	if !ok {
 		return
 	}
 
