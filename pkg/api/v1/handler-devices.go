@@ -51,7 +51,7 @@ func (d *Devices) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 func (d *Devices) devices(w http.ResponseWriter, r *http.Request) {
-	p, err := getPicoFromCtx(d.ctx)
+	p, err := getPicoHandlerFromCtx(d.ctx)
 	if err != nil {
 		http.Error(w, http.StatusText(http.StatusInternalServerError),
 			http.StatusInternalServerError)
@@ -71,7 +71,7 @@ func (d *Devices) devices(w http.ResponseWriter, r *http.Request) {
 }
 
 func (d *Devices) device(w http.ResponseWriter, r *http.Request, id int) {
-	p, err := getPicoFromCtx(d.ctx)
+	p, err := getPicoHandlerFromCtx(d.ctx)
 	if err != nil {
 		http.Error(w, http.StatusText(http.StatusInternalServerError),
 			http.StatusInternalServerError)
@@ -105,7 +105,7 @@ func (d *Devices) putDevices(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// get *pico.Handler from context
-	p, err := getPicoFromCtx(d.ctx)
+	p, err := getPicoHandlerFromCtx(d.ctx)
 	if err != nil {
 		http.Error(w, http.StatusText(http.StatusInternalServerError),
 			http.StatusInternalServerError)
