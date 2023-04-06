@@ -103,7 +103,7 @@
                     on:change={async (ev) => {
                         switch (ev.detail.state) {
                             case "set":
-                                await Api.putDevices(
+                                await Api.postDevices(
                                     ...selected.map((d) => ({
                                         addr: d.addr,
                                         rgbw: [r, g, b, w],
@@ -111,7 +111,7 @@
                                 );
                                 break;
                             case "off":
-                                await Api.putDevices(
+                                await Api.postDevices(
                                     ...selected.map((d) => ({
                                         addr: d.addr,
                                         rgbw: [0, 0, 0, 0],

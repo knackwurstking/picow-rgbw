@@ -5,7 +5,7 @@
   - [Api v1 Routing Table](#api-v1-routing-table)
   - [Api V1](#api-v1)
     - [**GET** _"/api/v1/devices"_](#get-apiv1devices)
-    - [**PUT** _"/api/v1/devices"_](#put-apiv1devices)
+    - [**POST** _"/api/v1/devices"_](#post-apiv1devices)
     - [**GET** _"/api/v1/devices/:id"_](#get-apiv1devicesid)
     - [**GET** _"/api/v1/events/device-update"_](#get-apiv1eventsdevice-update)
   - [TODOs](#todos)
@@ -20,7 +20,7 @@ TODO: find a better way for this
 | Method | Endpoint                                                        |
 | ------ | --------------------------------------------------------------- |
 | GET    | [`/api/v1/devices`](#get-apiv1devices)                          |
-| PUT    | [`/api/v1/devices`](#put-apiv1devices)                          |
+| POST   | [`/api/v1/devices`](#post-apiv1devices)                          |
 | GET    | [`/api/v1/devices/:id`](#get-apiv1devicesid)                    |
 | SSE    | [`/api/v1/events/device-update`](#get-apiv1eventsdevice-update) |
 
@@ -57,14 +57,14 @@ Example Response
 ]
 ```
 
-### **PUT** _"/api/v1/devices"_
+### **POST** _"/api/v1/devices"_
 
 Update device(s) duty for rgbw pins
 
 Example Request
 
 ```bash
-curl -X PUT http://localhost:50833/api/v1/devices \
+curl -X POST http://localhost:50833/api/v1/devices \
   -H 'Content-Type: application/json'\
   -d '[{ "addr": "192.168.178.50:80", "rgbw": [100,100,100,100] }]'
 ```

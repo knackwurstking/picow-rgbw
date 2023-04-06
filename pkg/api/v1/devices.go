@@ -32,7 +32,7 @@ func (d *Devices) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		switch r.Method {
 		case http.MethodGet:
 			d.devices(w, r)
-		case http.MethodPut:
+		case http.MethodPost:
 			d.putDevices(w, r)
 		default:
 			http.NotFound(w, r)
@@ -114,7 +114,7 @@ func (d *Devices) putDevices(w http.ResponseWriter, r *http.Request) {
 
 	// read body data
 	defer r.Body.Close()
-	var data []ReqPutDevice
+	var data []RequestPostDevice
 	if err := json.NewDecoder(r.Body).Decode(&data); err != nil {
 		http.Error(w, http.StatusText(http.StatusBadRequest),
 			http.StatusBadRequest)
@@ -128,7 +128,7 @@ func (d *Devices) putDevices(w http.ResponseWriter, r *http.Request) {
 
 	for _, reqDevice := range data {
 		doneCount += 1
-		go func(rd ReqPutDevice, statusCh chan int, doneCh chan struct{}) {
+		go func(rd RequestPostDevice, statusCh chan int, doneCh chan struct{}) {
 			defer func() {
 				doneCh <- struct{}{}
 			}()

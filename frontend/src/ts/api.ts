@@ -19,7 +19,7 @@ export interface ReqPutDevice {
 
 export interface ApiPathsV1 {
     devices: () => string;
-    putDevices: () => string;
+    postDevices: () => string;
     device: (id: string) => string;
 }
 
@@ -40,7 +40,7 @@ export class Api {
         this.paths = {
             v1: {
                 devices: () => "/api/v1/devices",
-                putDevices: () => "/api/v1/devices",
+                postDevices: () => "/api/v1/devices",
                 device: (id) => `/api/v1/devices/${id}`,
             },
         };
@@ -62,10 +62,10 @@ export class Api {
         return (await resp.json()) as Device[];
     }
 
-    async putDevices(...data: ReqPutDevice[]): Promise<void> {
-        const url = this.url("putDevices");
+    async postDevices(...data: ReqPutDevice[]): Promise<void> {
+        const url = this.url("postDevices");
         const resp = await fetch(url, {
-            method: "PUT",
+            method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data),
         });
