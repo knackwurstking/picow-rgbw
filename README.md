@@ -1,6 +1,7 @@
 # picow-rgbw-web
 
 <!--toc:start-->
+
 - [picow-rgbw-web](#picow-rgbw-web)
   - [Api v1 Routing Table](#api-v1-routing-table)
   - [Api V1](#api-v1)
@@ -10,7 +11,7 @@
     - [**GET** _"/api/v1/events/device-update"_](#get-apiv1eventsdevice-update)
     - [**POST** _"/api/v1/picow"_](#post-apiv1picow)
   - [TODOs](#todos)
-<!--toc:end-->
+  <!--toc:end-->
 
 Web server for controlling all [picow-rgbw](https://github.com/knackwurstking/picow-rgbw.git) driven devices.
 
@@ -24,7 +25,7 @@ TODO: find a better way for this
 | POST   | [`/api/v1/devices`](#post-apiv1devices)                         |
 | GET    | [`/api/v1/devices/:id`](#get-apiv1devicesid)                    |
 | SSE    | [`/api/v1/events/device-update`](#get-apiv1eventsdevice-update) |
-| POST   | [`/api/v1/picow`](#post-apiv1picow)                               |
+| POST   | [`/api/v1/picow`](#post-apiv1picow)                             |
 
 ## Api V1
 
