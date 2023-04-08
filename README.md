@@ -104,7 +104,8 @@ Example Response
 ### **POST** _"/api/v1/picow"_
 
 Register a new raspberry pico device on the web server to handle.
-(The picow-rgbw will do this automatically on startup if configured)
+(The [picow-rgbw](https://github.com/knackwurstking/picow-rgbw.git) will do
+this automatically on startup if configured)
 
 Example Request: _(Only picow devices will send requests here)_
 
