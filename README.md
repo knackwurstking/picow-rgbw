@@ -110,7 +110,7 @@ Example Request: _(Only picow devices will send requests here)_
 ```bash
 curl -X POST http://localhost:50833/api/v1/picow\
   -H "Content-Type: application/json"\
-  -d '{"addr": "192.168.178.50:80", "rgbw": [{"nr": 0, "duty": 0}, {"nr": 1, "duty": 0}, {"nr": 2, "duty": 0}, {"nr": 3, "duty": 0}]}}'
+  -d '{"addr": "192.168.178.50:80"}'
 ```
 
 ## TODOs
