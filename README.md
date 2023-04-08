@@ -103,7 +103,8 @@ Example Response
 
 ### **POST** _"/api/v1/picow"_
 
-This will wait for new picow devices and updates the pico devices handler
+Register a new raspberry pico device on the web server to handle.
+(The picow-rgbw will do this automatically on startup if configured)
 
 Example Request: _(Only picow devices will send requests here)_
 
