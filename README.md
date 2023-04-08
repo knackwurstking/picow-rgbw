@@ -75,7 +75,8 @@ No Response (http status 200 on success)
 
 ### **GET** _"/api/v1/devices/:id"_
 
-Get pico device and data per id ([device index from devices list](#devices-list))
+Get pico device and data per id (rgbw index)
+([device index from devices list](#devices-list))
 
 Example Request
 
