@@ -186,6 +186,8 @@
         width: calc(100% - 16px);
         height: calc(100% - 64px - 20px);
         margin-bottom: 0;
+        overflow: hidden;
+        overflow-y: auto;
     }
 
     div.devices.container > section.ctrl fieldset div.bottom {

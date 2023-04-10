@@ -30,6 +30,69 @@
 
 <style>
     div.container {
+        padding: 8px;
+    }
+
+    input[type="range"] {
+        background-color: transparent;
+        width: 100%;
+        margin: 8px 0;
+    }
+
+    div.input {
+        display: flex;
+    }
+
+    div.input input {
+        font-size: 1rem;
+        margin-top: 0px;
+    }
+
+    div.input label {
+        display: inline-block;
+        width: 1.5rem;
+        margin-top: -0.05rem;
+        margin-left: 4px;
+        text-align: center;
+        font-size: 1.25rem;
+        font-weight: bolder;
+    }
+
+    div.input code {
+        margin-top: 0.15rem;
+        font-size: 0.95rem;
+        width: 4ch;
+    }
+
+    /* Firefox */
+    input[type="range"]::-moz-range-thumb {
+        background-color: var(--theme-primary);
+        border-color: var(--theme-border);
+    }
+
+    input[type="range"]::-moz-range-track {
+        background-color: var(--theme-secondary);
+    }
+
+    input[type="range"]::-moz-range-progress {
+        background-color: var(--theme-primary);
+    }
+
+    /* TODO: Chrome styles */
+    input[type="range"]::-webkit-slider-thumb {}
+
+    input[type="range"]::-webkit-slider-runnable-track {}
+
+    /* NOTE: I do not care about microsoft
+
+    input[type="range"]::-ms-thumb {}
+
+    input[type="range"]::-ms-track {}
+
+    */
+</style>
+<!--style>
+    div.container {
         width: 100%;
         height: 100%;
         padding: 4px;
@@ -75,4 +138,4 @@
         font-size: 0.95rem;
         width: 4ch;
     }
-</style>
+</style-->
