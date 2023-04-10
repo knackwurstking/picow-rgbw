@@ -19,6 +19,7 @@
     "vite": "^4.2.0"
   },
   "dependencies": {
+    "svelte-material-icons": "^3.0.4",
     "svelte-routing": "^1.6.0"
   }
 }
