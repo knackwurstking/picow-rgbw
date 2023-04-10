@@ -165,8 +165,6 @@
     div.devices.container > section.list > fieldset > div.content.list {
         display: flex;
         flex-direction: column;
-        overflow: hidden;
-        overflow-y: auto;
         scroll-behavior: smooth;
         width: 100%;
         height: 100%;

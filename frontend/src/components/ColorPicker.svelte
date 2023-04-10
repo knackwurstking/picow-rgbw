@@ -6,53 +6,67 @@
 </script>
 
 <div class="container debug">
-    <div class="input debug">
-        <input name="r" type="range" min={0} max={100} bind:value={r} />
-        <label for="r">R</label>
-        <code>{r}</code>
+    <div class="inputs debug">
+        <div class="input debug">
+            <input name="r" type="range" min={0} max={100} bind:value={r} />
+            <label for="r">R</label>
+            <code>{r}</code>
+        </div>
+        <div class="input">
+            <input name="g" type="range" min={0} max={100} bind:value={g} />
+            <label for="g">G</label>
+            <code>{g}</code>
+        </div>
+        <div class="input">
+            <input name="b" type="range" min={0} max={100} bind:value={b} />
+            <label for="b">B</label>
+            <code>{b}</code>
+        </div>
+        <div class="input">
+            <input name="w" type="range" min={0} max={100} bind:value={w} />
+            <label for="w">W</label>
+            <code>{w}</code>
+        </div>
     </div>
-    <div class="input">
-        <input name="g" type="range" min={0} max={100} bind:value={g} />
-        <label for="g">G</label>
-        <code>{g}</code>
-    </div>
-    <div class="input">
-        <input name="b" type="range" min={0} max={100} bind:value={b} />
-        <label for="b">B</label>
-        <code>{b}</code>
-    </div>
-    <div class="input">
-        <input name="w" type="range" min={0} max={100} bind:value={w} />
-        <label for="w">W</label>
-        <code>{w}</code>
+    <div class="chain debug">
     </div>
 </div>
 
 <style>
-    div.container {
-        padding: 8px;
-        width: 100%;
-    }
-
     input[type="range"] {
         background-color: transparent;
         width: 100%;
         margin: 8px 0;
     }
 
+    div.container {
+        padding: 8px;
+        width: 100%;
+        display: flex;
+    }
+
+    div.container .inputs {
+        width: 100%;
+    }
+
+    div.container .chain {
+        width: 40px;
+        height: 100%;
+    }
+
     div.input {
         display: flex;
+        padding: 4px;
     }
 
     div.input input {
         font-size: 1rem;
-        margin-top: 0px;
     }
 
     div.input label {
         display: inline-block;
         width: 1.5rem;
-        margin-top: -0.05rem;
+        margin-top: 0.3rem;
         margin-left: 4px;
         text-align: center;
         font-size: 1.25rem;
@@ -60,7 +74,7 @@
     }
 
     div.input code {
-        margin-top: 0.15rem;
+        margin-top: 0.5rem;
         font-size: 0.95rem;
         width: 4ch;
     }
