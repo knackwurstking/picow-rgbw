@@ -10,9 +10,9 @@
     let chained = false;
 </script>
 
-<div class="container debug">
-    <div class="inputs debug">
-        <div class="input debug">
+<div class="container">
+    <div class="inputs">
+        <div class="input">
             <input name="r" type="range" min={0} max={100} bind:value={r} />
             <label for="r">R</label>
             <code>{r}</code>
@@ -33,7 +33,7 @@
             <code>{w}</code>
         </div>
     </div>
-    <div class="chain debug">
+    <div class="chain">
         <button on:click={() => (chained = !chained)}>
             {#if chained}
                 <LockOn
