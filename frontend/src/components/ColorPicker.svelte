@@ -13,22 +13,85 @@
 <div class="container">
     <div class="inputs">
         <div class="input">
-            <input name="r" type="range" min={0} max={100} bind:value={r} />
+            <input
+                name="r"
+                type="range"
+                min={0}
+                max={100}
+                value={r}
+                on:input={(ev) => {
+                    const newValue = parseInt(ev.target.value, 10)
+                    if (chained) {
+                        const diff = r - newValue
+                        if (
+                            (g < 0 || g > 100) &&
+                            (b < 0 || b > 100) &&
+                            (w < 0 || w > 100)
+                        ) {
+                            return
+                        }
+                        // TODO: need to handler min and max (0 - 100)
+                        r -= diff
+                        g -= diff
+                        b -= diff
+                        w -= diff
+                    } else {
+                        r = newValue
+                    }
+                }}
+            />
             <label for="r">R</label>
             <code>{r}</code>
         </div>
         <div class="input">
-            <input name="g" type="range" min={0} max={100} bind:value={g} />
+            <input
+                name="g"
+                type="range"
+                min={0}
+                max={100}
+                value={g}
+                on:change={(ev) => {
+                    const newValue = parseInt(ev.target.value, 10)
+                    if (chained) {
+                        const diff = g - newValue
+                        if (
+                            (r < 0 || r > 100) &&
+                            (b < 0 || b > 100) &&
+                            (w < 0 || w > 100)
+                        ) {
+                            return
+                        }
+                        r -= diff
+                        g -= diff
+                        b -= diff
+                        w -= diff
+                    } else {
+                        g = newValue
+                    }
+                }}
+            />
             <label for="g">G</label>
             <code>{g}</code>
         </div>
         <div class="input">
-            <input name="b" type="range" min={0} max={100} bind:value={b} />
+            <input
+                name="b"
+                type="range"
+                min={0}
+                max={100}
+                bind:value={b}
+            />
             <label for="b">B</label>
             <code>{b}</code>
         </div>
         <div class="input">
-            <input name="w" type="range" min={0} max={100} bind:value={w} />
+            <input
+                name="w"
+                type="range"
+                min={0}
+                max={100}
+                bind:value={w}
+            />
             <label for="w">W</label>
             <code>{w}</code>
         </div>
