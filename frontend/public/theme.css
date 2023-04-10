@@ -61,3 +61,7 @@ textarea:focus {
   border-color: var(--theme-primary);
   outline: none;
 }
+
+.debug {
+  border: 1px solid red;
+}

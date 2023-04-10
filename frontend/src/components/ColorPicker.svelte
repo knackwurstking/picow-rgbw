@@ -5,8 +5,8 @@
     export let w: number = 100;
 </script>
 
-<div class="container">
-    <div class="input">
+<div class="container debug">
+    <div class="input debug">
         <input name="r" type="range" min={0} max={100} bind:value={r} />
         <label for="r">R</label>
         <code>{r}</code>
