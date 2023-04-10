@@ -80,6 +80,7 @@
         <fieldset>
             <legend>Control</legend>
             <div class="content">
+                <div style="height: 100%;"></div>
                 <ColorPicker bind:r bind:g bind:b bind:w />
             </div>
             <div class="bottom">
@@ -188,6 +189,8 @@
         margin-bottom: 0;
         overflow: hidden;
         overflow-y: auto;
+        display: flex;
+        flex-direction: column;
     }
 
     div.devices.container > section.ctrl fieldset div.bottom {

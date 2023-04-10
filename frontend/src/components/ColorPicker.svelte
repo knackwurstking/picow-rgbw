@@ -31,6 +31,7 @@
 <style>
     div.container {
         padding: 8px;
+        width: 100%;
     }
 
     input[type="range"] {
