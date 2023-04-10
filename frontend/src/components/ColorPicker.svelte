@@ -1,8 +1,13 @@
 <script lang="ts">
-    export let r: number = 100;
-    export let g: number = 100;
-    export let b: number = 100;
-    export let w: number = 100;
+    import LockOn from "svelte-material-icons/Lock.svelte";
+    import LockOff from "svelte-material-icons/LockOff.svelte";
+
+    export let r = 100;
+    export let g = 100;
+    export let b = 100;
+    export let w = 100;
+
+    let chained = false;
 </script>
 
 <div class="container debug">
@@ -29,10 +34,27 @@
         </div>
     </div>
     <div class="chain debug">
+        <button on:click={() => (chained = !chained)}>
+            {#if chained}
+                <LockOn
+                    size={28}
+                />
+            {:else}
+                <LockOff
+                    size={28}
+                />
+            {/if}
+        </button>
     </div>
 </div>
 
 <style>
+    button {
+        background-color: transparent;
+        color: white;
+        border: none;
+    }
+
     input[type="range"] {
         background-color: transparent;
         width: 100%;
@@ -51,6 +73,13 @@
 
     div.container .chain {
         width: 40px;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    div.container .chain button {
         height: 100%;
     }
 
