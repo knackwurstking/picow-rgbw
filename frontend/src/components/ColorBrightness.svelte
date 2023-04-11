@@ -18,7 +18,6 @@
     .container {
         height: 100%;
         width: 100%;
-        padding: 8px 4px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -30,17 +29,22 @@
         background-color: var(--theme-secondary);
         height: calc(100% - 16px);
         margin: 8px 0;
-        width: 16px;
+        width: 18px;
         cursor: pointer;
     }
 
     input::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        background: var(--theme-primary);
+        width: 100%;
+        height: 18px;
     }
 
     input::-moz-range-thumb {
         border: none;
         background: var(--theme-primary);
         width: 100%;
-        height: 16px;
+        height: 18px;
     }
 </style>

@@ -91,8 +91,8 @@
                     <ColorPicker bind:r bind:g bind:b bind:w />
                 </div>
 
+                <!-- TODO: height should be the same like the color picker height -->
                 <div  class="debug" style="width:42px;">
-                    <!-- TODO: Maybe add some vert. range slider to adjust "brightness"? -->
                     <ColorBrightness />
                 </div>
             </div>
