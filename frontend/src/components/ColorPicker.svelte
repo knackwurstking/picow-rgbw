@@ -6,8 +6,6 @@
     export let g = 100;
     export let b = 100;
     export let w = 100;
-
-    let chained = false;
 </script>
 
 <div class="container">
@@ -18,27 +16,7 @@
                 type="range"
                 min={0}
                 max={100}
-                value={r}
-                on:input={(ev) => {
-                    const newValue = parseInt(ev.target.value, 10)
-                    if (chained) {
-                        const diff = r - newValue
-                        if (
-                            (g < 0 || g > 100) &&
-                            (b < 0 || b > 100) &&
-                            (w < 0 || w > 100)
-                        ) {
-                            return
-                        }
-                        // TODO: need to handler min and max (0 - 100)
-                        r -= diff
-                        g -= diff
-                        b -= diff
-                        w -= diff
-                    } else {
-                        r = newValue
-                    }
-                }}
+                bind:value={r}
             />
             <label for="r">R</label>
             <code>{r}</code>
@@ -49,26 +27,7 @@
                 type="range"
                 min={0}
                 max={100}
-                value={g}
-                on:change={(ev) => {
-                    const newValue = parseInt(ev.target.value, 10)
-                    if (chained) {
-                        const diff = g - newValue
-                        if (
-                            (r < 0 || r > 100) &&
-                            (b < 0 || b > 100) &&
-                            (w < 0 || w > 100)
-                        ) {
-                            return
-                        }
-                        r -= diff
-                        g -= diff
-                        b -= diff
-                        w -= diff
-                    } else {
-                        g = newValue
-                    }
-                }}
+                bind:value={g}
             />
             <label for="g">G</label>
             <code>{g}</code>
@@ -96,28 +55,9 @@
             <code>{w}</code>
         </div>
     </div>
-    <div class="chain">
-        <button on:click={() => (chained = !chained)}>
-            {#if chained}
-                <LockOn
-                    size={28}
-                />
-            {:else}
-                <LockOff
-                    size={28}
-                />
-            {/if}
-        </button>
-    </div>
 </div>
 
 <style>
-    button {
-        background-color: transparent;
-        color: white;
-        border: none;
-    }
-
     input[type="range"] {
         background-color: transparent;
         width: 100%;
@@ -132,18 +72,6 @@
 
     div.container .inputs {
         width: 100%;
-    }
-
-    div.container .chain {
-        width: 40px;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    div.container .chain button {
-        height: 100%;
     }
 
     div.input {
