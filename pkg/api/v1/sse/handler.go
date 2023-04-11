@@ -11,6 +11,7 @@ type Connection struct {
 }
 
 type Handler struct {
+	//connections string[string]*Connection
 	connections []*Connection
 }
 
@@ -18,7 +19,11 @@ func NewHandler() *Handler {
 	return &Handler{}
 }
 
-func (h *Handler) Add(w http.ResponseWriter, r *http.Request) (conn *Connection, ok bool) {
+// Add a connection to handle
+// type: "devices-update", "device-update"
+func (h *Handler) Add(t string, w http.ResponseWriter, r *http.Request) (conn *Connection, ok bool) {
+	// TODO: check for if event type exists (panic if not)
+
 	h.headers(w)
 	f, ok := w.(http.Flusher)
 	if !ok {
@@ -33,6 +38,7 @@ func (h *Handler) Add(w http.ResponseWriter, r *http.Request) (conn *Connection,
 		Request: r,
 	}
 
+	// TODO: use map[<event-type>]connection
 	h.connections = append(h.connections, conn)
 
 	w.WriteHeader(http.StatusOK)

@@ -1,11 +1,15 @@
 package pico
 
+import "github.com/knackwurstking/picow-rgbw-web/pkg/api/v1/sse"
+
 // Device
-// TODO: add this sse shit from the Handler
 type Device struct {
 	Addr    string `json:"addr"`    // Addr contains the ip and port <ip>:<port>
 	Offline bool   `json:"offline"` // Offline
 	RGBW    [4]*Gp `json:"rgbw"`    // RGBW holds all pins in use
+
+	// TODO: handler sse events like "device-update"
+	sse **sse.Handler
 }
 
 // NewDevice

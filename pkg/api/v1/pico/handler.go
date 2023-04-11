@@ -12,7 +12,7 @@ type Handler struct {
 
 	// TODO: sse handler for /device-update every time devices got an update
 	//		 (of device data changed)
-	sse *sse.Handler `json:"-"` // sse can be nil, make sure to check first
+	sse *sse.Handler // sse can be nil, make sure to check first
 }
 
 // NewPico
@@ -23,11 +23,16 @@ func NewHandler(devices ...*Device) *Handler {
 }
 
 func (h *Handler) Add(device *Device) {
+	device.sse = &h.sse
+
 	for i, d := range h.Devices {
 		if d.Addr == device.Addr {
 			h.Devices[i] = device
+			return
 		}
 	}
+
+	h.Devices = append(h.Devices, device)
 }
 
 func (h *Handler) Get(addr string) *Device {

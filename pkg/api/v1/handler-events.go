@@ -23,8 +23,16 @@ func NewEvents(prefixPath string, ctx context.Context) http.Handler {
 
 func (e *Events) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	switch r.URL.Path {
+	case e.prefix + "/devices-update":
+		conn, ok := e.sse.Add("devices-update", w, r)
+		if !ok {
+			return
+		}
+		defer e.sse.Close(conn)
+
+		<-conn.Request.Context().Done()
 	case e.prefix + "/device-update":
-		conn, ok := e.sse.Add(w, r)
+		conn, ok := e.sse.Add("device-update", w, r)
 		if !ok {
 			return
 		}
