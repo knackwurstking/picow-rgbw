@@ -2,6 +2,8 @@
     import { onMount } from "svelte";
 
     import CheckLabel from "../components/CheckLabel.svelte";
+    import ColorDefaults from "../components/ColorDefaults.svelte";
+    import ColorBrightness from "../components/ColorBrightness.svelte";
     import ColorPicker from "../components/ColorPicker.svelte";
     import PowerToggle from "../components/PowerToggle.svelte";
 
@@ -79,11 +81,20 @@
     <section class="ctrl">
         <fieldset>
             <legend>Control</legend>
-            <div class="content">
-                <div style="height: 100%;"></div>
-                <!-- TODO: Add some horiz. color default values picker -->
-                <ColorPicker bind:r bind:g bind:b bind:w />
-                <!-- TODO: Maybe add some vert. range slider to adjust "brightness"? -->
+            <div class="content debug">
+                <div class="debug" style="display:flex;flex-direction:column;width:calc(100% - 36px);height:100%;">
+                    <div style="height:100%;"></div>
+
+                    <!-- TODO: Add some horiz. color default values picker -->
+                    <ColorDefaults />
+
+                    <ColorPicker bind:r bind:g bind:b bind:w />
+                </div>
+
+                <div  class="debug">
+                    <!-- TODO: Maybe add some vert. range slider to adjust "brightness"? -->
+                    <ColorBrightness />
+                </div>
             </div>
             <div class="bottom">
                 <PowerToggle
@@ -190,7 +201,6 @@
         overflow: hidden;
         overflow-y: auto;
         display: flex;
-        flex-direction: column;
     }
 
     div.devices.container > section.ctrl fieldset div.bottom {
