@@ -17,19 +17,14 @@ func NewEvents(prefixPath string, ctx context.Context) http.Handler {
 	return &Events{
 		prefix: prefixPath,
 		ctx:    ctx,
-		sse:    sse.NewHandler(),
+		sse:    sse.NewHandler(), // TODO: Add sse handler to pico handler
 	}
 }
 
 func (e *Events) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	switch r.URL.Path {
 	case e.prefix + "/device-update":
-		handler, ok := getHandler(w, e.ctx)
-		if !ok {
-			return
-		}
-
-		conn, ok := e.sse.Add(w, r, handler)
+		conn, ok := e.sse.Add(w, r)
 		if !ok {
 			return
 		}

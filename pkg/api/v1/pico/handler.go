@@ -2,11 +2,17 @@ package pico
 
 import (
 	"fmt"
+
+	"github.com/knackwurstking/picow-rgbw-web/pkg/api/v1/sse"
 )
 
 // Handler for pico devices (and data)
 type Handler struct {
 	Devices []*Device `json:"devices"`
+
+	// TODO: sse handler for /device-update every time devices got an update
+	//		 (of device data changed)
+	sse *sse.Handler `json:"-"` // sse can be nil, make sure to check first
 }
 
 // NewPico

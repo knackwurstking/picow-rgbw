@@ -2,16 +2,12 @@ package sse
 
 import (
 	"net/http"
-
-	"github.com/knackwurstking/picow-rgbw-web/pkg/api/v1/pico"
 )
 
 type Connection struct {
+	Writer  http.ResponseWriter
+	Flusher http.Flusher
 	Request *http.Request
-}
-
-func NewConnection() *Connection {
-	return &Connection{}
 }
 
 type Handler struct {
@@ -22,12 +18,21 @@ func NewHandler() *Handler {
 	return &Handler{}
 }
 
-func (h *Handler) Add(w http.ResponseWriter, r *http.Request, p *pico.Handler) (conn *Connection, ok bool) {
+func (h *Handler) Add(w http.ResponseWriter, r *http.Request) (conn *Connection, ok bool) {
 	h.headers(w)
+	f, ok := w.(http.Flusher)
+	if !ok {
+		http.Error(w, http.StatusText(http.StatusBadRequest),
+			http.StatusBadRequest)
+		return
+	}
 
-	// TODO: create connection
+	conn = &Connection{
+		Writer:  w,
+		Flusher: f,
+		Request: r,
+	}
 
-	conn = NewConnection()
 	h.connections = append(h.connections, conn)
 
 	w.WriteHeader(http.StatusOK)

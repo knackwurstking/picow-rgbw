@@ -1,6 +1,7 @@
 package pico
 
 // Device
+// TODO: add this sse shit from the Handler
 type Device struct {
 	Addr    string `json:"addr"`    // Addr contains the ip and port <ip>:<port>
 	Offline bool   `json:"offline"` // Offline
