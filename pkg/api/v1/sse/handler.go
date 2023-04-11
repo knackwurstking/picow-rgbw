@@ -30,6 +30,7 @@ func (h *Handler) Add(w http.ResponseWriter, r *http.Request, p *pico.Handler) (
 	conn = NewConnection()
 	h.connections = append(h.connections, conn)
 
+	w.WriteHeader(http.StatusOK)
 	return conn, true
 }
 

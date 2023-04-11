@@ -24,10 +24,18 @@ func NewEvents(prefixPath string, ctx context.Context) http.Handler {
 func (e *Events) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	switch r.URL.Path {
 	case e.prefix + "/device-update":
-		// TODO: Add connection to sse event handlers (see pirgb-web for reference)
+		handler, ok := getHandler(w, e.ctx)
+		if !ok {
+			return
+		}
 
-		http.Error(w, http.StatusText(http.StatusServiceUnavailable),
-			http.StatusServiceUnavailable)
+		conn, ok := e.sse.Add(w, r, handler)
+		if !ok {
+			return
+		}
+		defer e.sse.Close(conn)
+
+		<-conn.Request.Context().Done()
 	default:
 		http.NotFound(w, r)
 	}
