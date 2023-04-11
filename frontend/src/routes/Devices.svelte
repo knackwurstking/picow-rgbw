@@ -81,7 +81,9 @@
             <legend>Control</legend>
             <div class="content">
                 <div style="height: 100%;"></div>
+                <!-- TODO: Add some horiz. color default values picker -->
                 <ColorPicker bind:r bind:g bind:b bind:w />
+                <!-- TODO: Maybe add some vert. range slider to adjust "brightness"? -->
             </div>
             <div class="bottom">
                 <PowerToggle
