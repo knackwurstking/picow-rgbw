@@ -13,12 +13,13 @@ type Connection struct {
 }
 
 type Handler struct {
-	//connections string[string]*Connection
 	connections map[string][]*Connection
 }
 
 func NewHandler() *Handler {
-	return &Handler{}
+	return &Handler{
+		connections: make(map[string][]*Connection),
+	}
 }
 
 // Add a connection to handle
