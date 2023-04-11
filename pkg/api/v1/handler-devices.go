@@ -9,6 +9,7 @@ import (
 	"strconv"
 
 	"github.com/gookit/slog"
+	"github.com/knackwurstking/picow-rgbw-web/pkg/api/v1/pico"
 )
 
 type Devices struct {
@@ -50,11 +51,7 @@ func (d *Devices) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 func (d *Devices) devices(w http.ResponseWriter, r *http.Request) {
-	handler, ok := getHandler(w, d.ctx)
-	if !ok {
-		return
-	}
-
+	handler := d.ctx.Value("pico").(*pico.Handler)
 	if err := json.NewEncoder(w).Encode(handler.Devices); err != nil {
 		slog.Error(err.Error())
 		http.Error(w, http.StatusText(http.StatusInternalServerError),
@@ -67,11 +64,7 @@ func (d *Devices) devices(w http.ResponseWriter, r *http.Request) {
 }
 
 func (d *Devices) device(w http.ResponseWriter, r *http.Request, id int) {
-	handler, ok := getHandler(w, d.ctx)
-	if !ok {
-		return
-	}
-
+	handler := d.ctx.Value("pico").(*pico.Handler)
 	for i, device := range handler.Devices {
 		if i == id {
 			if err := json.NewEncoder(w).Encode(device); err != nil {
@@ -95,12 +88,8 @@ func (d *Devices) putDevices(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	handler, ok := getHandler(w, d.ctx)
-	if !ok {
-		return
-	}
-
 	// read body data
+	handler := d.ctx.Value("pico").(*pico.Handler)
 	defer r.Body.Close()
 	var data []RequestPostDevice
 	if err := json.NewDecoder(r.Body).Decode(&data); err != nil {

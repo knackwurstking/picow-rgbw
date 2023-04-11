@@ -35,11 +35,7 @@ func (p *PicoW) postPico(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	handler, ok := getHandler(w, p.ctx)
-	if !ok {
-		return
-	}
-
+	handler := p.ctx.Value("pico").(*pico.Handler)
 	defer r.Body.Close()
 	var data pico.Device
 	if err := json.NewDecoder(r.Body).Decode(&data); err != nil || data.Addr == "" {

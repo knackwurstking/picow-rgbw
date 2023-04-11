@@ -7,9 +7,7 @@ type Device struct {
 	Addr    string `json:"addr"`    // Addr contains the ip and port <ip>:<port>
 	Offline bool   `json:"offline"` // Offline
 	RGBW    [4]*Gp `json:"rgbw"`    // RGBW holds all pins in use
-
-	// TODO: handler sse events like "device-update"
-	sse **sse.Handler
+	SSE     *sse.Handler
 }
 
 // NewDevice
@@ -46,6 +44,8 @@ func (d *Device) GetDuty() error {
 	}
 
 	d.Offline = false
+
+	d.update()
 	return nil
 }
 
@@ -64,6 +64,7 @@ func (d *Device) SetDuty(duty [4]Duty) error {
 		d.Offline = false
 	}
 
+	d.update()
 	return err
 }
 
@@ -87,6 +88,8 @@ func (d *Device) GetPins() error {
 	}
 
 	d.Offline = false
+
+	d.update()
 	return nil
 }
 
@@ -105,5 +108,12 @@ func (d *Device) SetPins(pins [4]GpPin) error {
 		d.Offline = false
 	}
 
+	d.update()
 	return err
+}
+
+func (d *Device) update() {
+	if d.SSE != nil {
+		d.SSE.Dispatch("device", d)
+	}
 }

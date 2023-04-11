@@ -8,11 +8,8 @@ import (
 
 // Handler for pico devices (and data)
 type Handler struct {
-	Devices []*Device `json:"devices"`
-
-	// TODO: sse handler for /device-update every time devices got an update
-	//		 (of device data changed)
-	sse *sse.Handler // sse can be nil, make sure to check first
+	Devices []*Device    `json:"devices"`
+	SSE     *sse.Handler // sse can be nil, make sure to check first
 }
 
 // NewPico
@@ -23,16 +20,22 @@ func NewHandler(devices ...*Device) *Handler {
 }
 
 func (h *Handler) Add(device *Device) {
-	device.sse = &h.sse
+	device.SSE = h.SSE
 
 	for i, d := range h.Devices {
 		if d.Addr == device.Addr {
 			h.Devices[i] = device
+			if h.SSE != nil {
+				h.update()
+			}
 			return
 		}
 	}
 
 	h.Devices = append(h.Devices, device)
+	if h.SSE != nil {
+		h.update()
+	}
 }
 
 func (h *Handler) Get(addr string) *Device {
@@ -51,4 +54,10 @@ func (h *Handler) Scan(ipRange string) (devices []*Device, err error) {
 	// ...
 
 	return devices, fmt.Errorf("Scanner Not Implemented!")
+}
+
+func (h *Handler) update() {
+	if h.SSE != nil {
+		h.SSE.Dispatch("devices", h)
+	}
 }

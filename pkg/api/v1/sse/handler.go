@@ -2,6 +2,8 @@ package sse
 
 import (
 	"net/http"
+
+	"github.com/gookit/slog"
 )
 
 type Connection struct {
@@ -12,7 +14,7 @@ type Connection struct {
 
 type Handler struct {
 	//connections string[string]*Connection
-	connections []*Connection
+	connections map[string][]*Connection
 }
 
 func NewHandler() *Handler {
@@ -22,8 +24,6 @@ func NewHandler() *Handler {
 // Add a connection to handle
 // type: "devices-update", "device-update"
 func (h *Handler) Add(t string, w http.ResponseWriter, r *http.Request) (conn *Connection, ok bool) {
-	// TODO: check for if event type exists (panic if not)
-
 	h.headers(w)
 	f, ok := w.(http.Flusher)
 	if !ok {
@@ -37,19 +37,37 @@ func (h *Handler) Add(t string, w http.ResponseWriter, r *http.Request) (conn *C
 		Flusher: f,
 		Request: r,
 	}
-
-	// TODO: use map[<event-type>]connection
-	h.connections = append(h.connections, conn)
+	h.add(t, conn)
 
 	w.WriteHeader(http.StatusOK)
 	return conn, true
 }
 
-func (h *Handler) Close(conn *Connection) {
-	for i, c := range h.connections {
-		if c == conn {
-			h.connections = append(h.connections[:i], h.connections[i+1:]...)
-			return
+func (h *Handler) Close(t string, c *Connection) {
+	h.remove(t, c)
+}
+
+func (h *Handler) Dispatch(t string, data any) {
+	// TODO: iter connection for event [t]ype and write to connection
+}
+
+func (h *Handler) add(t string, c *Connection) {
+	slog.Debug("add sse connection:", c.Request.RemoteAddr)
+	if conns, ok := h.connections[t]; ok {
+		h.connections[t] = append(conns, c)
+	} else {
+		h.connections[t] = []*Connection{c}
+	}
+}
+
+func (h *Handler) remove(t string, c *Connection) {
+	slog.Debug("remove sse connection:", c.Request.RemoteAddr)
+	if conns, ok := h.connections[t]; ok {
+		for i, c2 := range conns {
+			if c2 == c {
+				h.connections[t] = append(conns[:i], conns[i+1:]...)
+				return
+			}
 		}
 	}
 }
