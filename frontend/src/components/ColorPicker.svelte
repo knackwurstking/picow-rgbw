@@ -1,7 +1,4 @@
 <script lang="ts">
-    import LockOn from "svelte-material-icons/Lock.svelte";
-    import LockOff from "svelte-material-icons/LockOff.svelte";
-
     export let r = 100;
     export let g = 100;
     export let b = 100;
