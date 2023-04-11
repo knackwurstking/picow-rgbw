@@ -7,23 +7,24 @@
 
     export let checked: boolean = false;
     export let label: string = "";
+    export let currentColor: number[] = [0, 0, 0, 0];
     export let offline: boolean = false;
 </script>
 
 <label class:checked>
-    <input
-        disabled={offline}
-        type="checkbox"
-        {checked}
-        on:change={() => dispatch("change", { checked: checked })}
-    />
-    {label}
     <StatusLED
         style="
             float: right;
         "
         active={!offline}
     />
+    <input
+        disabled={offline}
+        type="checkbox"
+        {checked}
+        on:change={() => dispatch("change", { checked: checked })}
+    />
+    {label}<br><code style="font-size:0.85rem;">[{currentColor.join(",")}]</code>
 </label>
 
 <style>

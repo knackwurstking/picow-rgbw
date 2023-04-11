@@ -47,8 +47,9 @@
                     <CheckLabel
                         checked={!device.offline &&
                             !!selected.find((sd) => sd.addr === device.addr)}
-                        offline={device.offline}
                         label={device.addr}
+                        currentColor={device.rgbw.map(gp => gp.duty)}
+                        offline={device.offline}
                         on:change={() => {
                             if (!!selected.find((d) => d === device)) {
                                 // remove device from selected
