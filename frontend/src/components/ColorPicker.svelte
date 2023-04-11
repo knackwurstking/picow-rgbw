@@ -59,6 +59,7 @@
         background-color: transparent;
         width: 100%;
         margin: 8px 0;
+        cursor: pointer;
     }
 
     div.container {

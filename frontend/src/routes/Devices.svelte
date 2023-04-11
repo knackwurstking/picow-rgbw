@@ -82,7 +82,7 @@
         <fieldset>
             <legend>Control</legend>
             <div class="content debug">
-                <div class="debug" style="display:flex;flex-direction:column;width:calc(100% - 36px);height:100%;">
+                <div class="debug" style="display:flex;flex-direction:column;width:100%;height:100%;">
                     <div style="height:100%;"></div>
 
                     <!-- TODO: Add some horiz. color default values picker -->
@@ -91,7 +91,7 @@
                     <ColorPicker bind:r bind:g bind:b bind:w />
                 </div>
 
-                <div  class="debug">
+                <div  class="debug" style="width:42px;">
                     <!-- TODO: Maybe add some vert. range slider to adjust "brightness"? -->
                     <ColorBrightness />
                 </div>
