@@ -81,8 +81,8 @@
     <section class="ctrl">
         <fieldset>
             <legend>Control</legend>
-            <div class="content debug">
-                <div class="debug" style="display:flex;flex-direction:column;width:100%;height:100%;">
+            <div class="content">
+                <div style="display:flex;flex-direction:column;width:100%;height:100%;">
                     <div style="height:100%;"></div>
 
                     <!-- TODO: Add some horiz. color default values picker -->
@@ -92,7 +92,7 @@
                 </div>
 
                 <!-- TODO: height should be the same like the color picker height -->
-                <div  class="debug" style="width:42px;">
+                <div style="width:42px;">
                     <ColorBrightness />
                 </div>
             </div>

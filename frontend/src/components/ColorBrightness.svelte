@@ -4,7 +4,7 @@
     export let value: number = 100;
 </script>
 
-<div class="container debug" {...$$restProps}>
+<div class="container" {...$$restProps}>
     <input
         type="range"
         {min}
