@@ -55,13 +55,6 @@
 </div>
 
 <style>
-    input[type="range"] {
-        background-color: transparent;
-        width: 100%;
-        margin: 8px 0;
-        cursor: pointer;
-    }
-
     div.container {
         padding: 8px;
         width: 100%;
@@ -78,7 +71,8 @@
     }
 
     div.input input {
-        font-size: 1rem;
+        width: 100%;
+        margin: 8px 0;
     }
 
     div.input label {
@@ -96,31 +90,4 @@
         font-size: 0.95rem;
         width: 4ch;
     }
-
-    /* Firefox */
-    input[type="range"]::-moz-range-thumb {
-        background-color: var(--theme-primary);
-        border-color: var(--theme-border);
-    }
-
-    input[type="range"]::-moz-range-track {
-        background-color: var(--theme-secondary);
-    }
-
-    input[type="range"]::-moz-range-progress {
-        background-color: var(--theme-primary);
-    }
-
-    /* TODO: Chrome styles */
-    input[type="range"]::-webkit-slider-thumb {}
-
-    input[type="range"]::-webkit-slider-runnable-track {}
-
-    /* NOTE: I do not care about microsoft
-
-    input[type="range"]::-ms-thumb {}
-
-    input[type="range"]::-ms-track {}
-
-    */
 </style>

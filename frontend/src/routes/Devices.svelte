@@ -27,6 +27,8 @@
     let b: number = 100;
     let w: number = 100;
 
+    let brightness = 100;
+
     onMount(async () => {
         devices = await Api.devices();
     });
@@ -93,7 +95,7 @@
 
                 <!-- TODO: height should be the same like the color picker height -->
                 <div style="width:42px;">
-                    <ColorBrightness />
+                    <ColorBrightness bind:value={brightness} />
                 </div>
             </div>
             <div class="bottom">
@@ -108,7 +110,12 @@
                                 await Api.postDevices(
                                     ...selected.map((d) => ({
                                         addr: d.addr,
-                                        rgbw: [r, g, b, w],
+                                        rgbw: [
+                                            Math.round(r/100*brightness),
+                                            Math.round(g/100*brightness),
+                                            Math.round(b/100*brightness),
+                                            Math.round(w/100*brightness)
+                                        ],
                                     }))
                                 );
                                 break;

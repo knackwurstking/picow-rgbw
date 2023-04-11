@@ -3,7 +3,7 @@
   --theme-surface: #212125;
   --theme-primary: #ff3e00;
   /*--theme-primary: #3abb00;*/
-  --theme-secondary: #4d4d68;
+  --theme-secondary: #5d5d78;
   --theme-error: #d32f2f;
 
   --theme-on-error: #ffffff;
@@ -60,6 +60,38 @@ textarea {
 textarea:focus {
   border-color: var(--theme-primary);
   outline: none;
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: var(--theme-secondary);
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  background: var(--theme-primary);
+  width: 18px;
+  height: 100%;
+}
+
+input[type="range"]::-moz-range-thumb {
+  border: none;
+  background: var(--theme-primary);
+  width: 18px;
+  height: 100%;
+}
+
+input[type="range"][orient="vertical"]::-webkit-slider-thumb {
+  width: 100%;
+  height: 18px;
+}
+
+input[type="range"][orient="vertical"]::-moz-range-thumb {
+  width: 100%;
+  height: 18px;
 }
 
 .debug {
