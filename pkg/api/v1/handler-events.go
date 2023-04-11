@@ -3,17 +3,21 @@ package v1
 import (
 	"context"
 	"net/http"
+
+	"github.com/knackwurstking/picow-rgbw-web/pkg/api/v1/sse"
 )
 
 type Events struct {
 	prefix string
 	ctx    context.Context
+	sse    *sse.Handler
 }
 
 func NewEvents(prefixPath string, ctx context.Context) http.Handler {
 	return &Events{
 		prefix: prefixPath,
 		ctx:    ctx,
+		sse:    sse.NewHandler(),
 	}
 }
 
