@@ -129,4 +129,3 @@ curl -X POST http://localhost:50833/api/v1/picow\
 - [ ] Frontend: display the current color for each device
 - [x] Update ctrl container to always show the color for the last device in `selected`
 - [ ] ~Fix small screen controls (frontend)~
-- [ ] Add chain (icon button?) for rgbw sliders
