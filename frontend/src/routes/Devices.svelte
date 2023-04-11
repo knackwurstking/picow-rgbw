@@ -93,7 +93,7 @@
                     <ColorPicker bind:r bind:g bind:b bind:w />
                 </div>
 
-                <!-- TODO: height should be the same like the color picker height -->
+                <!-- TODO: height should be the same like the color picker height (?) -->
                 <div style="width:42px;">
                     <ColorBrightness bind:value={brightness} />
                 </div>
