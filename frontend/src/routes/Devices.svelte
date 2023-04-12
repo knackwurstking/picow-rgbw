@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { onMount } from "svelte";
+    import { onMount, onDestroy } from "svelte";
 
     import CheckLabel from "../components/CheckLabel.svelte";
     import ColorDefaults from "../components/ColorDefaults.svelte";
@@ -7,7 +7,7 @@
     import ColorPicker from "../components/ColorPicker.svelte";
     import PowerToggle from "../components/PowerToggle.svelte";
 
-    import Api, { type Device } from "../ts/api";
+    import Api, { type Device, type Events } from "../ts/api";
 
     let selected: Device[] = [];
 
@@ -29,9 +29,37 @@
 
     let brightness = 100;
 
-    onMount(async () => {
-        devices = await Api.devices();
-        // TODO: Add sse event listeners for "devices" and device
+    const forDestroy: Events = {
+        devices: [],
+        device: [],
+    };
+
+    onMount(() => {
+        Api.devices().then((data) => (devices = data));
+
+        // sse: "devices"
+        let devicesHandler = async (data: Device[]) => {
+            devices = data;
+        };
+        Api.addEventListener("devices", devicesHandler);
+        forDestroy.devices.push(devicesHandler);
+
+        // sse: "device"
+        let deviceHandler = async (data: Device) => {
+            const device = devices.find(d => d.addr == data.addr)
+            device.rgbw = data.rgbw
+            device.offline = data.offline
+        };
+        Api.addEventListener("device", deviceHandler);
+        forDestroy.device.push(deviceHandler);
+    });
+
+    onDestroy(() => {
+        for (const t in forDestroy) {
+            for (const l of forDestroy[t]) {
+                Api.removeEventListener(t, l);
+            }
+        }
     });
 </script>
 
