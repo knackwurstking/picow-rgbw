@@ -11,6 +11,7 @@ import (
 	"github.com/gookit/slog"
 
 	"github.com/knackwurstking/picow-rgbw-web/pkg/api/v1/pico"
+	"github.com/knackwurstking/picow-rgbw-web/pkg/log"
 	"github.com/knackwurstking/picow-rgbw-web/pkg/scanner"
 	"github.com/knackwurstking/picow-rgbw-web/pkg/server"
 )
@@ -47,14 +48,13 @@ type Config struct {
 func init() {
 	initConfig()
 	initFlags()
-	initLogger()
 	initPicoDevices()
 }
 
 func initConfig() {
 	home, err := os.UserHomeDir()
 	if err != nil {
-		slog.Error("failed to get the users home directory: " + err.Error())
+		log.Error.Printf("Failed to get the users home directory: %s", err.Error())
 		return
 	}
 
@@ -69,7 +69,7 @@ func initConfig() {
 	}
 
 	if err != nil {
-		slog.Error("load config failed: " + err.Error())
+		log.Error.Printf("Load configuration failed: %s", err.Error())
 	}
 }
 
@@ -86,33 +86,11 @@ func initFlags() {
 	flag.Parse()
 }
 
-func initLogger() {
-	slog.Configure(func(l *slog.SugaredLogger) {
-		f := l.Formatter.(*slog.TextFormatter)
-		f.EnableColor = true
-	})
-
-	//o := slog.HandlerOptions{
-	//	AddSource: true,
-	//}
-
-	//if config.Debug {
-	//	o.Level = slog.LevelDebug
-	//} else {
-	//	o.Level = slog.LevelInfo
-	//}
-
-	//// NOTE: Need a custom Text handler for this someday (with color support)
-	//h := o.NewTextHandler(os.Stderr)
-	//slog.SetDefault(slog.New(h))
-}
-
 func initPicoDevices() {
-	// TODO: run code inside a go func
 	for _, device := range config.Handler.Devices {
 		update := false
 
-		slog.Debug(fmt.Sprintf("init pico device %+v", device))
+		log.Debug.Printf("Init pico device %+v", device)
 		for _, pin := range device.RGBW {
 			if pin != nil {
 				update = true // A pin was set for this device
@@ -124,12 +102,12 @@ func initPicoDevices() {
 			// get pins, even after set pins (in case of a failure)
 			err := device.GetPins()
 			if err != nil {
-				slog.Error("get pins: " + err.Error())
+				log.Error.Printf("Get pins failed: %s", err.Error())
 			}
 
 			err = device.GetDuty()
 			if err != nil {
-				slog.Error("get duty: " + err.Error())
+				log.Error.Printf("Get duty failed: %s", err.Error())
 			}
 
 			continue
@@ -157,6 +135,7 @@ func initPicoDevices() {
 			duty[i] = p.Duty
 		}
 
+		// TODO: continue here: replacing slog with log
 		slog.Debug(fmt.Sprintf("set pins (%v): %+v", pins, device))
 		err := device.SetPins(pins)
 		if err != nil {
