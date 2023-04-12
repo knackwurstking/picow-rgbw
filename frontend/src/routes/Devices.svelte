@@ -46,9 +46,10 @@
 
         // sse: "device"
         let deviceHandler = async (data: Device) => {
-            const device = devices.find(d => d.addr == data.addr)
-            device.rgbw = data.rgbw
-            device.offline = data.offline
+            const device = devices.find((d) => d.addr == data.addr);
+            device.rgbw = data.rgbw;
+            device.offline = data.offline;
+            devices = devices;
         };
         Api.addEventListener("device", deviceHandler);
         forDestroy.device.push(deviceHandler);

@@ -8,34 +8,34 @@ import (
 
 // Handler for pico devices (and data)
 type Handler struct {
-	Devices []*Device    `json:"devices"`
-	SSE     *sse.Handler `json:"-"` // sse can be nil, make sure to check first
+	Devices []*Device   `json:"devices"`
+	SSE     sse.Handler `json:"-"` // sse can be nil, make sure to check first
 }
 
 // NewPico
-func NewHandler(devices ...*Device) *Handler {
-	return &Handler{
-		Devices: devices,
+func NewHandler() *Handler {
+	h := &Handler{
+		Devices: make([]*Device, 0),
+		SSE: sse.Handler{
+			Connections: sse.NewConnections(),
+		},
 	}
+	return h
 }
 
 func (h *Handler) Add(device *Device) {
-	device.SSE = h.SSE
+	device.SSE = &h.SSE
 
 	for i, d := range h.Devices {
 		if d.Addr == device.Addr {
 			h.Devices[i] = device
-			if h.SSE != nil {
-				h.update()
-			}
+			h.update()
 			return
 		}
 	}
 
 	h.Devices = append(h.Devices, device)
-	if h.SSE != nil {
-		h.update()
-	}
+	h.update()
 }
 
 func (h *Handler) Get(addr string) *Device {
@@ -57,7 +57,5 @@ func (h *Handler) Scan(ipRange string) (devices []*Device, err error) {
 }
 
 func (h *Handler) update() {
-	if h.SSE != nil {
-		h.SSE.Dispatch("devices", "update", h)
-	}
+	h.SSE.Dispatch("devices", "update", h)
 }

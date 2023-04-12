@@ -1,12 +1,12 @@
 package server
 
 import (
-	"context"
 	"net/http"
 	"regexp"
 
 	"github.com/knackwurstking/picow-rgbw-web/frontend"
 	api "github.com/knackwurstking/picow-rgbw-web/pkg/api/v1"
+	"github.com/knackwurstking/picow-rgbw-web/pkg/api/v1/pico"
 )
 
 type Route struct {
@@ -18,7 +18,7 @@ type RegExHandler struct {
 	Routes []*Route
 }
 
-func NewRegExHandler(ctx context.Context) http.Handler {
+func NewRegExHandler(p *pico.Handler) http.Handler {
 	mux := &RegExHandler{
 		Routes: make([]*Route, 0),
 	}
@@ -29,7 +29,7 @@ func NewRegExHandler(ctx context.Context) http.Handler {
 		mux.Routes = append(mux.Routes, &Route{
 			Pattern: regexp.MustCompile(group + "/devices"),
 			Handler: AddMiddlewareToHandler(
-				api.NewDevices(group+"/devices", ctx),
+				api.NewDevices(group+"/devices", p),
 				middlewareHandlers...,
 			),
 		})
@@ -37,7 +37,7 @@ func NewRegExHandler(ctx context.Context) http.Handler {
 		mux.Routes = append(mux.Routes, &Route{
 			Pattern: regexp.MustCompile(group + "/events"),
 			Handler: AddMiddlewareToHandler(
-				api.NewEvents(group+"/events", ctx),
+				api.NewEvents(group+"/events", p),
 				middlewareHandlers...,
 			),
 		})
@@ -45,7 +45,7 @@ func NewRegExHandler(ctx context.Context) http.Handler {
 		mux.Routes = append(mux.Routes, &Route{
 			Pattern: regexp.MustCompile(group + "/picow"),
 			Handler: AddMiddlewareToHandler(
-				api.NewPicoW(group+"/picow", ctx),
+				api.NewPicoW(group+"/picow", p),
 				middlewareHandlers...,
 			),
 		})

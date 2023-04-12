@@ -1,7 +1,6 @@
 package v1
 
 import (
-	"context"
 	"encoding/json"
 	"net/http"
 
@@ -11,13 +10,13 @@ import (
 
 type PicoW struct {
 	prefix string
-	ctx    context.Context
+	pico   *pico.Handler
 }
 
-func NewPicoW(prefixPath string, ctx context.Context) http.Handler {
+func NewPicoW(prefixPath string, p *pico.Handler) http.Handler {
 	return &PicoW{
 		prefix: prefixPath,
-		ctx:    ctx,
+		pico:   p,
 	}
 }
 
@@ -35,7 +34,6 @@ func (p *PicoW) postPico(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	handler := p.ctx.Value("pico").(*pico.Handler)
 	defer r.Body.Close()
 	var data pico.Device
 	if err := json.NewDecoder(r.Body).Decode(&data); err != nil || data.Addr == "" {
@@ -44,7 +42,7 @@ func (p *PicoW) postPico(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	device := handler.Get(data.Addr)
+	device := p.pico.Get(data.Addr)
 	update := device != nil
 	if !update {
 		device = &data
@@ -60,7 +58,7 @@ func (p *PicoW) postPico(w http.ResponseWriter, r *http.Request) {
 		_ = device.GetDuty()
 
 		if update {
-			handler.Add(device)
+			p.pico.Add(device)
 		}
 	}()
 

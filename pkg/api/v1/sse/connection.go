@@ -3,6 +3,7 @@ package sse
 import (
 	"encoding/json"
 	"net/http"
+	"sync"
 
 	"github.com/knackwurstking/picow-rgbw-web/pkg/log"
 )
@@ -11,22 +12,33 @@ type Connection struct {
 	Writer  http.ResponseWriter
 	Flusher http.Flusher
 	Request *http.Request
+
+	mutex sync.RWMutex
 }
 
 func (c *Connection) Write(event string, data any) error {
+	c.mutex.RLock()
+	defer c.mutex.RUnlock()
+
 	d, err := json.Marshal(data)
 	if err != nil {
 		return err
 	}
+	d = append(d, []byte("\n\n")...)
 
 	_, err = c.Writer.Write([]byte("event: " + event + "\n"))
 	if err != nil {
 		return err
 	}
+	c.Flusher.Flush()
 
 	_, err = c.Writer.Write(append([]byte("data: "), d...))
+	if err != nil {
+		return err
+	}
+	c.Flusher.Flush()
 
-	return err
+	return nil
 }
 
 type Connections struct {

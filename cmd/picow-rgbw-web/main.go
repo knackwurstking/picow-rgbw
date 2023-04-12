@@ -68,6 +68,10 @@ func initConfig() {
 
 	if err != nil {
 		log.Error.Printf("Load configuration failed: %s", err.Error())
+	} else {
+		for _, d := range config.Handler.Devices {
+			d.SSE = &config.Handler.SSE
+		}
 	}
 }
 

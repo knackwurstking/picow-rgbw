@@ -1,6 +1,9 @@
 package pico
 
-import "github.com/knackwurstking/picow-rgbw-web/pkg/api/v1/sse"
+import (
+	"github.com/knackwurstking/picow-rgbw-web/pkg/api/v1/sse"
+	"github.com/knackwurstking/picow-rgbw-web/pkg/log"
+)
 
 // Device
 type Device struct {
@@ -115,5 +118,7 @@ func (d *Device) SetPins(pins [4]GpPin) error {
 func (d *Device) update() {
 	if d.SSE != nil {
 		d.SSE.Dispatch("device", "update", d)
+	} else {
+		log.Debug.Println("SSE handler missing", d)
 	}
 }

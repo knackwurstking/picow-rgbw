@@ -126,13 +126,9 @@ export class Api {
                 console.error("sse: ", ev);
             };
             source.addEventListener("update", (ev) => {
-                for (const l of this.events.devices) {
-                    l(JSON.parse(ev.data) as Device[]);
-                }
-            });
-            source.addEventListener("update", (ev) => {
-                for (const l of this.events.device) {
-                    l(JSON.parse(ev.data) as Device);
+                console.log(p, "update");
+                for (const l of this.events[p]) {
+                    l(JSON.parse(ev.data));
                 }
             });
         }

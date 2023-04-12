@@ -43,6 +43,8 @@ func (h *Handler) Close(event string, conn *Connection) {
 }
 
 func (h *Handler) Dispatch(event string, eventType string, data any) {
+	log.Debug.Printf("Dispatch sse event \"%s\" (type: %s)", event, eventType)
+
 	for _, c := range h.Connections.Get(event) {
 		go func(c *Connection) {
 			if err := c.Write(eventType, data); err != nil {
