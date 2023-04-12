@@ -128,7 +128,6 @@ export class Api {
                 //       and update devices
             };
             source.addEventListener("update", (ev) => {
-                console.log(p, "update");
                 for (const l of this.events[p]) {
                     l(JSON.parse(ev.data));
                 }

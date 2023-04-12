@@ -35,8 +35,6 @@
     };
 
     onMount(() => {
-        Api.devices().then((data) => (devices = data));
-
         // sse: "devices"
         let devicesHandler = async (data: Device[]) => {
             devices = data;
@@ -44,8 +42,11 @@
         Api.addEventListener("devices", devicesHandler);
         forDestroy.devices.push(devicesHandler);
 
+        Api.addEventListener("devices", devicesHandler);
+        forDestroy.devices.push(devicesHandler);
+
         // sse: "device"
-        let deviceHandler = async (data: Device) => {
+        const deviceHandler = async (data: Device) => {
             const device = devices.find((d) => d.addr == data.addr);
             device.rgbw = data.rgbw;
             device.offline = data.offline;

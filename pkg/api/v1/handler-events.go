@@ -26,6 +26,7 @@ func (e *Events) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		defer e.pico.SSE.Close("devices", conn)
+		_ = conn.Write("update", e.pico.Devices)
 		<-conn.Request.Context().Done()
 	case e.prefix + "/device":
 		conn, ok := e.pico.SSE.Add("device", w, r)
