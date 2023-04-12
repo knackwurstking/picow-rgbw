@@ -127,9 +127,6 @@ export class Api {
                 // TODO: try to reconnect every few seconds
                 //       and update devices
             };
-            source.onopen = () => {
-                console.log("sse: onopen");
-            };
             source.addEventListener("update", (ev) => {
                 console.log(p, "update");
                 for (const l of this.events[p]) {
