@@ -24,7 +24,9 @@
         {checked}
         on:change={() => dispatch("change", { checked: checked })}
     />
-    {label}<br><code style="font-size:0.85rem;">[{currentColor.join(",")}]</code>
+    {label}
+    <br />
+    <code style="font-size:0.85rem;">[{currentColor.join(",")}]</code>
 </label>
 
 <style>

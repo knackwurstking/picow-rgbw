@@ -6,9 +6,7 @@
     const dispatch = createEventDispatcher();
 </script>
 
-<div class="container"
-    {...$$restProps}
->
+<div class="container" {...$$restProps}>
     <Button
         style="
             width: 40%;
@@ -17,7 +15,8 @@
         "
         class="off"
         on:click={() => dispatch("change", { state: "off" })}
-    ><span class="off">OFF</span></Button>
+        ><span class="off">OFF</span></Button
+    >
     <Button
         style="
             width: 40%;
@@ -26,7 +25,8 @@
         "
         class="set"
         on:click={() => dispatch("change", { state: "set" })}
-    ><span class="set">SET<span></Button>
+        ><span class="set">SET</span></Button
+    >
 </div>
 
 <style>

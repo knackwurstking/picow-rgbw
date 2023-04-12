@@ -5,13 +5,7 @@
 </script>
 
 <div class="container" {...$$restProps}>
-    <input
-        type="range"
-        {min}
-        {max}
-        bind:value
-        orient="vertical"
-    />
+    <input type="range" {min} {max} bind:value orient="vertical" />
 </div>
 
 <style>

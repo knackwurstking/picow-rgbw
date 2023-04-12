@@ -8,46 +8,22 @@
 <div class="container">
     <div class="inputs">
         <div class="input">
-            <input
-                name="r"
-                type="range"
-                min={0}
-                max={100}
-                bind:value={r}
-            />
+            <input name="r" type="range" min={0} max={100} bind:value={r} />
             <label for="r">R</label>
             <code>{r}</code>
         </div>
         <div class="input">
-            <input
-                name="g"
-                type="range"
-                min={0}
-                max={100}
-                bind:value={g}
-            />
+            <input name="g" type="range" min={0} max={100} bind:value={g} />
             <label for="g">G</label>
             <code>{g}</code>
         </div>
         <div class="input">
-            <input
-                name="b"
-                type="range"
-                min={0}
-                max={100}
-                bind:value={b}
-            />
+            <input name="b" type="range" min={0} max={100} bind:value={b} />
             <label for="b">B</label>
             <code>{b}</code>
         </div>
         <div class="input">
-            <input
-                name="w"
-                type="range"
-                min={0}
-                max={100}
-                bind:value={w}
-            />
+            <input name="w" type="range" min={0} max={100} bind:value={w} />
             <label for="w">W</label>
             <code>{w}</code>
         </div>

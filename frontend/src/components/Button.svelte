@@ -4,10 +4,7 @@
     const dispatch = createEventDispatcher();
 </script>
 
-<button
-    {...$$props}
-    on:click={() => dispatch("click")}
-><slot></slot></button>
+<button {...$$props} on:click={() => dispatch("click")}><slot /></button>
 
 <style>
     button {

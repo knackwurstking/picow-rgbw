@@ -3,11 +3,12 @@
 </script>
 
 <div class="outer" {...$$restProps}>
-    <div class="inner"
+    <div
+        class="inner"
         style={`
             background-color: ${active ? "green" : "red"};
         `}
-    ></div>
+    />
 </div>
 
 <style>
