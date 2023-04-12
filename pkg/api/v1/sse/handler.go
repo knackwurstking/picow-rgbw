@@ -6,12 +6,6 @@ import (
 	"github.com/gookit/slog"
 )
 
-type Connection struct {
-	Writer  http.ResponseWriter
-	Flusher http.Flusher
-	Request *http.Request
-}
-
 type Handler struct {
 	connections map[string][]*Connection
 }
@@ -44,12 +38,20 @@ func (h *Handler) Add(event string, w http.ResponseWriter, r *http.Request) (*Co
 	return c, true
 }
 
-func (h *Handler) Close(event string, c *Connection) {
-	h.remove(event, c)
+func (h *Handler) Close(event string, conn *Connection) {
+	h.remove(event, conn)
 }
 
 func (h *Handler) Dispatch(event string, data any) {
-	// TODO: iter connection for event [t]ype and write to connection
+	if conns, ok := h.connections[event]; ok {
+		for _, c := range conns {
+			go func(c *Connection) {
+				if err := c.Write(event, data); err != nil {
+					slog.Error(err.Error())
+				}
+			}(c)
+		}
+	}
 }
 
 func (h *Handler) add(event string, conn *Connection) {
@@ -61,11 +63,11 @@ func (h *Handler) add(event string, conn *Connection) {
 	}
 }
 
-func (h *Handler) remove(event string, c *Connection) {
-	slog.Debug("remove sse connection:", c.Request.RemoteAddr)
+func (h *Handler) remove(event string, conn *Connection) {
+	slog.Debug("remove sse connection:", conn.Request.RemoteAddr)
 	if conns, ok := h.connections[event]; ok {
 		for i, c2 := range conns {
-			if c2 == c {
+			if c2 == conn {
 				h.connections[event] = append(conns[:i], conns[i+1:]...)
 				return
 			}
