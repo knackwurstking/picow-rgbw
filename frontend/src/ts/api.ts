@@ -27,8 +27,6 @@ export interface ApiPaths {
     v1: ApiPathsV1;
 }
 
-export type SSEEvents = "devices" | "device";
-
 export interface Events {
     devices: ((data: Device[]) => Promise<void> | void)[];
     device: ((data: Device) => Promise<void> | void)[];
@@ -89,7 +87,7 @@ export class Api {
     }
 
     addEventListener(
-        type: SSEEvents,
+        type: string,
         listener: (data: any) => Promise<void> | void
     ) {
         if (!(type in this.events)) {
@@ -100,7 +98,7 @@ export class Api {
     }
 
     removeEventListener(
-        type: SSEEvents,
+        type: string,
         listener: (data: any) => Promise<void> | void
     ) {
         if (!(type in this.events)) {
@@ -111,7 +109,6 @@ export class Api {
         const listeners = this.events[type]
         for (const l of listeners) {
             if (l == listener) {
-                // @ts-expect-error
                 this.events[type] = [...listeners.slice(0, i), ...listeners.slice(i + 1)];
             }
             i++;
