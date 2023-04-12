@@ -121,9 +121,14 @@ export class Api {
 
     sse() {
         for (const p of ["devices", "device"]) {
-            const source = new EventSource("/api/v1/events/"+p);
+            const source = new EventSource("/api/v1/events/" + p);
             source.onerror = (ev) => {
                 console.error("sse: ", ev);
+                // TODO: try to reconnect every few seconds
+                //       and update devices
+            };
+            source.onopen = () => {
+                console.log("sse: onopen");
             };
             source.addEventListener("update", (ev) => {
                 console.log(p, "update");
