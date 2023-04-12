@@ -13,7 +13,7 @@ func NewWarnLogger() *WarnLogger {
 	return &WarnLogger{
 		Logger: *log.New(
 			os.Stderr,
-			"\033[1;3;37m[ WARN]\033[0m ",
+			"\033[1;33m[ WARN]\033[0m ",
 			log.LstdFlags|log.Lshortfile,
 		),
 	}

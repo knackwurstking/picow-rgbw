@@ -13,7 +13,7 @@ func NewInfoLogger() *InfoLogger {
 	return &InfoLogger{
 		Logger: *log.New(
 			os.Stderr,
-			"\033[1;3;37m[ INFO]\033[0m ",
+			"\033[1;36m[ INFO]\033[0m ",
 			log.LstdFlags|log.Lshortfile,
 		),
 	}
