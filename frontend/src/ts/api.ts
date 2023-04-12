@@ -32,7 +32,6 @@ export interface Events {
     device: ((data: Device) => Promise<void> | void)[];
 }
 
-// TODO: Implement sse events ("devices" and "device")
 export class Api {
     protocol: "http:" | "https:";
     host: string;
