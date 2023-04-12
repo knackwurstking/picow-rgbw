@@ -31,6 +31,7 @@
 
     onMount(async () => {
         devices = await Api.devices();
+        // TODO: Add sse event listeners for "devices" and device
     });
 </script>
 
@@ -48,7 +49,7 @@
                         checked={!device.offline &&
                             !!selected.find((sd) => sd.addr === device.addr)}
                         label={device.addr}
-                        currentColor={device.rgbw.map(gp => gp.duty)}
+                        currentColor={device.rgbw.map((gp) => gp.duty)}
                         offline={device.offline}
                         on:change={() => {
                             if (!!selected.find((d) => d === device)) {
@@ -85,8 +86,10 @@
         <fieldset>
             <legend>Control</legend>
             <div class="content">
-                <div style="display:flex;flex-direction:column;width:100%;height:100%;">
-                    <div style="height:100%;"></div>
+                <div
+                    style="display:flex;flex-direction:column;width:100%;height:100%;"
+                >
+                    <div style="height:100%;" />
 
                     <!-- TODO: Add some horiz. color default values picker -->
                     <ColorDefaults />
@@ -112,10 +115,10 @@
                                     ...selected.map((d) => ({
                                         addr: d.addr,
                                         rgbw: [
-                                            Math.round(r/100*brightness),
-                                            Math.round(g/100*brightness),
-                                            Math.round(b/100*brightness),
-                                            Math.round(w/100*brightness)
+                                            Math.round((r / 100) * brightness),
+                                            Math.round((g / 100) * brightness),
+                                            Math.round((b / 100) * brightness),
+                                            Math.round((w / 100) * brightness),
                                         ],
                                     }))
                                 );
