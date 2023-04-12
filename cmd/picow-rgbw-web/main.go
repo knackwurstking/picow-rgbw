@@ -8,8 +8,6 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/gookit/slog"
-
 	"github.com/knackwurstking/picow-rgbw-web/pkg/api/v1/pico"
 	"github.com/knackwurstking/picow-rgbw-web/pkg/log"
 	"github.com/knackwurstking/picow-rgbw-web/pkg/scanner"
@@ -135,30 +133,29 @@ func initPicoDevices() {
 			duty[i] = p.Duty
 		}
 
-		// TODO: continue here: replacing slog with log
-		slog.Debug(fmt.Sprintf("set pins (%v): %+v", pins, device))
+		log.Debug.Printf("Set pins (%v): %+v", pins, device)
 		err := device.SetPins(pins)
 		if err != nil {
-			slog.Error(fmt.Sprintf("set pins (%v): %s", pins, err.Error()))
+			log.Error.Printf("Set pins (%v): %s", pins, err.Error())
 		} else {
-			slog.Debug(fmt.Sprintf("set duty (%v): %+v", duty, device))
+			log.Debug.Printf("Set duty (%v): %+v", duty, device)
 			err = device.SetDuty(duty)
 			if err != nil {
-				slog.Error(fmt.Sprintf("set duty (%v): %s", duty, err.Error()))
+				log.Error.Println("Set duty (%v): %s", duty, err.Error())
 			}
 		}
 	}
 
 	// Start the devices scanner
 	if ip, err := scanner.GetLocalIP(); err != nil {
-		slog.Warn(err.Error())
+		log.Warn.Println(err.Error())
 	} else {
 		ip = strings.Join(strings.Split(ip, ".")[:3], ".") + ".0"
-		slog.Debug(fmt.Sprintf("Scan for pico devices (scan-range: %s)", ip))
+		log.Debug.Printf("Scan for pico devices (scan-range: %s)", ip)
 
 		// NOTE: Scan method is work in progress
 		if devices, err := config.Handler.Scan(ip); err != nil {
-			slog.Warn(err.Error())
+			log.Warn.Println(err.Error())
 		} else {
 			config.Handler.Devices = devices
 		}
@@ -174,27 +171,27 @@ func main() {
 
 	// Start server (HTTP or HTTPS)
 	if config.HTTP {
-		slog.Info("HTTP server running " + server.Addr)
+		log.Info.Printf("HTTP server running: %s", server.Addr)
 		if err := server.ListenAndServe(); err != nil {
-			slog.Fatal("Server error: " + err.Error())
+			log.Error.Printf("Server error: %s", err.Error())
 			os.Exit(1)
 		}
 	} else {
 		crt := os.Getenv("CERT_FILE")
 		if crt == "" {
-			slog.Fatal("Missing server certificate (env: CERT_FILE)")
+			log.Error.Println("Missing server certificate (env: CERT_FILE)")
 			os.Exit(1)
 		}
 
 		key := os.Getenv("KEY_FILE")
 		if key == "" {
-			slog.Fatal("Missing server certificate key (env: KEY_FILE)")
+			log.Error.Println("Missing server certificate key (env: KEY_FILE)")
 			os.Exit(1)
 		}
 
-		slog.Info("HTTPS server running " + server.Addr)
+		log.Info.Printf("HTTPS server running: %s", server.Addr)
 		if err := server.ListenAndServeTLS(crt, key); err != nil {
-			slog.Fatal("Server error: " + err.Error())
+			log.Error.Printf("Server error: %s", err.Error())
 			os.Exit(1)
 		}
 	}

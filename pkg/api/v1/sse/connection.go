@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/gookit/slog"
+	"github.com/knackwurstking/picow-rgbw-web/pkg/log"
 )
 
 type Connection struct {
@@ -32,7 +32,7 @@ func (c *Connection) Write(event string, data any) error {
 type Connections map[string][]*Connection
 
 func (cs Connections) Add(e string, c *Connection) {
-	slog.Debug("add sse connection:", c.Request.RemoteAddr)
+	log.Debug.Printf("Add sse connection: %s", c.Request.RemoteAddr)
 
 	if conns, ok := cs[e]; ok {
 		cs[e] = append(conns, c)
@@ -50,7 +50,7 @@ func (cs Connections) Get(e string) []*Connection {
 }
 
 func (cs Connections) Remove(e string, c *Connection) {
-	slog.Debug("remove sse connection:", c.Request.RemoteAddr)
+	log.Debug.Printf("remove sse connection: %s", c.Request.RemoteAddr)
 
 	if conns, ok := cs[e]; ok {
 		for i, c2 := range conns {

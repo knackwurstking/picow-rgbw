@@ -4,10 +4,10 @@ import "github.com/knackwurstking/picow-rgbw-web/pkg/api/v1/sse"
 
 // Device
 type Device struct {
-	Addr    string `json:"addr"`    // Addr contains the ip and port <ip>:<port>
-	Offline bool   `json:"offline"` // Offline
-	RGBW    [4]*Gp `json:"rgbw"`    // RGBW holds all pins in use
-	SSE     *sse.Handler
+	Addr    string       `json:"addr"`    // Addr contains the ip and port <ip>:<port>
+	Offline bool         `json:"offline"` // Offline
+	RGBW    [4]*Gp       `json:"rgbw"`    // RGBW holds all pins in use
+	SSE     *sse.Handler `json:"-"`
 }
 
 // NewDevice

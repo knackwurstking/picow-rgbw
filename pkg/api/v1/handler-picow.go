@@ -5,8 +5,8 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/gookit/slog"
 	"github.com/knackwurstking/picow-rgbw-web/pkg/api/v1/pico"
+	"github.com/knackwurstking/picow-rgbw-web/pkg/log"
 )
 
 type PicoW struct {
@@ -53,7 +53,7 @@ func (p *PicoW) postPico(w http.ResponseWriter, r *http.Request) {
 	go func() {
 		err := device.GetPins()
 		if err != nil {
-			slog.Warn("get pins: " + err.Error())
+			log.Warn.Printf("Get pins: %s", err.Error())
 			return
 		}
 

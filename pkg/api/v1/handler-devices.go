@@ -3,13 +3,12 @@ package v1
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"regexp"
 	"strconv"
 
-	"github.com/gookit/slog"
 	"github.com/knackwurstking/picow-rgbw-web/pkg/api/v1/pico"
+	"github.com/knackwurstking/picow-rgbw-web/pkg/log"
 )
 
 type Devices struct {
@@ -53,7 +52,7 @@ func (d *Devices) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 func (d *Devices) devices(w http.ResponseWriter, r *http.Request) {
 	handler := d.ctx.Value("pico").(*pico.Handler)
 	if err := json.NewEncoder(w).Encode(handler.Devices); err != nil {
-		slog.Error(err.Error())
+		log.Error.Println(err.Error())
 		http.Error(w, http.StatusText(http.StatusInternalServerError),
 			http.StatusInternalServerError)
 		return
@@ -68,7 +67,7 @@ func (d *Devices) device(w http.ResponseWriter, r *http.Request, id int) {
 	for i, device := range handler.Devices {
 		if i == id {
 			if err := json.NewEncoder(w).Encode(device); err != nil {
-				slog.Error(err.Error())
+				log.Error.Println(err.Error())
 				http.Error(w, http.StatusText(http.StatusInternalServerError),
 					http.StatusInternalServerError)
 				return
@@ -118,7 +117,7 @@ func (d *Devices) putDevices(w http.ResponseWriter, r *http.Request) {
 				return
 			}
 
-			slog.Debug(fmt.Sprintf("set rgbw (%v) for %s", rd.RGBW, device.Addr))
+			log.Debug.Printf("Set rgbw (%v) for %s", rd.RGBW, device.Addr)
 			if err := device.SetDuty(rd.RGBW); err != nil {
 				statusCh <- http.StatusInternalServerError
 				return

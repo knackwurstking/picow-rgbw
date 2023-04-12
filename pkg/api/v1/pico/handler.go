@@ -9,7 +9,7 @@ import (
 // Handler for pico devices (and data)
 type Handler struct {
 	Devices []*Device    `json:"devices"`
-	SSE     *sse.Handler // sse can be nil, make sure to check first
+	SSE     *sse.Handler `json:"-"` // sse can be nil, make sure to check first
 }
 
 // NewPico

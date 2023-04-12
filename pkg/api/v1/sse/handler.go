@@ -3,7 +3,7 @@ package sse
 import (
 	"net/http"
 
-	"github.com/gookit/slog"
+	"github.com/knackwurstking/picow-rgbw-web/pkg/log"
 )
 
 type Handler struct {
@@ -44,7 +44,7 @@ func (h *Handler) Dispatch(event string, data any) {
 	for _, c := range h.Connections.Get(event) {
 		go func(c *Connection) {
 			if err := c.Write(event, data); err != nil {
-				slog.Error(err.Error())
+				log.Error.Println(err.Error())
 			}
 		}(c)
 	}

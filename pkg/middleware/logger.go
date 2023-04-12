@@ -1,11 +1,10 @@
 package middleware
 
 import (
-	"fmt"
 	"net/http"
 	"time"
 
-	"github.com/gookit/slog"
+	"github.com/knackwurstking/picow-rgbw-web/pkg/log"
 )
 
 type Logger struct {
@@ -26,13 +25,12 @@ func (l *Logger) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			path += "?" + r.URL.RawQuery
 		}
 
-		slog.Info(
-			fmt.Sprintf("[%s] - %s - \"%s\" - %s",
-				r.RemoteAddr,
-				r.Method,
-				path,
-				time.Since(startTime).String(),
-			),
+		log.Info.Printf(
+			"[%s] - %s - \"%s\" - %s",
+			r.RemoteAddr,
+			r.Method,
+			path,
+			time.Since(startTime).String(),
 		)
 	}(time.Now())
 
