@@ -24,49 +24,49 @@ func NewHandler() *Handler {
 
 // Add a connection to handle
 // type: "devices-update", "device-update"
-func (h *Handler) Add(t string, w http.ResponseWriter, r *http.Request) (conn *Connection, ok bool) {
+func (h *Handler) Add(event string, w http.ResponseWriter, r *http.Request) (*Connection, bool) {
 	h.headers(w)
 	f, ok := w.(http.Flusher)
 	if !ok {
 		http.Error(w, http.StatusText(http.StatusBadRequest),
 			http.StatusBadRequest)
-		return
+		return nil, false
 	}
 
-	conn = &Connection{
+	c := &Connection{
 		Writer:  w,
 		Flusher: f,
 		Request: r,
 	}
-	h.add(t, conn)
+	h.add(event, c)
 
 	w.WriteHeader(http.StatusOK)
-	return conn, true
+	return c, true
 }
 
-func (h *Handler) Close(t string, c *Connection) {
-	h.remove(t, c)
+func (h *Handler) Close(event string, c *Connection) {
+	h.remove(event, c)
 }
 
-func (h *Handler) Dispatch(t string, data any) {
+func (h *Handler) Dispatch(event string, data any) {
 	// TODO: iter connection for event [t]ype and write to connection
 }
 
-func (h *Handler) add(t string, c *Connection) {
-	slog.Debug("add sse connection:", c.Request.RemoteAddr)
-	if conns, ok := h.connections[t]; ok {
-		h.connections[t] = append(conns, c)
+func (h *Handler) add(event string, conn *Connection) {
+	slog.Debug("add sse connection:", conn.Request.RemoteAddr)
+	if conns, ok := h.connections[event]; ok {
+		h.connections[event] = append(conns, conn)
 	} else {
-		h.connections[t] = []*Connection{c}
+		h.connections[event] = []*Connection{conn}
 	}
 }
 
-func (h *Handler) remove(t string, c *Connection) {
+func (h *Handler) remove(event string, c *Connection) {
 	slog.Debug("remove sse connection:", c.Request.RemoteAddr)
-	if conns, ok := h.connections[t]; ok {
+	if conns, ok := h.connections[event]; ok {
 		for i, c2 := range conns {
 			if c2 == c {
-				h.connections[t] = append(conns[:i], conns[i+1:]...)
+				h.connections[event] = append(conns[:i], conns[i+1:]...)
 				return
 			}
 		}
