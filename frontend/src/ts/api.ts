@@ -27,11 +27,20 @@ export interface ApiPaths {
     v1: ApiPathsV1;
 }
 
+export type SSEEvents = "devices" | "device";
+
+export interface Events {
+    devices: ((data: Device[]) => Promise<void> | void)[];
+    device: ((data: Device) => Promise<void> | void)[];
+}
+
+// TODO: Implement sse events ("devices" and "device")
 export class Api {
     protocol: "http:" | "https:";
     host: string;
     version: "v1";
     paths: ApiPaths;
+    events: Events;
 
     constructor() {
         this.protocol = "http:";
@@ -43,6 +52,10 @@ export class Api {
                 postDevices: () => "/api/v1/devices",
                 device: (id) => `/api/v1/devices/${id}`,
             },
+        };
+        this.events = {
+            devices: [],
+            device: [],
         };
     }
 
@@ -72,6 +85,36 @@ export class Api {
 
         if (!resp.ok) {
             throw `response error: ${resp.statusText} (${url})`;
+        }
+    }
+
+    addEventListener(
+        type: SSEEvents,
+        listener: (data: any) => Promise<void> | void
+    ) {
+        if (!(type in this.events)) {
+            return;
+        }
+
+        this.events[type].push(listener);
+    }
+
+    removeEventListener(
+        type: SSEEvents,
+        listener: (data: any) => Promise<void> | void
+    ) {
+        if (!(type in this.events)) {
+            return;
+        }
+
+        let i = 0;
+        const listeners = this.events[type]
+        for (const l of listeners) {
+            if (l == listener) {
+                // @ts-expect-error
+                this.events[type] = [...listeners.slice(0, i), ...listeners.slice(i + 1)];
+            }
+            i++;
         }
     }
 }
