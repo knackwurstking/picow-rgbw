@@ -114,6 +114,6 @@ func (d *Device) SetPins(pins [4]GpPin) error {
 
 func (d *Device) update() {
 	if d.SSE != nil {
-		d.SSE.Dispatch("device", d)
+		d.SSE.Dispatch("device", "update", d)
 	}
 }

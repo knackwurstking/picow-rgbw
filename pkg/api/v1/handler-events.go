@@ -21,6 +21,7 @@ func NewEvents(prefixPath string, ctx context.Context) http.Handler {
 	return &Events{
 		prefix: prefixPath,
 		ctx:    ctx,
+		sse:    p.SSE,
 	}
 }
 

@@ -58,6 +58,6 @@ func (h *Handler) Scan(ipRange string) (devices []*Device, err error) {
 
 func (h *Handler) update() {
 	if h.SSE != nil {
-		h.SSE.Dispatch("devices", h)
+		h.SSE.Dispatch("devices", "update", h)
 	}
 }

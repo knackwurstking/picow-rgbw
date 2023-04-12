@@ -54,6 +54,8 @@ export class Api {
             devices: [],
             device: [],
         };
+
+        this.sse();
     }
 
     url(key: string, ...param: any): string {
@@ -105,12 +107,34 @@ export class Api {
         }
 
         let i = 0;
-        const listeners = this.events[type]
+        const listeners = this.events[type];
         for (const l of listeners) {
             if (l == listener) {
-                this.events[type] = [...listeners.slice(0, i), ...listeners.slice(i + 1)];
+                this.events[type] = [
+                    ...listeners.slice(0, i),
+                    ...listeners.slice(i + 1),
+                ];
             }
             i++;
+        }
+    }
+
+    sse() {
+        for (const p of ["devices", "device"]) {
+            const source = new EventSource("/api/v1/events/"+p);
+            source.onerror = (ev) => {
+                console.error("sse: ", ev);
+            };
+            source.addEventListener("update", (ev) => {
+                for (const l of this.events.devices) {
+                    l(JSON.parse(ev.data) as Device[]);
+                }
+            });
+            source.addEventListener("update", (ev) => {
+                for (const l of this.events.device) {
+                    l(JSON.parse(ev.data) as Device);
+                }
+            });
         }
     }
 }

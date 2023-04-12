@@ -7,11 +7,13 @@ import (
 )
 
 type Handler struct {
-	Connections Connections
+	Connections *Connections
 }
 
 func NewHandler() *Handler {
-	return &Handler{}
+	return &Handler{
+		Connections: NewConnections(),
+	}
 }
 
 // Add a connection to handle
@@ -40,10 +42,10 @@ func (h *Handler) Close(event string, conn *Connection) {
 	h.Connections.Remove(event, conn)
 }
 
-func (h *Handler) Dispatch(event string, data any) {
+func (h *Handler) Dispatch(event string, eventType string, data any) {
 	for _, c := range h.Connections.Get(event) {
 		go func(c *Connection) {
-			if err := c.Write(event, data); err != nil {
+			if err := c.Write(eventType, data); err != nil {
 				log.Error.Println(err.Error())
 			}
 		}(c)
