@@ -5,7 +5,7 @@
     export let w = 100;
 </script>
 
-<div class="container">
+<div class="container" {...$$restProps}>
     <div class="inputs">
         <div class="input">
             <input name="r" type="range" min={0} max={100} bind:value={r} />

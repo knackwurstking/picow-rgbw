@@ -117,19 +117,41 @@
             <legend>Control</legend>
             <div class="content">
                 <div
-                    style="display:flex;flex-direction:column;width:100%;height:100%;"
+                    style="
+                        display: flex;
+                        flex-direction: column;
+                        width: 100%;
+                        height: 100%;
+                    "
                 >
                     <div style="height:100%;" />
 
                     <!-- TODO: Add some horiz. color default values picker -->
                     <ColorDefaults />
 
-                    <ColorPicker bind:r bind:g bind:b bind:w />
+                    <ColorPicker
+                        style="height: 180px;"
+                        bind:r bind:g bind:b bind:w
+                    />
                 </div>
 
                 <!-- TODO: height should be the same like the color picker height (?) -->
-                <div style="width:42px;">
-                    <ColorBrightness bind:value={brightness} />
+                <div
+                    style="
+                        width: 42px;
+                        display: flex;
+                        flex-direction: column;
+                    "
+                >
+                    <div style="height:100%;" />
+                    <ColorBrightness
+                        style="
+                            height: 168px;
+                            padding: 0 8px;
+                            padding-bottom: 8px;
+                        "
+                        bind:value={brightness}
+                    />
                 </div>
             </div>
             <div class="bottom">
