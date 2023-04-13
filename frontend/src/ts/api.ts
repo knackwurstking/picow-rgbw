@@ -124,8 +124,11 @@ export class Api {
             const source = new EventSource("/api/v1/events/" + p);
             source.onerror = (ev) => {
                 console.error("sse: ", ev);
-                // TODO: try to reconnect every few seconds
-                //       and update devices
+                setTimeout(() => {
+                    console.log("Try reconnecting to sse event source!");
+                    source.close();
+                    this.sse();
+                }, 2500);
             };
             source.addEventListener("update", (ev) => {
                 for (const l of this.events[p]) {
