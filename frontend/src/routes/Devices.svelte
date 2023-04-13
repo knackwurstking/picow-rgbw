@@ -180,7 +180,6 @@
                         on:change={(ev) => {
                             const currentMin = Math.min(...[r, g, b, w]);
                             const diff = currentMin - ev.detail.value;
-                            console.log(diff);
                             r -= diff;
                             g -= diff;
                             b -= diff;
