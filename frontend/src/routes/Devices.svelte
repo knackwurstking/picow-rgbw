@@ -166,7 +166,6 @@
                 <!-- TODO: height should be the same like the color picker height (?) -->
                 <div
                     style="
-                        width: 42px;
                         display: flex;
                         flex-direction: column;
                     "
@@ -175,8 +174,7 @@
                     <ColorBrightness
                         style="
                             height: 168px;
-                            padding: 0 8px;
-                            padding-bottom: 8px;
+                            padding: 0 8px 8px 8px;
                         "
                         value={brightness}
                         on:change={(ev) => {
