@@ -1,11 +1,22 @@
 <script lang="ts">
-    export let min: number = 0;
+    import { createEventDispatcher } from "svelte";
+
+    const dispatch = createEventDispatcher();
+
+    export let min: number = 5;
     export let max: number = 100;
     export let value: number = 100;
 </script>
 
 <div class="container" {...$$restProps}>
-    <input type="range" {min} {max} bind:value orient="vertical" />
+    <input
+        type="range"
+        {min}
+        {max}
+        bind:value
+        orient="vertical"
+        on:input={() => dispatch("change", { value })}
+    />
 </div>
 
 <style>

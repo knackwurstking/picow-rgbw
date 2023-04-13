@@ -6,14 +6,12 @@ export interface Gp {
     duty: Duty;
 }
 
-// TODO: add "brightness" field?
 export interface Device {
     addr: string;
     offline: boolean;
     rgbw: Gp[];
 }
 
-// TODO: add "brightness" field?
 export interface ReqPutDevice {
     addr: string;
     rgbw: Duty[];

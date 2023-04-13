@@ -22,12 +22,40 @@
         selected = newSelected;
     }
 
-    let r: number = 100;
-    let g: number = 100;
-    let b: number = 100;
-    let w: number = 100;
+    let brightness = 0;
+    $: console.log("brightness:", brightness);
 
-    let brightness = 100;
+    // TODO: need to fix the max value
+    let r: number = 100;
+    $: {
+        brightness = Math.min(...[r, g, b, w]);
+        bMax = 100 - (100 - bMin + Math.max(...[r, g, b, w]));
+    };
+    let g: number = 100;
+    $: {
+        brightness = Math.min(...[r, g, b, w]);
+        bMax = 100 - (100 - bMin + Math.max(...[r, g, b, w]));
+    };
+    let b: number = 100;
+    $: {
+        brightness = Math.min(...[r, g, b, w]);
+        bMax = 100 - (100 - bMin + Math.max(...[r, g, b, w]));
+    };
+    let w: number = 100;
+    $: {
+        brightness = Math.min(...[r, g, b, w]);
+        bMax = 100 - (100 - bMin + Math.max(...[r, g, b, w]));
+    };
+
+    /*
+        rgbw:  90 70 90 80
+        0-100: 5 - (100 - 30 + 10) (min:5 - (100% - min:rgbw + diff:max:rgbw:to:100%))
+        range: 5 - 80
+        current: 70
+    */
+
+    let bMin = 5;
+    let bMax = 100 - (100 - bMin + Math.max(...[r, g, b, w]));
 
     const forDestroy: Events = {
         devices: [],
@@ -150,7 +178,16 @@
                             padding: 0 8px;
                             padding-bottom: 8px;
                         "
-                        bind:value={brightness}
+                        value={brightness}
+                        on:change={(ev) => {
+                            const currentMin = Math.min(...[r, g, b, w]);
+                            const diff = currentMin - ev.detail.value;
+                            console.log(diff);
+                            r -= diff;
+                            g -= diff;
+                            b -= diff;
+                            w -= diff;
+                        }}
                     />
                 </div>
             </div>
