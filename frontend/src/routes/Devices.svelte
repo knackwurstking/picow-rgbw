@@ -88,7 +88,6 @@
     <title>Pico Web | Devices</title>
 </svelte:head>
 
-<!-- TODO: set ctrl container to min-width based on content -->
 <div class="container">
     <section class="devices-list">
         <fieldset>
