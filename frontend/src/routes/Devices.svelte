@@ -23,7 +23,6 @@
     }
 
     let brightness = 0;
-    $: console.log("brightness:", brightness);
 
     // TODO: need to fix the max value
     let r: number = 100;
@@ -180,6 +179,21 @@
                         on:change={(ev) => {
                             const currentMin = Math.min(...[r, g, b, w]);
                             const diff = currentMin - ev.detail.value;
+
+                            if (
+                                r-diff > 100 ||
+                                g-diff > 100 ||
+                                b-diff > 100 ||
+                                w-diff > 100
+                            ) {
+                                const rest = 100-Math.max(...[r,g,b,w]);
+                                r += rest;
+                                g += rest;
+                                b += rest;
+                                w += rest;
+                                return
+                            }
+
                             r -= diff;
                             g -= diff;
                             b -= diff;
@@ -201,10 +215,10 @@
                                     ...selected.map((d) => ({
                                         addr: d.addr,
                                         rgbw: [
-                                            Math.round((r / 100) * brightness),
-                                            Math.round((g / 100) * brightness),
-                                            Math.round((b / 100) * brightness),
-                                            Math.round((w / 100) * brightness),
+                                            Math.round(r),
+                                            Math.round(g),
+                                            Math.round(b),
+                                            Math.round(w),
                                         ],
                                     }))
                                 );
