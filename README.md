@@ -119,4 +119,5 @@ curl -X POST http://localhost:50833/api/v1/picow\
 
 ## TODOs
 
+- [ ] add a "Getting Started" section
 - [ ] Scan method (`pico.Handler.Scan`) still missing
