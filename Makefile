@@ -20,21 +20,8 @@ install:
 		cp ./config/${name}.service ${systemd_path}/${name}.service; \
 	fi
 
-service_start:
-	@systemctl --user daemon-reload
-	@systemctl --user start picow-rgbw-web
-
-service_stop:
-	@systemctl --user daemon-reload
-	@systemctl --user stop picow-rgbw-web
-
-service_enable:
-	@systemctl --user daemon-reload
-	@systemctl --user enable picow-rgbw-web
-
-service_disable:
-	@systemctl --user daemon-reload
-	@systemctl --user disable picow-rgbw-web
-
-service_log:
-	@journalctl --user --follow --output cat -u picow-rgbw-web
+service:
+	systemctl --user daemon-reload
+	systemctl --user restart picow-rgbw-web
+	systemctl --user enable picow-rgbw-web
+	journalctl --user --follow --output cat -u picow-rgbw-web
