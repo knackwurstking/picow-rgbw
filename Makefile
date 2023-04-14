@@ -4,6 +4,7 @@ config_path=~/.config/
 systemd_path=~/.config/systemd/user
 
 build:
+	@cd frontend && npm install && npm run build
 	@go mod tidy
 	@go build -o ./${name} ./cmd/${name}
 
