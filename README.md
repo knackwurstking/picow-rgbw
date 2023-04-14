@@ -15,6 +15,22 @@
 
 Web server for controlling all [picow-rgbw](https://github.com/knackwurstking/picow-rgbw.git) driven devices.
 
+## Getting Started
+
+Install the latest node js version
+
+```bash
+curl -fsSL https://deb.nodesource.com/setup_current.x | sudo -E bash -
+sudo apt install nodejs
+```
+
+Build and install with make
+
+```bash
+make build
+make install
+```
+
 ## Api v1 Routing Table
 
 TODO: find a better way for this
@@ -119,5 +135,4 @@ curl -X POST http://localhost:50833/api/v1/picow\
 
 ## TODOs
 
-- [ ] add a "Getting Started" section
 - [ ] Scan method (`pico.Handler.Scan`) still missing
