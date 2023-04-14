@@ -124,4 +124,3 @@ curl -X POST http://localhost:50833/api/v1/picow\
   - [ ] script: "install" (no root) (copy empty a basic config.json file
         if not exists)
 - [ ] Scan method (`pico.Handler.Scan`) still missing
-- [x] Frontend: display the current color for each device
