@@ -28,29 +28,22 @@
     $: {
         brightness = Math.min(...[r, g, b, w]);
         bMax = 100 - (100 - bMin + Math.max(...[r, g, b, w]));
-    };
+    }
     let g: number = 100;
     $: {
         brightness = Math.min(...[r, g, b, w]);
         bMax = 100 - (100 - bMin + Math.max(...[r, g, b, w]));
-    };
+    }
     let b: number = 100;
     $: {
         brightness = Math.min(...[r, g, b, w]);
         bMax = 100 - (100 - bMin + Math.max(...[r, g, b, w]));
-    };
+    }
     let w: number = 100;
     $: {
         brightness = Math.min(...[r, g, b, w]);
         bMax = 100 - (100 - bMin + Math.max(...[r, g, b, w]));
-    };
-
-    /*
-        rgbw:  90 70 90 80
-        0-100: 5 - (100 - 30 + 10) (min:5 - (100% - min:rgbw + diff:max:rgbw:to:100%))
-        range: 5 - 80
-        current: 70
-    */
+    }
 
     let bMin = 5;
     let bMax = 100 - (100 - bMin + Math.max(...[r, g, b, w]));
@@ -95,11 +88,12 @@
     <title>Pico Web | Devices</title>
 </svelte:head>
 
-<div class="devices container">
-    <section class="list">
+<!-- TODO: set ctrl container to min-width based on content -->
+<div class="container">
+    <section class="devices-list">
         <fieldset>
             <legend>Devices</legend>
-            <div class="content list">
+            <div class="content">
                 {#each devices as device}
                     <CheckLabel
                         checked={!device.offline &&
@@ -138,7 +132,7 @@
         </fieldset>
     </section>
 
-    <section class="ctrl">
+    <section class="devices-ctrl">
         <fieldset>
             <legend>Control</legend>
             <div class="content">
@@ -157,7 +151,10 @@
 
                     <ColorPicker
                         style="height: 180px;"
-                        bind:r bind:g bind:b bind:w
+                        bind:r
+                        bind:g
+                        bind:b
+                        bind:w
                     />
                 </div>
 
@@ -180,17 +177,17 @@
                             const diff = currentMin - ev.detail.value;
 
                             if (
-                                r-diff > 100 ||
-                                g-diff > 100 ||
-                                b-diff > 100 ||
-                                w-diff > 100
+                                r - diff > 100 ||
+                                g - diff > 100 ||
+                                b - diff > 100 ||
+                                w - diff > 100
                             ) {
-                                const rest = 100-Math.max(...[r,g,b,w]);
+                                const rest = 100 - Math.max(...[r, g, b, w]);
                                 r += rest;
                                 g += rest;
                                 b += rest;
                                 w += rest;
-                                return
+                                return;
                             }
 
                             r -= diff;
@@ -201,7 +198,7 @@
                     />
                 </div>
             </div>
-            <div class="bottom">
+            <div class="button-group">
                 <PowerToggle
                     style="
                         width: 100%;
@@ -239,89 +236,93 @@
 </div>
 
 <style>
-    div.devices.container {
+    .container {
         display: flex;
         flex-direction: column;
         width: 100%;
         height: 100%;
     }
 
-    div.devices.container > section {
+    .container > * {
         width: 100%;
         height: 100%;
         overflow: hidden;
     }
 
-    div.devices.container > section.list {
-        height: 60%;
+    .container > .devices-list {
+        height: 50%;
     }
 
-    div.devices.container > section.ctrl {
-        height: 40%;
+    .container > .devices-ctrl {
+        height: 50%;
     }
 
     /* default: mobile (portrait) */
 
     @media (min-width: 769px) {
-        div.devices.container {
+        .container {
             flex-direction: row;
         }
 
-        div.devices.container > section.list {
+        .container > .devices-list {
             width: 50%;
             height: 100%;
         }
 
-        div.devices.container > section.ctrl {
+        .container > .devices-ctrl {
             width: 50%;
             height: 100%;
         }
     }
 
-    div.devices.container > section.list fieldset {
-        margin: 16px;
+    .container > * > fieldset {
+        margin: 4px 8px;
         border-color: var(--theme-border);
-        overflow: hidden;
-        height: calc(100% - 32px);
     }
 
-    div.devices.container > section.list > fieldset > div.content.list {
+    .container > .devices-list fieldset {
+        overflow: hidden;
+        height: calc(100% - 8px);
+    }
+
+    .container > .devices-list > fieldset > .content {
         display: flex;
         flex-direction: column;
+        overflow: hidden;
+        overflow-y: auto;
         scroll-behavior: smooth;
         width: 100%;
         height: 100%;
     }
 
-    div.devices.container > section.ctrl > fieldset {
-        margin: 16px;
+    .container > .devices-ctrl > fieldset {
         padding-bottom: 0;
-        height: calc(100% - 32px);
-        border-color: var(--theme-border);
+        height: calc(100% - 8px);
     }
 
-    div.devices.container > section.ctrl > fieldset > div {
+    .container > .devices-ctrl > fieldset > div {
         margin: 8px;
     }
 
-    div.devices.container > section.ctrl fieldset div.content {
+    .container > .devices-ctrl fieldset div.content {
         width: calc(100% - 16px);
-        height: calc(100% - 64px - 20px);
+        height: calc(100% - 56px - 20px);
         margin-bottom: 0;
         overflow: hidden;
         overflow-y: auto;
         display: flex;
     }
 
-    div.devices.container > section.ctrl fieldset div.bottom {
+    .container > .devices-ctrl fieldset div.button-group {
         display: flex;
         justify-content: space-evenly;
         align-items: center;
         width: calc(100% - 16px);
-        height: 64px;
+        height: 56px;
         bottom: 0;
         left: 0;
         padding: 8px;
+        padding-bottom: 0;
         margin-top: 0;
         border-top: 1px solid var(--theme-border);
     }
