@@ -73,6 +73,8 @@ func initConfig() {
 			d.SSE = &config.Handler.SSE
 		}
 	}
+
+	log.Debug.(*log.DebugLogger).Enabled = config.Debug
 }
 
 func initFlags() {
