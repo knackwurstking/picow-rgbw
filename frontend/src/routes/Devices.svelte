@@ -24,7 +24,6 @@
 
     let brightness = 0;
 
-    // TODO: need to fix the max value
     let r: number = 100;
     $: {
         brightness = Math.min(...[r, g, b, w]);
