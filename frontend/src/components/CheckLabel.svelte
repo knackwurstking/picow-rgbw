@@ -11,7 +11,8 @@
     export let offline: boolean = false;
 </script>
 
-<label class:checked>
+<label class:checked
+>
     <StatusLED
         style="
             float: right;
@@ -22,7 +23,7 @@
         disabled={offline}
         type="checkbox"
         {checked}
-        on:change={() => dispatch("change", { checked: checked })}
+        on:click={() => dispatch("change", { checked: checked })}
     />
     {label}
     <br />

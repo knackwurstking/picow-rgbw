@@ -24,22 +24,23 @@
   --theme-primary--focus: rgba(255, 62, 0, 0.35);
 }
 
+* {
+  box-sizing: border-box;
+  font-family: FiraCode;
+  border-radius: var(--theme-border-radius);
+}
+
 html {
   font-size: 100%;
 }
 
+html,
 body {
   margin: 0;
   padding: 0;
   font-size: 1rem;
   background-color: var(--theme-background);
   color: var(--theme-on-surface);
-}
-
-* {
-  box-sizing: border-box;
-  font-family: FiraCode;
-  border-radius: var(--theme-border-radius);
 }
 
 a {

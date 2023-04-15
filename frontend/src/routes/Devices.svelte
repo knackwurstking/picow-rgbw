@@ -235,6 +235,11 @@
 </div>
 
 <style>
+    fieldset {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
     .container {
         display: flex;
         flex-direction: column;
@@ -258,7 +263,7 @@
 
     /* default: mobile (portrait) */
 
-    @media (min-width: 769px) {
+    @media (orientation: landscape) {
         .container {
             flex-direction: row;
         }
@@ -306,7 +311,6 @@
     .container > .devices-ctrl fieldset div.content {
         width: calc(100% - 16px);
         height: calc(100% - 56px - 20px);
-        margin-bottom: 0;
         overflow: hidden;
         overflow-y: auto;
         display: flex;
