@@ -243,6 +243,7 @@
         flex-direction: column;
         width: 100%;
         height: 100%;
+        padding: 8px;
     }
 
     .container > * {
@@ -252,11 +253,13 @@
     }
 
     .container > .devices-list {
-        height: 50%;
+        height: 100%;
     }
 
     .container > .devices-ctrl {
-        height: 50%;
+        min-height: 300px;
+        height: 300px;
+        max-height: 300px;
     }
 
     /* default: mobile (portrait) */
@@ -273,7 +276,9 @@
 
         .container > .devices-ctrl {
             width: 50%;
+            min-height: 100%;
             height: 100%;
+            max-height: 100%;
         }
     }
 
