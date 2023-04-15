@@ -5,10 +5,12 @@
 
     const dispatch = createEventDispatcher();
 
-    export let checked: boolean = false;
     export let label: string = "";
     export let currentColor: number[] = [0, 0, 0, 0];
     export let offline: boolean = false;
+
+    let checked: boolean = false;
+    $: dispatch("change", { checked: checked });
 </script>
 
 <label class:checked
@@ -22,8 +24,8 @@
     <input
         disabled={offline}
         type="checkbox"
-        {checked}
-        on:click={() => dispatch("change", { checked: checked })}
+        checked={!offline && checked}
+        on:input={() => (checked = !checked)}
     />
     {label}
     <br />

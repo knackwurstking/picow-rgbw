@@ -95,13 +95,11 @@
             <div class="content">
                 {#each devices as device}
                     <CheckLabel
-                        checked={!device.offline &&
-                            !!selected.find((sd) => sd.addr === device.addr)}
                         label={device.addr}
                         currentColor={device.rgbw.map((gp) => gp.duty)}
                         offline={device.offline}
-                        on:change={() => {
-                            if (!!selected.find((d) => d === device)) {
+                        on:change={(ev) => {
+                            if (!ev.detail.checked) {
                                 // remove device from selected
                                 selected = selected.filter((d) => d != device);
                             } else {
