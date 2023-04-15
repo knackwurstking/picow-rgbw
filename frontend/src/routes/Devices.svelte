@@ -147,7 +147,12 @@
                     <ColorDefaults />
 
                     <ColorPicker
-                        style="height: 180px;"
+                        style="
+                            min-height: 168px;
+                            height: 168px;
+                            max-height: 168px;
+                            padding: 0;
+                        "
                         bind:r
                         bind:g
                         bind:b
@@ -160,13 +165,16 @@
                     style="
                         display: flex;
                         flex-direction: column;
+                        height: 100%;
                     "
                 >
                     <div style="height:100%;" />
                     <ColorBrightness
                         style="
+                            min-height: 168px;
                             height: 168px;
-                            padding: 0 8px 8px 8px;
+                            max-height: 168px;
+                            padding: 4px 8px 4px 8px;
                         "
                         value={brightness}
                         on:change={(ev) => {

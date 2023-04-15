@@ -32,7 +32,6 @@
 
 <style>
     div.container {
-        padding: 8px;
         width: 100%;
         display: flex;
     }
@@ -54,7 +53,7 @@
     div.input label {
         display: inline-block;
         width: 1.5rem;
-        margin-top: 0.3rem;
+        margin-top: 4px;
         margin-left: 4px;
         text-align: center;
         font-size: 1.25rem;
