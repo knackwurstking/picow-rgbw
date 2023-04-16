@@ -26,27 +26,23 @@
 
     let r: number = 100;
     $: {
-        brightness = Math.min(...[r, g, b, w]);
-        bMax = 100 - (100 - bMin + Math.max(...[r, g, b, w]));
+        brightness = Math.min(...[r, g, b]);
+        bMax = 100 - (100 - bMin + Math.max(...[r, g, b]));
     }
     let g: number = 100;
     $: {
-        brightness = Math.min(...[r, g, b, w]);
-        bMax = 100 - (100 - bMin + Math.max(...[r, g, b, w]));
+        brightness = Math.min(...[r, g, b]);
+        bMax = 100 - (100 - bMin + Math.max(...[r, g, b]));
     }
     let b: number = 100;
     $: {
-        brightness = Math.min(...[r, g, b, w]);
-        bMax = 100 - (100 - bMin + Math.max(...[r, g, b, w]));
+        brightness = Math.min(...[r, g, b]);
+        bMax = 100 - (100 - bMin + Math.max(...[r, g, b]));
     }
     let w: number = 100;
-    $: {
-        brightness = Math.min(...[r, g, b, w]);
-        bMax = 100 - (100 - bMin + Math.max(...[r, g, b, w]));
-    }
 
     let bMin = 5;
-    let bMax = 100 - (100 - bMin + Math.max(...[r, g, b, w]));
+    let bMax = 100 - (100 - bMin + Math.max(...[r, g, b]));
 
     const forDestroy: Events = {
         devices: [],
@@ -130,7 +126,13 @@
     </section>
 
     <section class="devices-ctrl">
-        <fieldset>
+        <fieldset
+            style={`
+                box-shadow: 
+                    inset 0 0 15px ${brightness/100 * 6}px rgb(${r}, ${g}, ${b}),
+                    0 0 5px ${brightness/100 * 6 / 2}px rgb(${r}, ${g}, ${b});
+            `}
+        >
             <legend>Control</legend>
             <div class="content">
                 <div
@@ -160,7 +162,6 @@
                     />
                 </div>
 
-                <!-- TODO: height should be the same like the color picker height (?) -->
                 <div
                     style="
                         display: flex;
@@ -178,27 +179,31 @@
                         "
                         value={brightness}
                         on:change={(ev) => {
-                            const currentMin = Math.min(...[r, g, b, w]);
+                            const currentMin = Math.min(...[r, g, b]);
+
+                            let handleWhite = false;
+                            if (currentMin === Math.max(...[r, g, b])) handleWhite = true;
+
                             const diff = currentMin - ev.detail.value;
 
                             if (
                                 r - diff > 100 ||
                                 g - diff > 100 ||
-                                b - diff > 100 ||
-                                w - diff > 100
+                                b - diff > 100
                             ) {
-                                const rest = 100 - Math.max(...[r, g, b, w]);
+                                const rest = 100 - Math.max(...[r, g, b]);
                                 r += rest;
                                 g += rest;
                                 b += rest;
-                                w += rest;
-                                return;
+                            } else {
+                                r -= diff;
+                                g -= diff;
+                                b -= diff;
                             }
 
-                            r -= diff;
-                            g -= diff;
-                            b -= diff;
-                            w -= diff;
+                            if (handleWhite) {
+                                w = b;
+                            }
                         }}
                     />
                 </div>
@@ -257,7 +262,6 @@
     .container > * {
         width: 100%;
         height: 100%;
-        overflow: hidden;
     }
 
     .container > .devices-list {
