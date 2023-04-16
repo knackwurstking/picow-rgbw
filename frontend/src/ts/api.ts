@@ -123,16 +123,16 @@ export class Api {
         for (const p of ["devices", "device"]) {
             console.log(`Connect to sse EventSource: "${p}".`);
 
-            const source = new EventSource("/api/v1/events/" + p);
+            const path = "/api/v1/events/" + p;
+            let source = new EventSource(path);
 
             source.onerror = (ev) => {
                 console.error("Oops, sse EventSource failed. Try re-connect...");
-
+                source.close();
                 setTimeout(() => {
                     console.log("...reconnecting to sse event source!");
-                    source.close();
                     this.sse();
-                }, 2500);
+                }, 3000);
             };
 
             source.addEventListener("update", (ev) => {
