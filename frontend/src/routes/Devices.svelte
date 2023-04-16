@@ -126,11 +126,11 @@
     </section>
 
     <section class="devices-ctrl">
+        <!-- TODO: I don't like this box shadow stuff, change it! -->
         <fieldset
             style={`
                 box-shadow: 
-                    inset 0 0 15px ${brightness/100 * 6}px rgb(${r}, ${g}, ${b}),
-                    0 0 5px ${brightness/100 * 6 / 2}px rgb(${r}, ${g}, ${b});
+                    inset 0 0 ${brightness/100 * 5 + 5}px 3px rgb(${r/100*255}, ${g/100*255}, ${b/100*255});
             `}
         >
             <legend>Control</legend>
@@ -265,7 +265,7 @@
     }
 
     .container > .devices-list {
-        height: 100%;
+        height: calc(100% - 300px);
     }
 
     .container > .devices-ctrl {
@@ -325,7 +325,7 @@
 
     .container > .devices-ctrl fieldset div.content {
         width: calc(100% - 16px);
-        height: calc(100% - 56px - 20px);
+        height: calc(100% - 56px - 28px);
         overflow: hidden;
         overflow-y: auto;
         display: flex;
@@ -336,9 +336,7 @@
         justify-content: space-evenly;
         align-items: center;
         width: calc(100% - 16px);
-        height: 56px;
-        bottom: 0;
-        left: 0;
+        height: 52px;
         padding: 8px;
         padding-bottom: 0;
         margin-top: 0;
