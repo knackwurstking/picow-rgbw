@@ -47,13 +47,25 @@
     const forDestroy: Events = {
         devices: [],
         device: [],
+        offline: [],
     };
 
     onMount(() => {
+        // sse: "offline"
+        let offlineHandler = () => {
+            for (const d of devices) {
+                d.offline = true;
+            }
+        };
+
+        Api.addEventListener("offline", offlineHandler);
+        forDestroy.offline.push(offlineHandler);
+
         // sse: "devices"
         let devicesHandler = async (data: Device[]) => {
             devices = data;
         };
+
         Api.addEventListener("devices", devicesHandler);
         forDestroy.devices.push(devicesHandler);
 
