@@ -52,10 +52,11 @@
 
     onMount(() => {
         // sse: "offline"
-        let offlineHandler = () => {
+        let offlineHandler = async () => {
             for (const d of devices) {
                 d.offline = true;
             }
+            devices = devices;
         };
 
         Api.addEventListener("offline", offlineHandler);

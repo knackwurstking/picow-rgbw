@@ -33,12 +33,18 @@ export interface Events {
     offline: (() => Promise<void> | void)[];
 }
 
+export interface Sources {
+    devices: EventSource | null;
+    device: EventSource | null;
+}
+
 export class Api {
     protocol: "http:" | "https:";
     host: string;
     version: "v1";
     paths: ApiPaths;
     events: Events;
+    sources: Sources;
 
     constructor() {
         this.protocol = "http:";
@@ -57,6 +63,10 @@ export class Api {
             offline: [],
         };
 
+        this.sources = {
+            devices: null,
+            device: null,
+        }
         this.sse();
     }
 
@@ -126,22 +136,27 @@ export class Api {
             console.log(`Connect to sse EventSource: "${p}".`);
 
             const path = "/api/v1/events/" + p;
-            let source = new EventSource(path);
+            if (this.sources[p]) {
+                this.sources[p].close()
+            }
+            this.sources[p] = new EventSource(path);
 
-            source.onerror = (ev) => {
-                console.error("Oops, sse EventSource failed. Try re-connect...");
-                source.close();
-                setTimeout(() => {
-                    console.log("...reconnecting to sse event source!");
-                    this.sse();
-                }, 3000);
+            if (p === "devices") { // Only "devices" will handle the reconnect
+                this.sources[p].onerror = () => {
+                    console.error(`Oops, sse EventSource for "${p}" failed. Try re-connect...`);
 
-                for (const l of this.events.offline) {
-                    l();
-                }
-            };
+                    setTimeout(() => {
+                        console.log("...reconnecting to sse event source!");
+                        this.sse();
+                    }, 3000);
 
-            source.addEventListener("update", (ev) => {
+                    for (const l of this.events.offline) {
+                        l();
+                    }
+                };
+            }
+
+            this.sources[p].addEventListener("update", (ev) => {
                 for (const l of this.events[p]) {
                     l(JSON.parse(ev.data));
                 }
