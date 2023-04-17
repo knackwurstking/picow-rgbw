@@ -13,8 +13,7 @@
     $: dispatch("change", { checked: checked });
 </script>
 
-<label class:checked
->
+<label class:checked>
     <StatusLED
         style="
             float: right;
@@ -22,7 +21,6 @@
         active={!offline}
     />
     <input
-        disabled={offline}
         type="checkbox"
         checked={!offline && checked}
         on:input={() => (checked = !checked)}
