@@ -30,6 +30,7 @@ export interface ApiPaths {
 export interface Events {
     devices: ((data: Device[]) => Promise<void> | void)[];
     device: ((data: Device) => Promise<void> | void)[];
+    offline: (() => Promise<void> | void)[];
 }
 
 export class Api {
@@ -53,6 +54,7 @@ export class Api {
         this.events = {
             devices: [],
             device: [],
+            offline: [],
         };
 
         this.sse();
@@ -133,6 +135,10 @@ export class Api {
                     console.log("...reconnecting to sse event source!");
                     this.sse();
                 }, 3000);
+
+                for (const l of this.events.offline) {
+                    l();
+                }
             };
 
             source.addEventListener("update", (ev) => {
