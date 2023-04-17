@@ -135,4 +135,6 @@ curl -X POST http://localhost:50833/api/v1/picow\
 
 ## TODOs
 
+- [ ] On a GET devices request also send a (background) request to get the
+      current duty for each device, data will be updated via sse event
 - [ ] Scan method (`pico.Handler.Scan`) still missing
