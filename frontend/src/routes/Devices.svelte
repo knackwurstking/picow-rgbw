@@ -2,8 +2,6 @@
     import { onMount, onDestroy } from "svelte";
 
     import CheckLabel from "../components/CheckLabel.svelte";
-    import ColorDefaults from "../components/ColorDefaults.svelte";
-    import ColorBrightness from "../components/ColorBrightness.svelte";
     import ColorPicker from "../components/ColorPicker.svelte";
     import PowerToggle from "../components/PowerToggle.svelte";
 
@@ -22,27 +20,10 @@
         selected = newSelected;
     }
 
-    let brightness = 0;
-
     let r: number = 100;
-    $: {
-        brightness = Math.min(...[r, g, b]);
-        bMax = 100 - (100 - bMin + Math.max(...[r, g, b]));
-    }
     let g: number = 100;
-    $: {
-        brightness = Math.min(...[r, g, b]);
-        bMax = 100 - (100 - bMin + Math.max(...[r, g, b]));
-    }
     let b: number = 100;
-    $: {
-        brightness = Math.min(...[r, g, b]);
-        bMax = 100 - (100 - bMin + Math.max(...[r, g, b]));
-    }
     let w: number = 100;
-
-    let bMin = 5;
-    let bMax = 100 - (100 - bMin + Math.max(...[r, g, b]));
 
     const forDestroy: Events = {
         devices: [],
@@ -139,87 +120,16 @@
     </section>
 
     <section class="devices-ctrl">
-        <!-- TODO: I don't like this box shadow stuff, change it! -->
-        <fieldset
-            style={`
-                box-shadow: 
-                    inset 0 0 ${brightness/100 * 5 + 5}px 3px rgb(${r/100*255}, ${g/100*255}, ${b/100*255});
-            `}
-        >
+        <fieldset>
             <legend>Control</legend>
             <div class="content">
-                <div
-                    style="
-                        display: flex;
-                        flex-direction: column;
-                        width: 100%;
-                        height: 100%;
-                    "
-                >
-                    <div style="height:100%;" />
-
-                    <!-- TODO: Add some horiz. color default values picker -->
-                    <ColorDefaults />
-
-                    <ColorPicker
-                        style="
-                            min-height: 168px;
-                            height: 168px;
-                            max-height: 168px;
-                            padding: 0;
-                        "
-                        bind:r
-                        bind:g
-                        bind:b
-                        bind:w
-                    />
-                </div>
-
-                <div
-                    style="
-                        display: flex;
-                        flex-direction: column;
-                        height: 100%;
-                    "
-                >
-                    <div style="height:100%;" />
-                    <ColorBrightness
-                        style="
-                            min-height: 168px;
-                            height: 168px;
-                            max-height: 168px;
-                            padding: 4px 8px 4px 8px;
-                        "
-                        value={brightness}
-                        on:change={(ev) => {
-                            const currentMin = Math.min(...[r, g, b]);
-
-                            let handleWhite = false;
-                            if (currentMin === Math.max(...[r, g, b])) handleWhite = true;
-
-                            const diff = currentMin - ev.detail.value;
-
-                            if (
-                                r - diff > 100 ||
-                                g - diff > 100 ||
-                                b - diff > 100
-                            ) {
-                                const rest = 100 - Math.max(...[r, g, b]);
-                                r += rest;
-                                g += rest;
-                                b += rest;
-                            } else {
-                                r -= diff;
-                                g -= diff;
-                                b -= diff;
-                            }
-
-                            if (handleWhite) {
-                                w = b;
-                            }
-                        }}
-                    />
-                </div>
+                <div class="spacer" style="height: 100%;"></div>
+                <ColorPicker
+                    bind:r
+                    bind:g
+                    bind:b
+                    bind:w
+                />
             </div>
             <div class="button-group">
                 <PowerToggle
@@ -342,6 +252,7 @@
         overflow: hidden;
         overflow-y: auto;
         display: flex;
+        flex-direction: column;
     }
 
     .container > .devices-ctrl fieldset div.button-group {
