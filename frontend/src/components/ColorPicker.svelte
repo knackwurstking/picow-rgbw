@@ -21,6 +21,7 @@
     }
 </script>
 
+<!-- TODO: Using a custom range slider component to fix styles in "chrome" browser -->
 <div class="container" {...$$restProps} style={`--rgb: rgba(${r/100*255}, ${g/100*255}, ${b/100*255}, 0.75);`}>
     <div class="color">
         <div class="input">
