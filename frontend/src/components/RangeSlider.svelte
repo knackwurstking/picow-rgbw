@@ -1,5 +1,4 @@
 <script lang="ts">
-    export let name = "";
     export let min = 0;
     export let max = 100;
     export let value = 50;
@@ -17,8 +16,8 @@
             const width = rect.right - rect.left; // 100% == max value
             const v = Math.round(pointer.x / (width / max));
 
-            if (v < 0) {
-                value = 0;
+            if (v < min) {
+                value = min;
             } else if (v > 100) {
                 value = 100
             } else {
