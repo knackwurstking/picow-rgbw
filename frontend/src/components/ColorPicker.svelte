@@ -49,8 +49,7 @@
     </div>
 
     <div class="brightness">
-        <input
-            type="range"
+        <RangeSlider
             min={5}
             max={100}
             bind:value={bValue}
@@ -143,6 +142,8 @@
     div.container .brightness {
         height: 100%;
         width: 48px;
+        padding-top: 16px;
+        padding-bottom: 16px;
         display: flex;
         justify-content: center;
         align-items: center;
