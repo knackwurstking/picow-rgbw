@@ -27,22 +27,22 @@
 <div class="container" {...$$restProps} style={`--rgb: rgba(${r/100*255}, ${g/100*255}, ${b/100*255}, 0.75);`}>
     <div class="color">
         <div class="input">
-            <RangeSlider name="r" min={0} max={100} bind:value={r} />
+            <RangeSlider min={0} max={100} bind:value={r} />
             <label for="r">R</label>
             <code>{r}</code>
         </div>
         <div class="input">
-            <RangeSlider name="g" min={0} max={100} bind:value={g} />
+            <RangeSlider min={0} max={100} bind:value={g} />
             <label for="g">G</label>
             <code>{g}</code>
         </div>
         <div class="input">
-            <RangeSlider name="b" min={0} max={100} bind:value={b} />
+            <RangeSlider min={0} max={100} bind:value={b} />
             <label for="b">B</label>
             <code>{b}</code>
         </div>
         <div class="input">
-            <RangeSlider name="w" min={0} max={100} bind:value={w} />
+            <RangeSlider min={0} max={100} bind:value={w} />
             <label for="w">W</label>
             <code>{w}</code>
         </div>
