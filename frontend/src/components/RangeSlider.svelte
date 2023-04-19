@@ -13,10 +13,19 @@
     let pointer: Position = null;
     $: {
         if (pointer) {
-            // TODO: Moving the ".thumb" here...
-            // ...
+            const rect = container.getBoundingClientRect();
+            const width = rect.right - rect.left; // 100% == max value
+            const v = Math.round(pointer.x / (width / max));
+
+            if (v < 0) {
+                value = 0;
+            } else if (v > 100) {
+                value = 100
+            } else {
+                value = v
+            }
         }
-    }
+    };
 </script>
 
 <div bind:this={container} class="container"
@@ -26,18 +35,19 @@
             x: ev.clientX - rect.left,
             y: ev.clientY - rect.top,
         };
-        console.log("pointerdown", pointer);
     }}
     on:pointermove={(ev) => {
-        if (!pointer) return;
+        if (!pointer || ev.buttons === 0) return;
         const rect = container.getBoundingClientRect();
         pointer = {
             x: ev.clientX - rect.left,
             y: ev.clientY - rect.top,
         }
     }}
-    on:pointerup={(ev) => {
-        pointer = null;
+    on:pointerup={() => {
+        if (!pointer) {
+            pointer = null;
+        }
     }}
 >
     <div class="track"/>
@@ -48,7 +58,7 @@
     />
     <div class="thumb"
         style={`
-            left: calc(${value}% - 16px);
+            left: calc(${value}% - 8px);
         `}
     />
 </div>
@@ -61,6 +71,8 @@
         display: flex;
         justify-content: center;
         place-items: center;
+        user-select: none;
+        touch-action: none;
     }
 
     .container .track {
