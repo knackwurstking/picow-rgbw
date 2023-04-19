@@ -223,14 +223,12 @@
     }
 
     .container > .devices-list fieldset {
-        overflow: hidden;
         height: calc(100% - 8px);
     }
 
     .container > .devices-list > fieldset > .content {
         display: flex;
         flex-direction: column;
-        overflow: hidden;
         overflow-y: auto;
         scroll-behavior: smooth;
         width: 100%;
@@ -249,10 +247,9 @@
     .container > .devices-ctrl fieldset div.content {
         width: calc(100% - 16px);
         height: calc(100% - 56px - 28px);
-        overflow: hidden;
-        overflow-y: auto;
         display: flex;
         flex-direction: column;
+        align-items: center;
     }
 
     .container > .devices-ctrl fieldset div.button-group {

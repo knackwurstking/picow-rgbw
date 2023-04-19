@@ -19,11 +19,9 @@
         if (b > 0) rgb.push(b);
         bValue = Math.min(...rgb);
     }
-
-    // TODO: Adding a color preview somewhere
 </script>
 
-<div class="container" {...$$restProps}>
+<div class="container" {...$$restProps} style={`--rgb: rgba(${r/100*255}, ${g/100*255}, ${b/100*255}, 0.75);`}>
     <div class="color">
         <div class="input">
             <input name="r" type="range" min={0} max={100} bind:value={r} />
@@ -91,13 +89,26 @@
 
 <style>
     div.container {
+        position: relative;
         width: 100%;
         height: 168px;
         display: flex;
     }
 
+    div.container::after {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--rgb);
+        filter: blur(50px);
+    }
+
     div.container .color {
-        width: calc(100%-42px);
+        width: 100%;
     }
 
     div.container .color div.input {
@@ -127,7 +138,7 @@
 
     div.container .brightness {
         height: 100%;
-        width: 42px;
+        width: 48px;
         display: flex;
         justify-content: center;
         align-items: center;
