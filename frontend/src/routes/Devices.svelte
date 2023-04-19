@@ -96,7 +96,7 @@
                                 selected = [...selected, device];
                             }
 
-                            if (!selected.length) {
+                            if (!selected.length && Math.max(r, g, b, w) === 0) {
                                 [r, g, b, w] = [100, 100, 100, 100];
                             } else {
                                 if (
