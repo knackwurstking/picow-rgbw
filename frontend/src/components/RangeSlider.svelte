@@ -44,6 +44,26 @@
             y: ev.clientY - rect.top,
         }
     }}
+    on:pointerout={(ev) => {
+        if (!pointer || ev.buttons === 0) return;
+        const rect = container.getBoundingClientRect();
+        if (ev.clientX < rect.left) {
+            pointer = {
+                x: 0,
+                y: ev.clientY - rect.top,
+            }
+        } else if (ev.clientX > rect.right) {
+            pointer = {
+                x: rect.width,
+                y: ev.clientY - rect.top,
+            }
+        } else {
+            pointer = {
+                x: ev.clientX - rect.left,
+                y: ev.clientY - rect.top,
+            }
+        }
+    }}
     on:pointerup={() => {
         if (!pointer) {
             pointer = null;

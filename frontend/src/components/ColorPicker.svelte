@@ -32,17 +32,17 @@
             <code>{r}</code>
         </div>
         <div class="input">
-            <input name="g" type="range" min={0} max={100} bind:value={g} />
+            <RangeSlider name="g" min={0} max={100} bind:value={g} />
             <label for="g">G</label>
             <code>{g}</code>
         </div>
         <div class="input">
-            <input name="b" type="range" min={0} max={100} bind:value={b} />
+            <RangeSlider name="b" min={0} max={100} bind:value={b} />
             <label for="b">B</label>
             <code>{b}</code>
         </div>
         <div class="input">
-            <input name="w" type="range" min={0} max={100} bind:value={w} />
+            <RangeSlider name="w" min={0} max={100} bind:value={w} />
             <label for="w">W</label>
             <code>{w}</code>
         </div>
@@ -116,6 +116,7 @@
 
     div.container .color div.input {
         display: flex;
+        margin: 8px 4px;
     }
 
     div.container .color div.input input {
@@ -127,7 +128,7 @@
         display: inline-block;
         width: 1.5rem;
         margin-top: 4px;
-        margin-left: 4px;
+        margin-left: 8px;
         text-align: center;
         font-size: 1.25rem;
         font-weight: bolder;
