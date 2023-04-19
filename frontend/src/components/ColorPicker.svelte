@@ -120,7 +120,6 @@
     div.container .color  div.input label {
         display: inline-block;
         width: 1.5rem;
-        margin-top: 4px;
         margin-left: 8px;
         text-align: center;
         font-size: 1.25rem;
@@ -128,7 +127,7 @@
     }
 
     div.container .color  div.input code {
-        margin-top: 0.5rem;
+        margin-top: 0.25rem;
         font-size: 0.95rem;
         width: 4ch;
     }

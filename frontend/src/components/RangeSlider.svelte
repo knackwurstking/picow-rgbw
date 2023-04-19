@@ -113,8 +113,8 @@
     .container {
         position: relative;
         width: 100%;
-        height: 1.5rem;
-        font-size: 1.5rem;
+        height: 1.75rem;
+        font-size: 1.75rem;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -123,7 +123,7 @@
     }
 
     .container.vertical {
-        width: 1.5rem;
+        width: 1.75rem;
         height: 100%;
         transform: rotate(180deg);
     }

@@ -241,11 +241,11 @@
     }
 
     .container > .devices-ctrl > fieldset > div {
-        margin: 8px;
+        margin: 8px 16px;
     }
 
     .container > .devices-ctrl fieldset div.content {
-        width: calc(100% - 16px);
+        width: calc(100% - 32px);
         height: calc(100% - 56px - 28px);
         display: flex;
         flex-direction: column;
@@ -261,6 +261,5 @@
         padding: 8px;
         padding-bottom: 0;
         margin-top: 0;
-        border-top: 1px solid var(--theme-border);
     }
 </style>
