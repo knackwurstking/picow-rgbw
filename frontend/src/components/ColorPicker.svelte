@@ -1,29 +1,24 @@
 <script lang="ts">
-    export let r: number = 100;
-    $: {
-        bValue = Math.min(...[r, g, b]);
-        bMax = 100 - (100 - bMin + Math.max(...[r, g, b]));
+    export let r: number = 0;
+    $: r >= 0 && updateBrightnessValue();
+
+    export let g: number = 0;
+    $: g >= 0 && updateBrightnessValue();
+
+    export let b: number = 0;
+    $: b >= 0 && updateBrightnessValue();
+
+    export let w: number = 0;
+
+    let bValue = Math.min(...[r, g, b]);
+
+    function updateBrightnessValue() {
+        const rgb: number[] = [];
+        if (r > 0) rgb.push(r);
+        if (g > 0) rgb.push(g);
+        if (b > 0) rgb.push(b);
+        bValue = Math.min(...rgb);
     }
-
-    export let g: number = 100;
-    $: {
-        bValue = Math.min(...[r, g, b]);
-        bMax = 100 - (100 - bMin + Math.max(...[r, g, b]));
-    }
-
-    export let b: number = 100;
-    $: {
-        bValue = Math.min(...[r, g, b]);
-        bMax = 100 - (100 - bMin + Math.max(...[r, g, b]));
-    }
-
-    export let w: number = 100;
-
-    let bValue = 0;
-    let bMin = 5;
-    let bMax = 100 - (100 - bMin + Math.max(...[r, g, b]));
-
-    // TODO: Update range slider styles to preview the current color
 </script>
 
 <div class="container" {...$$restProps}>
@@ -50,34 +45,38 @@
         </div>
     </div>
 
-    <div class="brightness" {...$$restProps}>
+    <div class="brightness">
         <input
             type="range"
-            min={bMin}
-            max={bMax}
+            min={5}
+            max={100}
             bind:value={bValue}
             orient="vertical"
             on:input={() => {
-                const currentMin = Math.min(...[r, g, b]);
+                const rgb = [];
+                if (r > 0) rgb.push(r);
+                if (g > 0) rgb.push(g);
+                if (b > 0) rgb.push(b);
 
+                const currentMin = Math.min(...rgb);
+
+                // Ignore white color if rgb is not the same
                 let handleWhite = false;
-                if (currentMin === Math.max(...[r, g, b])) handleWhite = true;
+                if (currentMin === Math.max(...rgb)) handleWhite = true;
 
                 const diff = currentMin - bValue;
 
                 if (
-                    r - diff > 100 ||
-                    g - diff > 100 ||
-                    b - diff > 100
+                    rgb.find(c => c - diff > 100)
                 ) {
-                    const rest = 100 - Math.max(...[r, g, b]);
-                    r += rest;
-                    g += rest;
-                    b += rest;
+                    const rest = 100 - Math.max(...rgb);
+                    if (r > 0) r += rest;
+                    if (g > 0) g += rest;
+                    if (b > 0) b += rest;
                 } else {
-                    r -= diff;
-                    g -= diff;
-                    b -= diff;
+                    if (r > 0) r -= diff;
+                    if (g > 0) g -= diff;
+                    if (b > 0) b -= diff;
                 }
 
                 if (handleWhite) {
@@ -96,17 +95,16 @@
     }
 
     div.container .color {
-        width: 100%;
+        width: calc(100%-42px);
     }
 
     div.container .color div.input {
         display: flex;
-        padding: 4px;
     }
 
     div.container .color div.input input {
         width: 100%;
-        margin: 8px 0;
+        margin: 4px 0;
     }
 
     div.container .color  div.input label {
@@ -127,7 +125,7 @@
 
     div.container .brightness {
         height: 100%;
-        width: 100%;
+        width: 42px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -135,6 +133,7 @@
 
     div.container .brightness input {
         height: calc(100% - 16px);
-        margin: 8px 0;
+        margin-left: 8px;
+        padding: 6px;
     }
 </style>
