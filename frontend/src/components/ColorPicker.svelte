@@ -19,6 +19,8 @@
         if (b > 0) rgb.push(b);
         bValue = Math.min(...rgb);
     }
+
+    // TODO: Adding a color preview somewhere
 </script>
 
 <div class="container" {...$$restProps}>
