@@ -9,20 +9,32 @@
         y: number
     }
 
-    let  pointer: Position = null;
+    let container: HTMLDivElement;
+    let pointer: Position = null;
+    $: {
+        if (pointer) {
+            // TODO: Moving the ".thumb" here...
+            // ...
+        }
+    }
 </script>
 
-<div class="container"
+<div bind:this={container} class="container"
     on:pointerdown={(ev) => {
-        // TODO: Get start position (x, y)
+        const rect = container.getBoundingClientRect();
         pointer = {
-            x: 0,
-            y: 0,
+            x: ev.clientX - rect.left,
+            y: ev.clientY - rect.top,
         };
+        console.log("pointerdown", pointer);
     }}
     on:pointermove={(ev) => {
         if (!pointer) return;
-        // TODO: get current pointer position and calc new position based on pointer data
+        const rect = container.getBoundingClientRect();
+        pointer = {
+            x: ev.clientX - rect.left,
+            y: ev.clientY - rect.top,
+        }
     }}
     on:pointerup={(ev) => {
         pointer = null;
