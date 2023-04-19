@@ -23,7 +23,6 @@
     }
 </script>
 
-<!-- TODO: Using a custom range slider component to fix styles in "chrome" browser -->
 <div class="container" {...$$restProps} style={`--rgb: rgba(${r/100*255}, ${g/100*255}, ${b/100*255}, 0.75);`}>
     <div class="color">
         <div class="input">
@@ -118,11 +117,6 @@
         margin: 8px 4px;
     }
 
-    div.container .color div.input input {
-        width: 100%;
-        margin: 4px 0;
-    }
-
     div.container .color  div.input label {
         display: inline-block;
         width: 1.5rem;
@@ -147,11 +141,5 @@
         display: flex;
         justify-content: center;
         align-items: center;
-    }
-
-    div.container .brightness input {
-        height: calc(100% - 16px);
-        margin-left: 8px;
-        padding: 6px;
     }
 </style>
