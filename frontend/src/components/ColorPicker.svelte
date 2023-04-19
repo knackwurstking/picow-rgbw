@@ -1,4 +1,6 @@
 <script lang="ts">
+    import RangeSlider from "./RangeSlider.svelte";
+
     export let r: number = 0;
     $: r >= 0 && updateBrightnessValue();
 
@@ -25,7 +27,7 @@
 <div class="container" {...$$restProps} style={`--rgb: rgba(${r/100*255}, ${g/100*255}, ${b/100*255}, 0.75);`}>
     <div class="color">
         <div class="input">
-            <input name="r" type="range" min={0} max={100} bind:value={r} />
+            <RangeSlider name="r" min={0} max={100} bind:value={r} />
             <label for="r">R</label>
             <code>{r}</code>
         </div>
