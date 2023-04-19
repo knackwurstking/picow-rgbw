@@ -2,6 +2,7 @@
     export let min = 0;
     export let max = 100;
     export let value = 50;
+    export let orient: "horizontal" | "vertical" = "horizontal";
 
     interface Position {
         x: number;
@@ -13,8 +14,15 @@
     $: {
         if (pointer) {
             const rect = container.getBoundingClientRect();
-            const width = rect.right - rect.left; // 100% == max value
-            const v = Math.round(pointer.x / (width / max));
+
+            let v: number;
+            if (orient === "vertical") {
+                const height = rect.bottom - rect.top; // 100% == max value
+                v = Math.round(pointer.y / (height / max));
+            } else {
+                const width = rect.right - rect.left; // 100% == max value
+                v = Math.round(pointer.x / (width / max));
+            }
 
             if (v < min) {
                 value = min;
@@ -27,7 +35,7 @@
     };
 </script>
 
-<div bind:this={container} class="container"
+<div bind:this={container} class="container" class:vertical={orient === "vertical"}
     on:pointerdown={(ev) => {
         const rect = container.getBoundingClientRect();
         pointer = {
@@ -46,15 +54,15 @@
     on:pointerout={(ev) => {
         if (!pointer || ev.buttons === 0) return;
         const rect = container.getBoundingClientRect();
-        if (ev.clientX < rect.left) {
+        if (ev.clientY < rect.top) {
             pointer = {
-                x: 0,
-                y: ev.clientY - rect.top,
+                x: ev.clientX - rect.left,
+                y: 0,
             }
-        } else if (ev.clientX > rect.right) {
+        } else if (ev.clientY > rect.bottom) {
             pointer = {
-                x: rect.width,
-                y: ev.clientY - rect.top,
+                x: ev.clientX - rect.left,
+                y: rect.height,
             }
         } else {
             pointer = {
