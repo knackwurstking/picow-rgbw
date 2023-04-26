@@ -1,4 +1,5 @@
 <script lang="ts">
+    // TODO: Redesign this whole thing
     import { onMount, onDestroy } from "svelte";
 
     import CheckLabel from "../components/CheckLabel.svelte";
@@ -96,7 +97,10 @@
                                 selected = [...selected, device];
                             }
 
-                            if (!selected.length && Math.max(r, g, b, w) === 0) {
+                            if (
+                                !selected.length &&
+                                Math.max(r, g, b, w) === 0
+                            ) {
                                 [r, g, b, w] = [100, 100, 100, 100];
                             } else {
                                 if (
@@ -123,13 +127,8 @@
         <fieldset>
             <legend>Control</legend>
             <div class="content">
-                <div class="spacer" style="height: 100%;"></div>
-                <ColorPicker
-                    bind:r
-                    bind:g
-                    bind:b
-                    bind:w
-                />
+                <div class="spacer" style="height: 100%;" />
+                <ColorPicker bind:r bind:g bind:b bind:w />
             </div>
             <div class="button-group">
                 <PowerToggle
