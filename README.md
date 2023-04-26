@@ -145,3 +145,5 @@ curl -X POST http://localhost:50833/api/v1/picow\
 - [ ] Add a settings icon button to the right for each device
   - [ ] change device name (saved in the browsers local storage)
   - [ ] (un)check motion sensor (enable/disable)
+- [ ] Remove the landscape mode and add a max width (???)
+  - [ ] Devices section should be (un)foldable
