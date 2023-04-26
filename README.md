@@ -140,3 +140,8 @@ curl -X POST http://localhost:50833/api/v1/picow\
       current duty for each device, data will be updated via sse event~
 - [ ] Scan method (`pico.Handler.Scan`) still missing
 - [ ] Fix rgbw control update on a device select if 0,0,0,0
+- [ ] Remove the status led and just update the border color to red or green if
+      offline or online
+- [ ] Add a settings icon button to the right for each device
+  - [ ] change device name (saved in the browsers local storage)
+  - [ ] (un)check motion sensor (enable/disable)
