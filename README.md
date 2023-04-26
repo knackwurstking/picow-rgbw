@@ -136,6 +136,7 @@ curl -X POST http://localhost:50833/api/v1/picow\
 ## TODOs
 
 - [x] if sse event handler (frontend) is "offline" do set devices to offline (red)
-- [ ] On a GET devices request also send a (background) request to get the
-      current duty for each device, data will be updated via sse event
+- [ ] ~On a GET devices request also send a (background) request to get the
+      current duty for each device, data will be updated via sse event~
 - [ ] Scan method (`pico.Handler.Scan`) still missing
+- [ ] Fix rgbw control update on a device select if 0,0,0,0
