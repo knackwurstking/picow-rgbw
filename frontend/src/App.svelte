@@ -39,27 +39,28 @@
     }
 
     .container > div:not(.spacer) {
-        min-width: calc(100vw - 16px);
-        width: calc(100vw - 16px);
-        max-width: calc(100vw - 16px);
-        height: calc(100% - 16px);
-        margin: 8px 0;
+        min-width: calc(100vw - 32px);
+        width: calc(100vw - 32px);
+        max-width: calc(100vw - 32px);
+        height: calc(100% - 32px);
+        margin: 16px 0;
 
         scroll-snap-align: center;
     }
 
     .container > div:not(.spacer):last-child {
-        margin-right: 8px;
+        margin-right: 16px;
     }
 
     .container > div:not(.spacer):first-child {
-        margin-left: 8px;
+        margin-left: 16px;
     }
 
+    /* TODO: adding a line which connects the divs connected to it (use ::before and ::after) */
     .container > div.spacer {
-        min-width: 16px;
-        width: 16px;
-        max-width: 16px;
+        min-width: 32px;
+        width: 32px;
+        max-width: 32px;
         height: 100%;
     }
 </style>
