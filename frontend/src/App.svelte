@@ -1,7 +1,9 @@
 <script lang="ts">
     import { onMount } from "svelte";
 
-    onMount(() => {});
+    onMount(() => {
+        // ...
+    });
 </script>
 
 <svelte:head>
@@ -10,40 +12,58 @@
     <title>Pico Web | Home</title>
 </svelte:head>
 
-<main>
+<div class="container debug">
     <div class="devices-container debug" />
-    <div class="spacer debug" />
+    <!--div class="spacer" /-->
     <div class="control-container debug" />
-</main>
+</div>
 
 <style>
-    main {
+    :global(html, body) {
+        overflow: hidden;
+    }
+
+    .container {
         position: absolute;
         top: 0;
         left: 0;
+        height: 100%;
         width: 100%;
-
-        overflow: hidden;
 
         display: flex;
         flex-direction: row;
+
+        overflow: hidden;
+        overflow-x: scroll;
+        scroll-snap-type: x mandatory;
     }
 
-    main > div:not(.spacer) {
-        width: calc(100% - 16px);
-        height: 100%;
+    .container > div:not(.spacer) {
+        min-width: calc(100vw - 16px);
+        width: calc(100vw - 16px);
+        max-width: calc(100vw - 16px);
+        height: calc(100% - 16px);
+        margin: 8px;
+        /*
+        margin-top: 8px;
+        margin-bottom: 8px;
+        */
+
+        scroll-snap-align: center;
     }
 
-    main > div.spacer {
+    .container > div.spacer {
+        min-width: 16px;
         width: 16px;
+        max-width: 16px;
         height: 100%;
     }
 
-    main > div:not(.spacer):last-child {
+    .container > div:not(.spacer):last-child {
         margin-right: 8px;
     }
 
-    main > div:not(.spacer):first-child {
+    .container > div:not(.spacer):first-child {
         margin-left: 8px;
     }
 </style>
