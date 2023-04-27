@@ -14,7 +14,7 @@
 
 <div class="container debug">
     <div class="devices-container debug" />
-    <!--div class="spacer" /-->
+    <div class="spacer" />
     <div class="control-container debug" />
 </div>
 
@@ -43,20 +43,9 @@
         width: calc(100vw - 16px);
         max-width: calc(100vw - 16px);
         height: calc(100% - 16px);
-        margin: 8px;
-        /*
-        margin-top: 8px;
-        margin-bottom: 8px;
-        */
+        margin: 8px 0;
 
         scroll-snap-align: center;
-    }
-
-    .container > div.spacer {
-        min-width: 16px;
-        width: 16px;
-        max-width: 16px;
-        height: 100%;
     }
 
     .container > div:not(.spacer):last-child {
@@ -65,5 +54,12 @@
 
     .container > div:not(.spacer):first-child {
         margin-left: 8px;
+    }
+
+    .container > div.spacer {
+        min-width: 16px;
+        width: 16px;
+        max-width: 16px;
+        height: 100%;
     }
 </style>
