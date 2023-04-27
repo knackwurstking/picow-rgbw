@@ -1,14 +1,7 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    import { Router, Route, navigate } from "svelte-routing";
-    import Devices from "./routes/Devices.svelte";
 
-    export let url = "";
-
-    onMount(() => {
-        // TODO: do a sign in here and navigate to /devices or /login
-        navigate("/devices", { replace: true }); // NOTE: there is no login yet
-    });
+    onMount(() => {});
 </script>
 
 <svelte:head>
@@ -17,23 +10,40 @@
     <title>Pico Web | Home</title>
 </svelte:head>
 
-<Router {url}>
-    <div class="content">
-        <!-- TODO: adding route for "login" -->
-        <Route path="/devices"><Devices /></Route>
-        <!-- Route path="/"><Login /></Route -->
-    </div>
-</Router>
+<main>
+    <div class="devices-container debug" />
+    <div class="spacer debug" />
+    <div class="control-container debug" />
+</main>
 
 <style>
-    :global(body) {
+    main {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+
         overflow: hidden;
+
+        display: flex;
+        flex-direction: row;
     }
 
-    .content {
-        position: absolute;
-        width: 100%;
+    main > div:not(.spacer) {
+        width: calc(100% - 16px);
         height: 100%;
-        overflow: hidden;
+    }
+
+    main > div.spacer {
+        width: 16px;
+        height: 100%;
+    }
+
+    main > div:not(.spacer):last-child {
+        margin-right: 8px;
+    }
+
+    main > div:not(.spacer):first-child {
+        margin-left: 8px;
     }
 </style>
