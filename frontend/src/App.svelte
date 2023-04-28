@@ -1,6 +1,9 @@
 <script lang="ts">
     import { onMount } from "svelte";
 
+    import Devices from "./lib/Devices.svelte";
+    import Control from "./lib/Control.svelte";
+
     onMount(() => {
         // ...
     });
@@ -13,9 +16,9 @@
 </svelte:head>
 
 <div class="container">
-    <fieldset class="devices-container" />
+    <Devices class="devices-container" style="margin-left: 16px;" />
     <div class="spacer" />
-    <fieldset class="control-container" />
+    <Control class="control-container" style="margin-right: 16px;" />
 </div>
 
 <style>
@@ -38,30 +41,13 @@
         scroll-snap-type: x mandatory;
     }
 
-    .container > fieldset {
-        min-width: calc(100vw - 32px);
-        width: calc(100vw - 32px);
-        max-width: calc(100vw - 32px);
-        height: calc(100% - 32px);
-        margin: 16px 0;
-
-        scroll-snap-align: center;
-    }
-
-    .container > fieldset:last-child {
-        margin-right: 16px;
-    }
-
-    .container > fieldset:first-child {
-        margin-left: 16px;
-    }
-
     .container > div.spacer {
         position: relative;
         min-width: 32px;
         width: 32px;
         max-width: 32px;
         height: 100%;
+        margin: 16px 0;
     }
 
     .container > div.spacer::before {
