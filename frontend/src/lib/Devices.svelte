@@ -19,7 +19,7 @@
 
   let devices: Device[] = [];
   $: {
-    console.log("[devices] devices updated", devices);
+    console.debug("[devices]", { devices });
     const newSelected = [];
     for (const s of selected) {
       if (!!devices.find((d) => d.addr === s.addr)) {
@@ -32,31 +32,26 @@
   onMount(() => {
     // sse: "offline"
     let offlineHandler = async () => {
-      console.log("[devices] handle offline event");
+      console.debug(`[devices] event: "offline"`);
       for (const d of devices) {
         d.offline = true;
       }
       devices = devices;
     };
-
     api.addEventListener("offline", offlineHandler);
     forDestroy.offline.push(offlineHandler);
 
     // sse: "devices"
     let devicesHandler = async (data: Device[]) => {
-      console.log("[devices] handle devices event");
+      console.debug(`[devices] event: "devices"`);
       devices = data;
     };
-
-    api.addEventListener("devices", devicesHandler);
-    forDestroy.devices.push(devicesHandler);
-
     api.addEventListener("devices", devicesHandler);
     forDestroy.devices.push(devicesHandler);
 
     // sse: "device"
     const deviceHandler = async (data: Device) => {
-      console.log("[devices] handle device event");
+      console.debug(`[devices] event: "device"`);
       const device = devices.find((d) => d.addr == data.addr);
       device.rgbw = data.rgbw;
       device.offline = data.offline;

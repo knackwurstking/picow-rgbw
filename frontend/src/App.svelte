@@ -9,7 +9,7 @@
     let w: number = 100;
 
     let selected: Device[] = [];
-    $: console.log("[app] selected devices:", selected);
+    $: console.debug("[app]", { selected });
 </script>
 
 <svelte:head>
