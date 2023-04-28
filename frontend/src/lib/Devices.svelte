@@ -1,7 +1,9 @@
 <script lang="ts">
 </script>
 
-<fieldset {...$$restProps} />
+<fieldset {...$$restProps}>
+  <legend>Control</legend>
+</fieldset>
 
 <style>
   fieldset {

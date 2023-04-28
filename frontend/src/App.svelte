@@ -35,6 +35,7 @@
 
         display: flex;
         flex-direction: row;
+        flex-wrap: nowrap;
 
         overflow: hidden;
         overflow-x: scroll;
