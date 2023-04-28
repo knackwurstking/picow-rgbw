@@ -1,12 +1,15 @@
 <script lang="ts">
-    import { onMount } from "svelte";
-
     import Devices from "./lib/Devices.svelte";
     import Control from "./lib/Control.svelte";
+    import type { Device } from "./lib/api";
 
-    onMount(() => {
-        // ...
-    });
+    let r: number = 100;
+    let g: number = 100;
+    let b: number = 100;
+    let w: number = 100;
+
+    let selected: Device[] = [];
+    $: console.log("[app] selected devices:", selected);
 </script>
 
 <svelte:head>
@@ -16,7 +19,15 @@
 </svelte:head>
 
 <div class="container">
-    <Devices class="devices-container" style="margin-left: 16px;" />
+    <Devices
+        class="devices-container"
+        style="margin-left: 16px;"
+        bind:r
+        bind:g
+        bind:b
+        bind:w
+        bind:selected
+    />
     <div class="spacer" />
     <Control class="control-container" style="margin-right: 16px;" />
 </div>

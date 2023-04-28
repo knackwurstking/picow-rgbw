@@ -13,7 +13,7 @@
     $: dispatch("change", { checked: checked });
 </script>
 
-<label class:checked>
+<label class:checked {...$$restProps}>
     <StatusLED
         style="
             float: right;
@@ -32,10 +32,10 @@
 
 <style>
     label {
+        display: block;
+        padding: 8px;
         margin: 8px;
-        padding: 16px;
         border: 1px solid var(--theme-border);
-        padding-left: 16px;
         background-color: transparent;
         transition: background-color 0.35s ease;
         user-select: none;

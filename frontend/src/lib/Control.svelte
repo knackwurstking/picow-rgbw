@@ -2,7 +2,7 @@
 </script>
 
 <fieldset {...$$restProps}>
-  <legend>Devices</legend>
+  <legend>Control</legend>
 </fieldset>
 
 <style>

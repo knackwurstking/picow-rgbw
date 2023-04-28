@@ -133,7 +133,7 @@ export class Api {
 
     sse() {
         for (const p of ["devices", "device"]) {
-            console.log(`Connect to sse EventSource: "${p}".`);
+            console.log(`[api] Connect to sse EventSource: "${p}".`);
 
             const path = "/api/v1/events/" + p;
             if (this.sources[p]) {
@@ -146,7 +146,7 @@ export class Api {
                     console.error(`Oops, sse EventSource for "${p}" failed. Try re-connect...`);
 
                     setTimeout(() => {
-                        console.log("...reconnecting to sse event source!");
+                        console.log("[api] ...reconnecting to sse event source!");
                         this.sse();
                     }, 3000);
 
