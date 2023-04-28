@@ -12,10 +12,10 @@
     <title>Pico Web | Home</title>
 </svelte:head>
 
-<div class="container debug">
-    <div class="devices-container debug" />
+<div class="container">
+    <fieldset class="devices-container" />
     <div class="spacer" />
-    <div class="control-container debug" />
+    <fieldset class="control-container" />
 </div>
 
 <style>
@@ -38,7 +38,7 @@
         scroll-snap-type: x mandatory;
     }
 
-    .container > div:not(.spacer) {
+    .container > fieldset {
         min-width: calc(100vw - 32px);
         width: calc(100vw - 32px);
         max-width: calc(100vw - 32px);
@@ -48,19 +48,29 @@
         scroll-snap-align: center;
     }
 
-    .container > div:not(.spacer):last-child {
+    .container > fieldset:last-child {
         margin-right: 16px;
     }
 
-    .container > div:not(.spacer):first-child {
+    .container > fieldset:first-child {
         margin-left: 16px;
     }
 
-    /* TODO: adding a line which connects the divs connected to it (use ::before and ::after) */
     .container > div.spacer {
+        position: relative;
         min-width: 32px;
         width: 32px;
         max-width: 32px;
         height: 100%;
+    }
+
+    .container > div.spacer::before {
+        content: "";
+        position: absolute;
+        top: calc(50% - 1px);
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: var(--theme-border);
     }
 </style>

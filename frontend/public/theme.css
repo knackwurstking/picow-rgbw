@@ -100,6 +100,10 @@ input[type="range"]::-moz-range-track {
   background: var(--theme-secondary);
 }
 
+fieldset {
+  border-color: var(--theme-border);
+}
+
 /* misc */
 
 .debug {
