@@ -1,7 +1,18 @@
 <script lang="ts">
   import { onMount } from "svelte";
 
-  import CheckLabel from "./CheckLabel.svelte";
+  import Checkbox from "@smui/checkbox";
+
+  import List, {
+    Item,
+    Text,
+    PrimaryText,
+    SecondaryText,
+    Separator,
+    Meta,
+  } from "@smui/list";
+
+  import StatusLED from "./StatusLED.svelte";
   import api, { type Device, type Events } from "./api";
 
   const forDestroy: Events = {
@@ -64,35 +75,35 @@
 
 <fieldset {...$$restProps}>
   <legend>Devices</legend>
-  <div class="content">
+  <List checkList>
     {#each devices as device}
-      <CheckLabel
-        label={device.addr}
-        currentColor={device.rgbw.map((gp) => gp.duty)}
-        offline={device.offline}
-        on:change={(ev) => {
-          if (!ev.detail.checked) {
-            // remove device from selected
-            selected = selected.filter((d) => d != device);
-          } else {
-            selected = [...selected, device];
-          }
-
-          if (!selected.length && Math.max(r, g, b, w) === 0) {
-            [r, g, b, w] = [100, 100, 100, 100];
-          } else {
-            if (
-              selected.find((device) => !!device.rgbw.find((gp) => gp.duty > 0))
-            ) {
-              [r, g, b, w] = selected[selected.length - 1].rgbw.map(
-                (d) => d.duty
-              );
-            }
-          }
-        }}
-      />
+      <Item style="height: 65px;">
+        <Text>
+          <PrimaryText>{device.addr}</PrimaryText>
+          <SecondaryText
+            >[{device.rgbw.map((gp) => gp.duty).join(",")}]</SecondaryText
+          >
+        </Text>
+        <Meta>
+          <Checkbox
+            style="margin-right: 8px;"
+            bind:group={selected}
+            value={device}
+          />
+          <StatusLED
+            style="
+              position: absolute;
+              top: 4px;
+              right: 4px;
+            "
+            active={!device.offline}
+          />
+        </Meta>
+      </Item>
+      <Separator />
     {/each}
-  </div>
+  </List>
+  <!-- TODO: Add some kind of a action bar to bottom -->
 </fieldset>
 
 <style>
@@ -104,10 +115,5 @@
     margin: 16px 0;
 
     scroll-snap-align: center;
-  }
-
-  fieldset > .content {
-    width: 100%;
-    height: 100%;
   }
 </style>

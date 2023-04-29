@@ -13,11 +13,6 @@
 </script>
 
 <svelte:head>
-    <!-- SMUI Light Theme -->
-    <!--link
-        rel="stylesheet"
-        href="node_modules/svelte-material-ui/bare.css"
-    /-->
     <link
         rel="stylesheet"
         href="node_modules/svelte-material-ui/themes/material-dark.css"
@@ -43,6 +38,16 @@
 <style>
     :global(html, body) {
         overflow: hidden;
+    }
+
+    :global(:root) {
+        --theme-border: rgba(255, 255, 255, 0.12);
+        --theme-border-radius: var(--mdc-shape-medium, 4px);
+    }
+
+    :global(fieldset) {
+        border-radius: var(--theme-border-radius);
+        border-color: var(--theme-border);
     }
 
     .container {

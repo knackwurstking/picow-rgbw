@@ -18,12 +18,13 @@
         align-items: center;
         width: 1.5em;
         height: 1.5em;
-        border: 1px solid var(--theme-border);
+        border-radius: var(--theme-border-radius);
     }
 
     .outer .inner {
         width: 1em;
         height: 1em;
         filter: blur(2px);
+        border-radius: 50%;
     }
 </style>
