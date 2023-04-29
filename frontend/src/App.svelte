@@ -14,7 +14,15 @@
 
 <svelte:head>
     <!-- SMUI Light Theme -->
-    <link rel="stylesheet" href="/theme.css" />
+    <!--link
+        rel="stylesheet"
+        href="node_modules/svelte-material-ui/bare.css"
+    /-->
+    <link
+        rel="stylesheet"
+        href="node_modules/svelte-material-ui/themes/material-dark.css"
+    />
+
     <title>Pico Web | Home</title>
 </svelte:head>
 
