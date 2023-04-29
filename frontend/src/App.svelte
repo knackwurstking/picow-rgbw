@@ -1,4 +1,6 @@
 <script lang="ts">
+    import Button, { Group, Label } from "@smui/button";
+
     import Devices from "./lib/Devices.svelte";
     import Control from "./lib/Control.svelte";
     import type { Device } from "./lib/api";
@@ -36,7 +38,17 @@
     </div>
     <fieldset class="action">
         <legend>Action</legend>
-        <!-- TODO: Add ON/OFF buttons, change ON to SET if .control if visible? -->
+        <Group
+            variant="unelevated"
+            style="display: flex; justify-content: stretch;"
+        >
+            <Button variant="unelevated" color="primary" style="flex-grow: 1;"
+                ><Label>OFF</Label></Button
+            >
+            <Button variant="outlined" color="primary" style="flex-grow: 1;"
+                ><Label>SET</Label></Button
+            >
+        </Group>
     </fieldset>
 </div>
 
@@ -65,7 +77,7 @@
     }
 
     .x-scroll {
-        height: calc(100% - 16px - 90px);
+        height: calc(100% - 16px - 75px);
         padding: 8px 0;
         padding-bottom: 16px;
         z-index: 1;
@@ -103,7 +115,7 @@
         bottom: 0;
         left: 0;
         width: calc(100% - 32px);
-        height: 95px;
+        height: 80px;
         margin: 8px 16px;
     }
 </style>
