@@ -34,9 +34,9 @@
         <div class="spacer" />
         <Control style="margin-right: 16px;" />
     </div>
-    <!-- TODO: Add some kind of a action bar to bottom -->
     <fieldset class="action">
         <legend>Action</legend>
+        <!-- TODO: Add ON/OFF buttons, change ON to SET if .control if visible? -->
     </fieldset>
 </div>
 
