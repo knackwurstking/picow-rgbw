@@ -58,12 +58,12 @@
             variant="unelevated"
             style="display: flex; justify-content: stretch;"
         >
-            <Button variant="unelevated" color="primary" style="flex-grow: 1;"
-                ><Label>OFF</Label></Button
-            >
-            <Button variant="outlined" color="primary" style="flex-grow: 1;"
-                ><Label>{actionButtonLabel}</Label></Button
-            >
+            <Button variant="unelevated" color="primary" style="flex-grow: 1;">
+                <Label>OFF</Label>
+            </Button>
+            <Button variant="outlined" color="primary" style="flex-grow: 1;">
+                <Label>{actionButtonLabel}</Label>
+            </Button>
         </Group>
     </fieldset>
 </div>
