@@ -5,6 +5,9 @@
     import Control from "./lib/Control.svelte";
     import type { Device } from "./lib/api";
 
+    let control: HTMLDivElement;
+    let actionButtonLabel: "SET" | "ON" = "ON";
+
     let r: number = 100;
     let g: number = 100;
     let b: number = 100;
@@ -24,7 +27,18 @@
 </svelte:head>
 
 <div class="container">
-    <div class="x-scroll">
+    <div
+        class="x-scroll"
+        on:scroll={() => {
+            if (!control) return;
+            const r = control.getBoundingClientRect();
+            if (r.left < window.innerWidth / 2) {
+                actionButtonLabel = "SET";
+            } else {
+                actionButtonLabel = "ON";
+            }
+        }}
+    >
         <Devices
             style="margin-left: 16px;"
             bind:r
@@ -34,7 +48,9 @@
             bind:selected
         />
         <div class="spacer" />
-        <Control style="margin-right: 16px;" />
+        <div bind:this={control}>
+            <Control style="margin-right: 16px;" />
+        </div>
     </div>
     <fieldset class="action">
         <legend>Action</legend>
@@ -46,7 +62,7 @@
                 ><Label>OFF</Label></Button
             >
             <Button variant="outlined" color="primary" style="flex-grow: 1;"
-                ><Label>SET</Label></Button
+                ><Label>{actionButtonLabel}</Label></Button
             >
         </Group>
     </fieldset>
