@@ -22,17 +22,22 @@
 </svelte:head>
 
 <div class="container">
-    <Devices
-        class="devices-container"
-        style="margin-left: 16px;"
-        bind:r
-        bind:g
-        bind:b
-        bind:w
-        bind:selected
-    />
-    <div class="spacer" />
-    <Control class="control-container" style="margin-right: 16px;" />
+    <div class="x-scroll">
+        <Devices
+            style="margin-left: 16px;"
+            bind:r
+            bind:g
+            bind:b
+            bind:w
+            bind:selected
+        />
+        <div class="spacer" />
+        <Control style="margin-right: 16px;" />
+    </div>
+    <!-- TODO: Add some kind of a action bar to bottom -->
+    <fieldset class="action">
+        <legend>Action</legend>
+    </fieldset>
 </div>
 
 <style>
@@ -50,23 +55,31 @@
         border-color: var(--theme-border);
     }
 
-    .container {
+    .container,
+    .x-scroll {
         position: absolute;
         top: 0;
         left: 0;
         height: 100%;
         width: 100%;
+    }
 
-        display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
+    .x-scroll {
+        height: calc(100% - 16px - 90px);
+        padding: 8px 0;
+        padding-bottom: 16px;
+        z-index: 1;
 
         overflow: hidden;
         overflow-x: scroll;
         scroll-snap-type: x mandatory;
+
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
     }
 
-    .container > div.spacer {
+    div.spacer {
         position: relative;
         min-width: 32px;
         width: 32px;
@@ -75,7 +88,7 @@
         margin: 16px 0;
     }
 
-    .container > div.spacer::before {
+    div.spacer::before {
         content: "";
         position: absolute;
         top: calc(50% - 1px);
@@ -83,5 +96,14 @@
         width: 100%;
         height: 2px;
         background: var(--theme-border);
+    }
+
+    .action {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: calc(100% - 32px);
+        height: 95px;
+        margin: 8px 16px;
     }
 </style>

@@ -73,7 +73,7 @@
   });
 </script>
 
-<fieldset {...$$restProps}>
+<fieldset class="devices" {...$$restProps}>
   <legend>Devices</legend>
   <List checkList>
     {#each devices as device}
@@ -103,16 +103,14 @@
       <Separator />
     {/each}
   </List>
-  <!-- TODO: Add some kind of a action bar to bottom -->
 </fieldset>
 
 <style>
-  fieldset {
+  fieldset.devices {
     min-width: calc(100vw - 32px);
     width: calc(100vw - 32px);
     max-width: calc(100vw - 32px);
-    height: calc(100% - 32px);
-    margin: 16px 0;
+    height: 100%;
 
     scroll-snap-align: center;
   }

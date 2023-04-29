@@ -1,17 +1,16 @@
 <script lang="ts">
 </script>
 
-<fieldset {...$$restProps}>
+<fieldset class="control" {...$$restProps}>
   <legend>Control</legend>
 </fieldset>
 
 <style>
-  fieldset {
+  fieldset.control {
     min-width: calc(100vw - 32px);
     width: calc(100vw - 32px);
     max-width: calc(100vw - 32px);
-    height: calc(100% - 32px);
-    margin: 16px 0;
+    height: 100%;
 
     scroll-snap-align: center;
   }
