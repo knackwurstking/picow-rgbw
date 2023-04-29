@@ -3,7 +3,7 @@
 
     import Devices from "./lib/Devices.svelte";
     import Control from "./lib/Control.svelte";
-    import type { Device } from "./lib/api";
+    import type { Device } from "./lib/ts/api";
 
     let control: HTMLDivElement;
     let actionButtonLabel: "SET" | "ON" = "ON";

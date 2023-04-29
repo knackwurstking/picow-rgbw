@@ -12,8 +12,8 @@
     Meta,
   } from "@smui/list";
 
-  import StatusLED from "./StatusLED.svelte";
-  import api, { type Device, type Events } from "./api";
+  import StatusLED from "./components/StatusLED.svelte";
+  import api, { type Device, type Events } from "./ts/api";
 
   const forDestroy: Events = {
     devices: [],
