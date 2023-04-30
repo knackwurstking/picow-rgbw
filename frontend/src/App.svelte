@@ -1,24 +1,53 @@
 <script lang="ts">
+    import { onMount } from "svelte";
+
+    import Checkbox from "@smui/checkbox";
     import Button, { Group, Label } from "@smui/button";
+    import List, {
+        Item,
+        Text,
+        PrimaryText,
+        SecondaryText,
+        Separator,
+        Meta,
+    } from "@smui/list";
 
-    import Devices from "./lib/Devices.svelte";
-    import Control from "./lib/Control.svelte";
-    import api, { type Device } from "./lib/ts/api";
+    import StatusLED from "./lib/components/StatusLED.svelte";
 
+    import api, { type Device, type Duty } from "./lib/ts/api";
+
+    // NOTE: Devices
+    let devices: Device[] = [];
+    let selected: Device[] = [];
+    $: {
+        console.debug("[app]", { selected });
+        const newSelected = [];
+        for (const s of selected) {
+            if (!!devices.find((d) => d.addr === s.addr)) {
+                newSelected.push(s);
+            }
+        }
+        selected = newSelected;
+    }
+
+    // NOTE: Controls
     let control: HTMLDivElement;
+
+    let r: number = 255;
+    let g: number = 255;
+    let b: number = 255;
+    let w: number = 255;
+
+    let color: Duty[] = [255, 255, 255, 255];
+    $: {
+        console.log("[control] color:", r, g, b, w);
+        color = [r, g, b, w];
+    }
+
+    // NOTE: Actions
     let actionButtonLabel: "SET" | "ON" = "ON";
 
-    let color: Color = {
-        r: 255,
-        b: 255,
-        g: 255,
-        w: 255,
-    };
-
-    let selected: Device[] = [];
-    $: console.debug("[app]", { selected });
-
-    // Turn selected off selected devices.
+    // Turn selected off selected devices. (action button handler)
     function _off() {
         api.postDevices(
             ...selected.map((d) => ({
@@ -28,7 +57,7 @@
         );
     }
 
-    // Turn on or set color for selected devices.
+    // Turn on or set color for selected devices. (action button handler)
     function _set() {
         if (actionButtonLabel === "ON") {
             api.postDevices(
@@ -44,7 +73,7 @@
 
                     return {
                         addr: d.addr,
-                        rgbw: [c.r, c.g, c.b, c.w],
+                        rgbw: c,
                     };
                 })
             );
@@ -57,7 +86,7 @@
                 ...selected.map((d) => {
                     return {
                         addr: d.addr,
-                        rgbw: [color.r, color.g, color.b, color.w],
+                        rgbw: color,
                     };
                 })
             );
@@ -65,6 +94,59 @@
             return;
         }
     }
+
+    onMount(() => {
+        // sse: "offline"
+        api.addEventListener("offline", () => {
+            console.debug(`[app, event] "offline"`);
+
+            devices.forEach((d) => (d.offline = true));
+            devices = devices;
+        });
+
+        // sse: "devices"
+        api.addEventListener("devices", (data: Device[]) => {
+            console.debug(`[app, event] "devices"`);
+
+            devices = data;
+        });
+
+        // sse: "devices" (store color)
+        api.addEventListener("devices", async (data: Device[]) => {
+            console.debug(`[app, event] "devices" (store color)`);
+
+            data.forEach((d) => {
+                if (d.rgbw.find((gp) => gp.duty > 0))
+                    window.localStorage.setItem(
+                        `color:${d.addr}`,
+                        JSON.stringify(d.rgbw.map((gp) => gp.duty))
+                    );
+            });
+        });
+
+        // sse: "device", "device" (store color)
+        api.addEventListener("device", (data: Device) => {
+            console.debug(`[app, event] "device"`, data);
+
+            const device = devices.find((d) => d.addr === data.addr);
+            if (!device) return;
+
+            device.rgbw = data.rgbw;
+            device.offline = data.offline;
+
+            devices = devices;
+        });
+
+        api.addEventListener("device", async (data: Device) => {
+            console.debug(`[app, event] "device" (store color)`);
+
+            if (data.rgbw.find((gp) => gp.duty > 0))
+                window.localStorage.setItem(
+                    `color:${data.addr}`,
+                    JSON.stringify(data.rgbw.map((gp) => gp.duty))
+                );
+        });
+    });
 </script>
 
 <svelte:head>
@@ -76,7 +158,7 @@
     <title>Pico Web | Home</title>
 </svelte:head>
 
-<div class="container">
+<main>
     <div
         class="x-scroll"
         on:scroll={() => {
@@ -89,12 +171,53 @@
             }
         }}
     >
-        <Devices style="margin-left: 16px;" bind:selected />
+        <!-- "Devices" view to the left -->
+        <fieldset class="devices">
+            <legend>Devices</legend>
+            <List checkList>
+                {#each devices as device}
+                    <Item style="height: 65px;">
+                        <Text>
+                            <PrimaryText>{device.addr}</PrimaryText>
+
+                            <SecondaryText>
+                                [{device.rgbw.map((gp) => gp.duty).join(",")}]
+                            </SecondaryText>
+                        </Text>
+
+                        <Meta>
+                            <Checkbox
+                                style="margin-right: 8px;"
+                                bind:group={selected}
+                                value={device}
+                            />
+
+                            <StatusLED
+                                style="
+                                  position: absolute;
+                                  top: 4px;
+                                  right: 4px;
+                                "
+                                active={!device.offline}
+                            />
+                        </Meta>
+                    </Item>
+                    <Separator />
+                {/each}
+            </List>
+        </fieldset>
+
         <div class="spacer" />
+
+        <!-- "Control" view to the right -->
         <div bind:this={control}>
-            <Control style="margin-right: 16px;" bind:color />
+            <fieldset class="control">
+                <legend>Control</legend>
+            </fieldset>
         </div>
     </div>
+
+    <!-- Actions "OFF", "ON|SET" -->
     <fieldset class="action">
         <legend>Action</legend>
         <Group
@@ -119,7 +242,7 @@
             </Button>
         </Group>
     </fieldset>
-</div>
+</main>
 
 <style>
     :global(html, body) {
@@ -136,7 +259,7 @@
         border-color: var(--theme-border);
     }
 
-    .container,
+    main,
     .x-scroll {
         position: absolute;
         top: 0;
@@ -179,12 +302,31 @@
         background: var(--theme-border);
     }
 
-    .action {
+    main .action {
         position: absolute;
         bottom: 0;
         left: 0;
         width: calc(100% - 32px);
         height: 80px;
         margin: 8px 16px;
+    }
+
+    main .x-scroll fieldset.devices {
+        min-width: calc(100vw - 32px);
+        width: calc(100vw - 32px);
+        max-width: calc(100vw - 32px);
+        height: 100%;
+
+        scroll-snap-align: center;
+    }
+
+    main .x-scroll fieldset.control {
+        min-width: calc(100vw - 32px);
+        width: calc(100vw - 32px);
+        max-width: calc(100vw - 32px);
+        height: 100%;
+        margin-right: 16px;
+
+        scroll-snap-align: center;
     }
 </style>
