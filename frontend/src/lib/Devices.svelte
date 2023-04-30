@@ -15,12 +15,6 @@
   import StatusLED from "./components/StatusLED.svelte";
   import api, { type Device } from "./ts/api";
 
-  //const forDestroy: Events = {
-  //  devices: [],
-  //  device: [],
-  //  offline: [],
-  //};
-
   export let selected: Device[] = [];
 
   let devices: Device[] = [];
@@ -37,80 +31,51 @@
 
   onMount(() => {
     // sse: "offline"
-    {
-      const handler = async () => {
-        console.debug(`[devices, event] "offline"`);
-        for (const d of devices) {
-          d.offline = true;
-        }
-        devices = devices;
-      };
-      api.addEventListener("offline", handler);
-      //forDestroy.offline.push(offlineHandler);
-    }
+    api.addEventListener("offline", () => {
+      console.debug(`[devices, event] "offline"`);
+      devices.forEach((d) => (d.offline = true));
+      devices = devices;
+    });
 
     // sse: "devices"
-    {
-      let handler = async (data: Device[]) => {
-        console.debug(`[devices, event] "devices"`);
+    api.addEventListener("devices", (data: Device[]) => {
+      console.debug(`[devices, event] "devices"`);
+      devices = data;
+    });
 
-        // store color for device in localStorage
-        data.forEach((d) => {
-          if (d.rgbw.find((gp) => gp.duty > 0)) {
-            window.localStorage.setItem(
-              `color:${d.addr}`,
-              JSON.stringify(d.rgbw.map((gp) => gp.duty))
-            );
-          }
-        });
-
-        devices = data;
-      };
-      api.addEventListener("devices", handler);
-      //forDestroy.devices.push(devicesHandler);
-
-      // store color handler
-      handler = async (data: Device[]) => {
-        console.debug(`[devices, event] "devices" (store color)`);
-
-        // store color for device in localStorage
-        data.forEach((d) => {
-          if (d.rgbw.find((gp) => gp.duty > 0)) {
-            window.localStorage.setItem(
-              `color:${d.addr}`,
-              JSON.stringify(d.rgbw.map((gp) => gp.duty))
-            );
-          }
-        });
-      };
-      api.addEventListener("devices", handler);
-      //forDestroy.devices.push(devicesHandler);
-    }
+    // sse: "devices" (store color)
+    api.addEventListener("devices", (data: Device[]) => {
+      console.debug(`[devices, event] "devices" (store color)`);
+      data.forEach((d) => {
+        if (d.rgbw.find((gp) => gp.duty > 0))
+          window.localStorage.setItem(
+            `color:${d.addr}`,
+            JSON.stringify(d.rgbw.map((gp) => gp.duty))
+          );
+      });
+    });
 
     // sse: "device", "device" (store color)
-    {
-      let handler = async (data: Device) => {
-        console.debug(`[devices, event] "device"`);
-        const device = devices.find((d) => d.addr == data.addr);
-        device.rgbw = data.rgbw;
-        device.offline = data.offline;
-        devices = devices;
-      };
-      api.addEventListener("device", handler);
-      //forDestroy.device.push(deviceHandler);
+    api.addEventListener("device", (data: Device) => {
+      console.debug(`[devices, event] "device"`);
 
-      handler = async (data: Device) => {
-        console.debug(`[devices, event] "device" (store color)`);
-        if (data.rgbw.find((gp) => gp.duty > 0)) {
-          window.localStorage.setItem(
-            `color:${data.addr}`,
-            JSON.stringify(data.rgbw.map((gp) => gp.duty))
-          );
-        }
-      };
-      api.addEventListener("device", handler);
-      //forDestroy.device.push(deviceHandler);
-    }
+      const device = devices.find((d) => d.addr == data.addr);
+      if (!device) return;
+
+      device.rgbw = data.rgbw;
+      device.offline = data.offline;
+
+      devices = devices;
+    });
+
+    api.addEventListener("device", (data: Device) => {
+      console.debug(`[devices, event] "device" (store color)`);
+      if (data.rgbw.find((gp) => gp.duty > 0))
+        window.localStorage.setItem(
+          `color:${data.addr}`,
+          JSON.stringify(data.rgbw.map((gp) => gp.duty))
+        );
+    });
   });
 </script>
 
