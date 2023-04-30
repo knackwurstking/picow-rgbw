@@ -15,6 +15,10 @@
 
     let selected: Device[] = [];
     $: console.debug("[app]", { selected });
+
+    // TODO: ON/OFF handler (if actionButtonLabel === "ON")
+    //       using color stored in localStorage (or the color configured
+    //       on the control view)
 </script>
 
 <svelte:head>
