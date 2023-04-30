@@ -213,6 +213,7 @@
         <div bind:this={control}>
             <fieldset class="control">
                 <legend>Control</legend>
+                <!-- TODO: Adding controls here -->
             </fieldset>
         </div>
     </div>
