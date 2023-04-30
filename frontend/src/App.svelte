@@ -3,7 +3,7 @@
 
     import Devices from "./lib/Devices.svelte";
     import Control from "./lib/Control.svelte";
-    import api, { type Device, type ReqPutDevice } from "./lib/ts/api";
+    import api, { type Device } from "./lib/ts/api";
 
     let control: HTMLDivElement;
     let actionButtonLabel: "SET" | "ON" = "ON";
@@ -17,10 +17,6 @@
 
     let selected: Device[] = [];
     $: console.debug("[app]", { selected });
-
-    // TODO: ON/OFF handler (if actionButtonLabel === "ON")
-    //       using color stored in localStorage (or the color configured
-    //       on the control view)
 
     // Turn selected off selected devices.
     function _off() {
