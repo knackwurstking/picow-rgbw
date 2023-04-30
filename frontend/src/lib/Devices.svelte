@@ -21,11 +21,6 @@
     offline: [],
   };
 
-  export let r: number = 100;
-  export let g: number = 100;
-  export let b: number = 100;
-  export let w: number = 100;
-
   export let selected: Device[] = [];
 
   let devices: Device[] = [];

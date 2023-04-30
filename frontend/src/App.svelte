@@ -8,11 +8,6 @@
     let control: HTMLDivElement;
     let actionButtonLabel: "SET" | "ON" = "ON";
 
-    let r: number = 100;
-    let g: number = 100;
-    let b: number = 100;
-    let w: number = 100;
-
     let selected: Device[] = [];
     $: console.debug("[app]", { selected });
 
@@ -43,14 +38,7 @@
             }
         }}
     >
-        <Devices
-            style="margin-left: 16px;"
-            bind:r
-            bind:g
-            bind:b
-            bind:w
-            bind:selected
-        />
+        <Devices style="margin-left: 16px;" bind:selected />
         <div class="spacer" />
         <div bind:this={control}>
             <Control style="margin-right: 16px;" />
