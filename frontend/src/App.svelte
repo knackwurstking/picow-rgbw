@@ -8,6 +8,13 @@
     let control: HTMLDivElement;
     let actionButtonLabel: "SET" | "ON" = "ON";
 
+    let color: Color = {
+        r: 255,
+        b: 255,
+        g: 255,
+        w: 255,
+    };
+
     let selected: Device[] = [];
     $: console.debug("[app]", { selected });
 
