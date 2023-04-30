@@ -3,7 +3,7 @@
 
     import Devices from "./lib/Devices.svelte";
     import Control from "./lib/Control.svelte";
-    import type { Device } from "./lib/ts/api";
+    import api, { type Device, type ReqPutDevice } from "./lib/ts/api";
 
     let control: HTMLDivElement;
     let actionButtonLabel: "SET" | "ON" = "ON";
@@ -21,6 +21,54 @@
     // TODO: ON/OFF handler (if actionButtonLabel === "ON")
     //       using color stored in localStorage (or the color configured
     //       on the control view)
+
+    // Turn selected off selected devices.
+    function _off() {
+        api.postDevices(
+            ...selected.map((d) => ({
+                addr: d.addr,
+                rgbw: [0, 0, 0, 0],
+            }))
+        );
+    }
+
+    // Turn on or set color for selected devices.
+    function _set() {
+        if (actionButtonLabel === "ON") {
+            api.postDevices(
+                ...selected.map((d) => {
+                    let c = color;
+
+                    const storedColor = window.localStorage.getItem(
+                        `color:${d.addr}`
+                    );
+                    if (storedColor) {
+                        c = JSON.parse(storedColor);
+                    }
+
+                    return {
+                        addr: d.addr,
+                        rgbw: [c.r, c.g, c.b, c.w],
+                    };
+                })
+            );
+
+            return;
+        }
+
+        if (actionButtonLabel === "SET") {
+            api.postDevices(
+                ...selected.map((d) => {
+                    return {
+                        addr: d.addr,
+                        rgbw: [color.r, color.g, color.b, color.w],
+                    };
+                })
+            );
+
+            return;
+        }
+    }
 </script>
 
 <svelte:head>
@@ -57,10 +105,20 @@
             variant="unelevated"
             style="display: flex; justify-content: stretch;"
         >
-            <Button variant="unelevated" color="primary" style="flex-grow: 1;">
+            <Button
+                variant="unelevated"
+                color="primary"
+                style="flex-grow: 1;"
+                on:click={() => _off()}
+            >
                 <Label>OFF</Label>
             </Button>
-            <Button variant="outlined" color="primary" style="flex-grow: 1;">
+            <Button
+                variant="outlined"
+                color="primary"
+                style="flex-grow: 1;"
+                on:click={() => _set()}
+            >
                 <Label>{actionButtonLabel}</Label>
             </Button>
         </Group>
