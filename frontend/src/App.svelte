@@ -48,7 +48,7 @@
         <Devices style="margin-left: 16px;" bind:selected />
         <div class="spacer" />
         <div bind:this={control}>
-            <Control style="margin-right: 16px;" />
+            <Control style="margin-right: 16px;" bind:color />
         </div>
     </div>
     <fieldset class="action">
