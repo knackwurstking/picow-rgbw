@@ -20,6 +20,8 @@
 
     import api, { type Device, type Duty } from "./lib/api";
 
+    let mounted = false;
+
     // NOTE: Devices
     let devices: Device[] = [];
     let selected: Device[] = [];
@@ -48,9 +50,14 @@
     let b: number = 100;
     let w: number = 100;
 
-    let color: Duty[] = [255, 255, 255, 255];
+    //let color: Duty[] = [255, 255, 255, 255];
+    let color: Duty[];
+
     $: {
         color = [r, g, b, w];
+        if (mounted) {
+            window.localStorage.setItem("color", JSON.stringify(color));
+        }
     }
 
     // NOTE: Actions
@@ -105,6 +112,20 @@
     }
 
     onMount(() => {
+        // get color from storage for the color picker component
+        try {
+            color = JSON.parse(
+                window.localStorage.getItem("color") || `[${r},${g},${b},${w}]`
+            );
+
+            r = color[0] || 0;
+            g = color[1] || 0;
+            b = color[2] || 0;
+            w = color[3] || 0;
+        } catch (err) {
+            console.warn("parse color from local storage failed:", err);
+        }
+
         // sse: "offline"
         api.addEventListener("offline", () => {
             console.debug(`[app, event] "offline"`);
@@ -161,6 +182,8 @@
                     JSON.stringify(data.rgbw.map((gp) => gp.duty))
                 );
         });
+
+        mounted = true;
     });
 </script>
 
