@@ -1,5 +1,6 @@
 @charset "UTF-8";
 :root {
+  /* colors */
   --theme-background: #000000;
   --theme-color: #ffffff;
 
@@ -17,14 +18,26 @@
   --theme-disabled-label-background: rgba(255, 255, 255, 0.12);
   --theme-disabled-label-color: rgba(255, 255, 255, 0.38);
 
-  --theme-border: rgba(255, 255, 255, 0.12);
+  /* global border settings */
+  --theme-border-color: rgba(255, 255, 255, 0.12);
   --theme-border-radius: 4px;
 
+  /* button specific stuff */
   --theme-button-font-size: 0.875rem;
   --theme-button-letter-spacing: 0.0892857143em;
   --theme-button-font-weight: 500;
   --theme-button-height: 36px;
 
+  /* ripple effect colors */
+  --theme-ripple-primary: rgba(62, 255, 0, 0.7);
+  --theme-ripple-secondary: rgba(93, 77, 120, 0.7);
+  --theme-ripple-surface: rgba(33, 33, 37, 0.7);
+
+  --theme-ripple-on-primary: rgba(255, 255, 255, 0.7);
+  --theme-ripple-on-secondary: rgba(255, 255, 255, 0.7);
+  --theme-ripple-on-surface: rgba(255, 255, 255, 0.7);
+
+  /* TODO: remove this --mdc* stuff */
   --mdc-theme-primary: var(--theme-primary);
   --mdc-theme-secondary: var(--theme-secondary);
   --mdc-theme-surface: var(--theme-surface);
@@ -50,6 +63,7 @@ a:visited {
   color: var(--theme-link--visited);
 }
 
+/* Slider Component */
 .custom-slider__container {
   --box-shadow: 1px 1px 2px 0 black;
   --box-shadow--vertical: -1px -1px 2px 0 black;
@@ -87,6 +101,7 @@ a:visited {
   box-shadow: var(--box-shadow--vertical);
 }
 
+/* Button Component */
 .custom-button__group > button:first-child {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
@@ -98,6 +113,8 @@ a:visited {
 }
 
 .custom-button {
+  position: relative;
+  overflow: hidden;
   font-size: var(--theme-button-font-size);
   letter-spacing: var(--theme-button-letter-spacing);
   font-weight: var(--theme-button-font-weight);
@@ -105,6 +122,14 @@ a:visited {
   padding: 0 16px 0 16px;
   border: none;
   border-radius: var(--theme-border-radius);
+}
+
+.custom-button > .ripple {
+  position: absolute;
+  border-radius: 50%;
+  transform: scale(0);
+  animation: ripple 600ms linear;
+  background-color: rgba(255, 255, 255, 0.7);
 }
 
 .custom-button:disabled {
@@ -115,6 +140,10 @@ a:visited {
 .custom-button.unelevated:not(:disabled) {
   color: var(--theme-on-primary);
   background-color: var(--theme-primary);
+}
+
+.custom-button.unelevated:not(:disabled) > .ripple {
+  background-color: var(--theme-ripple-on-primary);
 }
 
 .custom-button.unelevated:not(:disabled).secondary {
@@ -131,22 +160,35 @@ a:visited {
 .custom-button.outlined:not(:disabled) {
   color: var(--theme-primary);
   background-color: transparent;
+  border: 1px solid var(--theme-border-color);
+}
 
-  border: 1px solid var(--theme-border);
+.custom-button.outlined:not(:disabled) > .ripple {
+  background-color: var(--theme-ripple-primary);
 }
 
 .custom-button.outlined:not(:disabled).secondary {
   /* ".primary" color is default */
   color: var(--theme-secondary);
   background-color: transparent;
-
-  border: 1px solid var(--theme-border);
+  border: 1px solid var(--theme-border-color);
 }
+
+.custom-button.outlined:not(:disabled).secondary > .ripple {
+  background-color: var(--theme-ripple-secondary);
+}
+
 
 .custom-button.outlined:disabled {
   color: var(--theme-disabled-label-color);
   background-color: transparent;
   border-color: var(--theme-disabled-label-background);
+  border: 1px solid var(--theme-border-color);
+}
 
-  border: 1px solid var(--theme-border);
+@keyframes ripple {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
 }

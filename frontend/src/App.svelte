@@ -296,7 +296,7 @@
 
     :global(fieldset) {
         border-radius: var(--theme-border-radius);
-        border-color: var(--theme-border);
+        border-color: var(--theme-border-color);
     }
 
     main,
@@ -339,7 +339,7 @@
         left: 0;
         width: 100%;
         height: 2px;
-        background: var(--theme-border);
+        background: var(--theme-border-color);
     }
 
     main .action {
