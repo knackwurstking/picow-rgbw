@@ -50,7 +50,6 @@
     let b: number = 100;
     let w: number = 100;
 
-    //let color: Duty[] = [255, 255, 255, 255];
     let color: Duty[];
 
     $: {
