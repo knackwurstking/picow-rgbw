@@ -36,17 +36,6 @@
   --theme-ripple-on-primary: rgba(255, 255, 255, 0.7);
   --theme-ripple-on-secondary: rgba(255, 255, 255, 0.7);
   --theme-ripple-on-surface: rgba(255, 255, 255, 0.7);
-
-  /* TODO: remove this --mdc* stuff */
-  --mdc-theme-primary: var(--theme-primary);
-  --mdc-theme-secondary: var(--theme-secondary);
-  --mdc-theme-surface: var(--theme-surface);
-
-  --mdc-theme-on-primary: var(--theme-on-primary);
-  --mdc-theme-on-secondary: var(--theme-on-secondary);
-  --mdc-theme-on-surface: var(--theme-on-surface);
-
-  --mdc-shape-medium: var(--theme-border-radius);
 }
 
 html,
