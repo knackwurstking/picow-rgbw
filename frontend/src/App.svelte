@@ -20,6 +20,13 @@
     // NOTE: Devices
     let devices: Device[] = [];
     let selected: Device[] = [];
+
+    $: selected.length &&
+        window.localStorage.setItem(
+            "selected",
+            JSON.stringify(selected.map((d) => d.addr))
+        );
+
     $: {
         const newSelected = [];
         for (const s of selected) {
@@ -108,6 +115,12 @@
             console.debug(`[app, event] "devices"`);
 
             devices = data;
+
+            // load previous selected devcies from the localStorage
+            const l: string[] = JSON.parse(
+                window.localStorage.getItem("selected") || "[]"
+            );
+            selected = devices.filter((d) => l.find((a) => a === d.addr));
         });
 
         // sse: "devices" (store color)
