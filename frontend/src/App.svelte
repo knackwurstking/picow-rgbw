@@ -11,12 +11,12 @@
         Meta,
     } from "@smui/list"; // TODO: repace with my own list stuff
 
-    import Group from "./lib/components/custom/button/Group.svelte";
-    import Button from "./lib/components/custom/button/Button.svelte";
-    import Label from "./lib/components/custom/button/Label.svelte";
+    import Group from "svelteui/src/button/Group.svelte";
+    import Button from "svelteui/src/button/Button.svelte";
+    import Label from "svelteui/src/button/Label.svelte";
 
-    import StatusLED from "./lib/components/StatusLED.svelte";
-    import ColorPicker from "./lib/components/ColorPicker.svelte";
+    import StatusLED from "svelteui/src/misc/StatusLED.svelte";
+    import ColorPicker from "svelteui/src/misc/ColorPicker.svelte";
 
     import api, { type Device, type Duty } from "./lib/ts/api";
 
