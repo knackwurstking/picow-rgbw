@@ -296,16 +296,16 @@
         flex-wrap: nowrap;
     }
 
-    main .x-scroll fieldset.devices div.spacer {
+    main .x-scroll > div.spacer {
         position: relative;
-        min-width: 32px;
-        width: 32px;
-        max-width: 32px;
+        min-width: 8px;
+        width: 8px;
+        max-width: 8px;
         height: 100%;
         margin: 16px 0;
     }
 
-    main .x-scroll fieldset.devices div.spacer::before {
+    main .x-scroll > div.spacer::before {
         content: "";
         position: absolute;
         top: calc(50% - 1px);
@@ -330,6 +330,8 @@
         max-width: calc(100vw - 32px);
         height: 100%;
 
+        margin-left: 8px;
+
         overflow: hidden;
         overflow-y: auto;
         scroll-behavior: smooth;
@@ -341,7 +343,8 @@
         width: calc(100vw - 32px);
         max-width: calc(100vw - 32px);
         height: 100%;
-        margin-right: 16px;
+
+        margin-right: 8px;
 
         display: flex;
         flex-direction: column;
