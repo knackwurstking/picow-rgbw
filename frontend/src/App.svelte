@@ -149,10 +149,7 @@
 </script>
 
 <svelte:head>
-    <link
-        rel="stylesheet"
-        href="node_modules/svelte-material-ui/themes/svelte-dark.css"
-    />
+    <link rel="stylesheet" href="/theme/svelte-dark.css" />
 
     <title>Pico Web | Home</title>
 </svelte:head>
@@ -255,29 +252,6 @@
 <style>
     :global(html, body) {
         overflow: hidden;
-    }
-
-    :global(:root) {
-        /*
-        --mdc-theme-primary: #ff3e00;
-        --mdc-theme-secondary: #5d5d78;
-        --mdc-theme-surface: #212125;
-        */
-
-        --mdc-theme-primary: #3eff00;
-        --mdc-theme-secondary: #5d5d78;
-        --mdc-theme-surface: #212125;
-
-        --mdc-theme-on-primary: #fff;
-        --mdc-theme-on-secondary: #fff;
-        --mdc-theme-on-surface: #fff;
-
-        --mdc-shape-medium: 4px;
-
-        --theme-primary: var(--mdc-theme-primary);
-        --theme-secondary: var(--mdc-theme-secondary);
-        --theme-border: rgba(255, 255, 255, 0.12);
-        --theme-border-radius: var(--mdc-shape-medium);
     }
 
     :global(fieldset) {
