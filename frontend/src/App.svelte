@@ -21,7 +21,6 @@
     let devices: Device[] = [];
     let selected: Device[] = [];
     $: {
-        console.debug("[app]", { selected });
         const newSelected = [];
         for (const s of selected) {
             if (!!devices.find((d) => d.addr === s.addr)) {
@@ -41,7 +40,6 @@
 
     let color: Duty[] = [255, 255, 255, 255];
     $: {
-        console.log("[control] color:", r, g, b, w);
         color = [r, g, b, w];
     }
 
