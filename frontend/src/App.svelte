@@ -2,10 +2,6 @@
     import { onMount } from "svelte";
 
     import Checkbox from "@smui/checkbox";
-    //import SMUIButton, {
-    //    Group as SMUIGroup,
-    //    Label as SMUILabel,
-    //} from "@smui/button";
     import List, {
         Item,
         Text,
@@ -246,25 +242,6 @@
     <!-- Actions "OFF", "ON|SET" -->
     <fieldset class="action">
         <legend>Action</legend>
-        <!--SMUIGroup
-            variant="unelevated"
-            style="display: flex; justify-content: stretch;"
-        >
-            <SMUIButton
-                variant="unelevated"
-                color="primary"
-                style="flex-grow: 1;"
-            >
-                <SMUILabel>OFF</SMUILabel>
-            </SMUIButton>
-            <SMUIButton
-                variant="outlined"
-                color="primary"
-                style="flex-grow: 1;"
-            >
-                <SMUILabel>{actionButtonLabel}</SMUILabel>
-            </SMUIButton>
-        </SMUIGroup-->
         <Group
             variant="unelevated"
             style="display: flex; justify-content: stretch;"
