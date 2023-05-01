@@ -2,7 +2,10 @@
     import { onMount } from "svelte";
 
     import Checkbox from "@smui/checkbox";
-    import Button, { Group, Label } from "@smui/button";
+    //import SMUIButton, {
+    //    Group as SMUIGroup,
+    //    Label as SMUILabel,
+    //} from "@smui/button";
     import List, {
         Item,
         Text,
@@ -11,6 +14,10 @@
         Separator,
         Meta,
     } from "@smui/list";
+
+    import Group from "./lib/components/custom/button/Group.svelte";
+    import Button from "./lib/components/custom/button/Button.svelte";
+    import Label from "./lib/components/custom/button/Label.svelte";
 
     import StatusLED from "./lib/components/StatusLED.svelte";
     import ColorPicker from "./lib/components/ColorPicker.svelte";
@@ -163,6 +170,7 @@
 
 <svelte:head>
     <link rel="stylesheet" href="/theme/svelte-dark.css" />
+    <link rel="stylesheet" href="/theme/custom-dark.css" />
 
     <title>Pico Web | Home</title>
 </svelte:head>

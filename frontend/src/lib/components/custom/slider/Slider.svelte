@@ -42,7 +42,7 @@
 
 <div
     bind:this={container}
-    class="container"
+    class="custom-slider__container"
     class:vertical={orient === "vertical"}
     on:pointerdown={(ev) => {
         const rect = container.getBoundingClientRect();
@@ -86,29 +86,30 @@
     }}
     {...$$restProps}
 >
-    <div class="track" />
+    <div class="custom-slider__track" />
+
     {#if orient === "vertical"}
         <div
-            class="progress"
+            class="custom-slider__progress"
             style={`
                 height: ${value}%;
             `}
         />
         <div
-            class="thumb"
+            class="custom-slider__thumb"
             style={`
                 top: calc(${value}% - 12px);
             `}
         />
     {:else}
         <div
-            class="progress"
+            class="custom-slider__progress"
             style={`
                 width: ${value}%;
             `}
         />
         <div
-            class="thumb"
+            class="custom-slider__thumb"
             style={`
                 left: calc(${value}% - 12px);
             `}
@@ -117,10 +118,7 @@
 </div>
 
 <style>
-    .container {
-        --box-shadow: 1px 1px 2px 0 black;
-        --box-shadow--vertical: -1px -1px 2px 0 black;
-
+    .custom-slider__container {
         position: relative;
         width: 100%;
         height: 1.75rem;
@@ -132,59 +130,42 @@
         touch-action: none;
     }
 
-    .container.vertical {
+    .custom-slider__container.vertical {
         width: 1.75rem;
         height: calc(100% - 8px);
         transform: rotate(180deg);
     }
 
-    .container:not(.vertical) .track {
+    .custom-slider__container:not(.vertical) .custom-slider__track {
         position: absolute;
-        background: var(--theme-secondary);
         width: 100%;
         height: 6px;
         left: 0;
-        border-radius: var(--theme-border-radius);
-        box-shadow: var(--box-shadow);
     }
 
-    .container.vertical .track {
+    .custom-slider__container.vertical .custom-slider__track {
         position: absolute;
-        background: var(--theme-secondary);
         width: 6px;
         height: 100%;
         top: 0;
-        border-radius: var(--theme-border-radius);
-        box-shadow: var(--box-shadow--vertical);
     }
 
-    .container:not(.vertical) .progress {
+    .custom-slider__container:not(.vertical) .custom-slider__progress {
         position: absolute;
-        background: var(--theme-primary);
         height: 6px;
         left: 0;
-        border-radius: var(--theme-border-radius);
     }
 
-    .container.vertical .progress {
+    .custom-slider__container.vertical .custom-slider__progress {
         position: absolute;
-        background: var(--theme-primary);
         height: 100%;
         width: 6px;
         top: 0;
-        border-radius: var(--theme-border-radius);
     }
 
-    .container .thumb {
+    .custom-slider__container .custom-slider__thumb {
         position: absolute;
         height: 24px;
         width: 24px;
-        background: var(--theme-primary);
-        border-radius: 50%;
-        box-shadow: var(--box-shadow);
-    }
-
-    .container.vertical .thumb {
-        box-shadow: var(--box-shadow--vertical);
     }
 </style>

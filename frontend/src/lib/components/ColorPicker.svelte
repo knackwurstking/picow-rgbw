@@ -1,5 +1,5 @@
 <script lang="ts">
-    import RangeSlider from "./RangeSlider.svelte";
+    import Slider from "./custom/slider/Slider.svelte";
 
     export let r: number = 0;
     $: r >= 0 && updateBrightnessValue();
@@ -35,24 +35,24 @@
 >
     <div class="color">
         <div class="input">
-            <RangeSlider min={0} max={100} bind:value={r} />
+            <Slider min={0} max={100} bind:value={r} />
             <label for="r">R</label>
             <code>{r}</code>
         </div>
         <div class="input">
-            <RangeSlider min={0} max={100} bind:value={g} />
+            <Slider min={0} max={100} bind:value={g} />
             <label for="g">G</label>
             <code>{g}</code>
         </div>
         <div class="input">
-            <RangeSlider min={0} max={100} bind:value={b} />
+            <Slider min={0} max={100} bind:value={b} />
             <label for="b">B</label>
             <code>{b}</code>
         </div>
     </div>
 
     <div class="brightness">
-        <RangeSlider
+        <Slider
             min={5}
             max={100}
             bind:value={bValue}
