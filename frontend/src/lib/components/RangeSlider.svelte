@@ -118,6 +118,9 @@
 
 <style>
     .container {
+        --box-shadow: 1px 1px 2px 0 black;
+        --box-shadow--vertical: -1px -1px 2px 0 black;
+
         position: relative;
         width: 100%;
         height: 1.75rem;
@@ -141,6 +144,8 @@
         width: 100%;
         height: 6px;
         left: 0;
+        border-radius: var(--theme-border-radius);
+        box-shadow: var(--box-shadow);
     }
 
     .container.vertical .track {
@@ -149,6 +154,8 @@
         width: 6px;
         height: 100%;
         top: 0;
+        border-radius: var(--theme-border-radius);
+        box-shadow: var(--box-shadow--vertical);
     }
 
     .container:not(.vertical) .progress {
@@ -156,6 +163,7 @@
         background: var(--theme-primary);
         height: 6px;
         left: 0;
+        border-radius: var(--theme-border-radius);
     }
 
     .container.vertical .progress {
@@ -164,6 +172,7 @@
         height: 100%;
         width: 6px;
         top: 0;
+        border-radius: var(--theme-border-radius);
     }
 
     .container .thumb {
@@ -172,5 +181,10 @@
         width: 24px;
         background: var(--theme-primary);
         border-radius: 50%;
+        box-shadow: var(--box-shadow);
+    }
+
+    .container.vertical .thumb {
+        box-shadow: var(--box-shadow--vertical);
     }
 </style>
