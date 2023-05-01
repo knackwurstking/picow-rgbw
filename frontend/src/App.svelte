@@ -11,10 +11,9 @@
         Separator,
         Meta,
     } from "@smui/list";
-    import FormField from "@smui/form-field";
-    import Slider from "@smui/slider";
 
     import StatusLED from "./lib/components/StatusLED.svelte";
+    import ColorPicker from "./lib/components/ColorPicker.svelte";
 
     import api, { type Device, type Duty } from "./lib/ts/api";
 
@@ -223,48 +222,7 @@
 
                 <div class="store" />
 
-                <div class="color">
-                    <div class="picker">
-                        <FormField
-                            style="
-                                display: flex;
-                                flex-direction: column;
-                            "
-                        >
-                            <Slider
-                                style="width: calc(100% - 25px); margin: 0;"
-                                min={5}
-                                max={100}
-                                step={1}
-                                bind:value={r}
-                            />
-                            <Slider
-                                style="width: calc(100% - 25px); margin: 0;"
-                                min={5}
-                                max={100}
-                                step={1}
-                                bind:value={g}
-                            />
-                            <Slider
-                                style="width: calc(100% - 25px); margin: 0;"
-                                min={5}
-                                max={100}
-                                step={1}
-                                bind:value={b}
-                            />
-                            <Slider
-                                style="width: calc(100% - 25px); margin: 0;"
-                                min={5}
-                                max={100}
-                                step={1}
-                                bind:value={w}
-                            />
-                        </FormField>
-                    </div>
-                    <div class="brightness">
-                        <!-- TODO: vertical slider -->
-                    </div>
-                </div>
+                <ColorPicker bind:r bind:g bind:b bind:w />
             </fieldset>
         </div>
     </div>
@@ -302,8 +260,19 @@
     }
 
     :global(:root) {
+        --mdc-theme-primary: #6200ee;
+        --mdc-theme-on-primary: #fff;
+        --mdc-theme-secondary: #018786;
+        --mdc-theme-on-secondary: #fff;
+        --mdc-theme-surface: #222222;
+        --mdc-theme-on-surface: #fff;
+
+        --mdc-shape-medium: 4px;
+
+        --theme-primary: var(--mdc-theme-primary);
+        --theme-secondary: var(--mdc-theme-secondary);
         --theme-border: rgba(255, 255, 255, 0.12);
-        --theme-border-radius: var(--mdc-shape-medium, 4px);
+        --theme-border-radius: var(--mdc-shape-medium);
     }
 
     :global(fieldset) {
@@ -392,25 +361,8 @@
     }
 
     main .x-scroll fieldset.control .scene {
-        border: 1px solid red;
     }
 
     main .x-scroll fieldset.control .store {
-        border: 1px solid red;
-    }
-
-    main .x-scroll fieldset.control .color {
-        display: flex;
-        flex-wrap: nowrap;
-        flex-direction: row;
-    }
-
-    main .x-scroll fieldset.control .color .picker {
-        width: 80%;
-    }
-
-    main .x-scroll fieldset.control .brightness {
-        width: 20%;
-        height: 100%;
     }
 </style>
