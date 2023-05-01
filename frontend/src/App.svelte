@@ -11,6 +11,8 @@
         Separator,
         Meta,
     } from "@smui/list";
+    import FormField from "@smui/form-field";
+    import Slider from "@smui/slider";
 
     import StatusLED from "./lib/components/StatusLED.svelte";
 
@@ -33,10 +35,10 @@
     // NOTE: Controls
     let control: HTMLDivElement;
 
-    let r: number = 255;
-    let g: number = 255;
-    let b: number = 255;
-    let w: number = 255;
+    let r: number = 100;
+    let g: number = 100;
+    let b: number = 100;
+    let w: number = 100;
 
     let color: Duty[] = [255, 255, 255, 255];
     $: {
@@ -221,9 +223,48 @@
 
                 <div class="store" />
 
-                <div class="color" />
-
-                <div class="brightness" />
+                <div class="color">
+                    <div class="picker">
+                        <FormField
+                            style="
+                                display: flex;
+                                flex-direction: column;
+                            "
+                        >
+                            <Slider
+                                style="width: calc(100% - 25px); margin: 0;"
+                                min={5}
+                                max={100}
+                                step={1}
+                                bind:value={r}
+                            />
+                            <Slider
+                                style="width: calc(100% - 25px); margin: 0;"
+                                min={5}
+                                max={100}
+                                step={1}
+                                bind:value={g}
+                            />
+                            <Slider
+                                style="width: calc(100% - 25px); margin: 0;"
+                                min={5}
+                                max={100}
+                                step={1}
+                                bind:value={b}
+                            />
+                            <Slider
+                                style="width: calc(100% - 25px); margin: 0;"
+                                min={5}
+                                max={100}
+                                step={1}
+                                bind:value={w}
+                            />
+                        </FormField>
+                    </div>
+                    <div class="brightness">
+                        <!-- TODO: vertical slider -->
+                    </div>
+                </div>
             </fieldset>
         </div>
     </div>
@@ -359,10 +400,17 @@
     }
 
     main .x-scroll fieldset.control .color {
-        border: 1px solid red;
+        display: flex;
+        flex-wrap: nowrap;
+        flex-direction: row;
+    }
+
+    main .x-scroll fieldset.control .color .picker {
+        width: 80%;
     }
 
     main .x-scroll fieldset.control .brightness {
-        border: 1px solid red;
+        width: 20%;
+        height: 100%;
     }
 </style>
