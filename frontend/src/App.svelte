@@ -174,6 +174,7 @@
         <!-- "Devices" view to the left -->
         <fieldset class="devices">
             <legend>Devices</legend>
+
             <List checkList>
                 {#each devices as device}
                     <Item style="height: 65px;">
@@ -213,7 +214,16 @@
         <div bind:this={control}>
             <fieldset class="control">
                 <legend>Control</legend>
-                <!-- TODO: Adding controls here -->
+
+                <div class="spacer" style="height: 100%;" />
+
+                <div class="scene" />
+
+                <div class="store" />
+
+                <div class="color" />
+
+                <div class="brightness" />
             </fieldset>
         </div>
     </div>
@@ -284,7 +294,7 @@
         flex-wrap: nowrap;
     }
 
-    div.spacer {
+    main .x-scroll fieldset.devices div.spacer {
         position: relative;
         min-width: 32px;
         width: 32px;
@@ -293,7 +303,7 @@
         margin: 16px 0;
     }
 
-    div.spacer::before {
+    main .x-scroll fieldset.devices div.spacer::before {
         content: "";
         position: absolute;
         top: calc(50% - 1px);
@@ -318,6 +328,9 @@
         max-width: calc(100vw - 32px);
         height: 100%;
 
+        overflow: hidden;
+        overflow-y: auto;
+        scroll-behavior: smooth;
         scroll-snap-align: center;
     }
 
@@ -328,6 +341,28 @@
         height: 100%;
         margin-right: 16px;
 
+        display: flex;
+        flex-direction: column;
+
+        overflow: hidden;
+        overflow-y: auto;
+        scroll-behavior: smooth;
         scroll-snap-align: center;
+    }
+
+    main .x-scroll fieldset.control .scene {
+        border: 1px solid red;
+    }
+
+    main .x-scroll fieldset.control .store {
+        border: 1px solid red;
+    }
+
+    main .x-scroll fieldset.control .color {
+        border: 1px solid red;
+    }
+
+    main .x-scroll fieldset.control .brightness {
+        border: 1px solid red;
     }
 </style>
