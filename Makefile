@@ -4,7 +4,7 @@ config_path=~/.config/
 systemd_path=~/.config/systemd/user
 
 build:
-	@cd .. && git clone --branch=main https://github.com/knackwurstking/svelteui.git
+	@cd .. && (git clone --branch=main https://github.com/knackwurstking/svelteui.git || exit 0)
 	@cd frontend && npm install && npm run build
 	@go mod tidy
 	@go build -o ./${name} ./cmd/${name}
