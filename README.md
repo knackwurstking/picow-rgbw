@@ -1,8 +1,8 @@
 # picow-rgbw-web
 
 <!--toc:start-->
-
 - [picow-rgbw-web](#picow-rgbw-web)
+  - [Getting Started](#getting-started)
   - [Api v1 Routing Table](#api-v1-routing-table)
   - [Api V1](#api-v1)
     - [**GET** _"/api/v1/devices"_](#get-apiv1devices)
@@ -11,7 +11,7 @@
     - [**GET** _"/api/v1/events/device-update"_](#get-apiv1eventsdevice-update)
     - [**POST** _"/api/v1/picow"_](#post-apiv1picow)
   - [TODOs](#todos)
-  <!--toc:end-->
+<!--toc:end-->
 
 Web server for controlling all [picow-rgbw](https://github.com/knackwurstking/picow-rgbw.git) driven devices.
 
