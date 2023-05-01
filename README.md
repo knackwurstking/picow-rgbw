@@ -17,18 +17,19 @@ Web server for controlling all [picow-rgbw](https://github.com/knackwurstking/pi
 
 ## Getting Started
 
-Install the latest node js version
+Install the latest node js version.
 
 ```bash
 curl -fsSL https://deb.nodesource.com/setup_current.x | sudo -E bash -
 sudo apt install nodejs
 ```
 
-Build and install with make
+Build and install with make (as user, no sudo).
 
 ```bash
 make build
 make install
+make service
 ```
 
 ## Api v1 Routing Table
