@@ -18,7 +18,7 @@
     import StatusLED from "svelteui/src/misc/StatusLED.svelte";
     import ColorPicker from "svelteui/src/misc/ColorPicker.svelte";
 
-    import api, { type Device, type Duty } from "./lib/ts/api";
+    import api, { type Device, type Duty } from "./lib/api";
 
     // NOTE: Devices
     let devices: Device[] = [];
