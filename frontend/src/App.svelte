@@ -230,9 +230,13 @@
 
                 <div class="spacer" style="height: 100%;" />
 
-                <div class="scene" />
+                <div class="scene">
+                    <!-- TODO: manage scenes here (Quick and Easy) -->
+                </div>
 
-                <div class="store" />
+                <div class="store">
+                    <!-- TODO: store color presets (rgb) -->
+                </div>
 
                 <ColorPicker bind:r bind:g bind:b bind:w />
             </fieldset>
