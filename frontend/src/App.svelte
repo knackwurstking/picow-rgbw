@@ -151,7 +151,7 @@
 <svelte:head>
     <link
         rel="stylesheet"
-        href="node_modules/svelte-material-ui/themes/material-dark.css"
+        href="node_modules/svelte-material-ui/themes/svelte-dark.css"
     />
 
     <title>Pico Web | Home</title>
@@ -258,7 +258,7 @@
     }
 
     :global(:root) {
-        --mdc-theme-primary: #6200ee;
+        --mdc-theme-primary: #ff3e00;
         --mdc-theme-on-primary: #fff;
         --mdc-theme-secondary: #018786;
         --mdc-theme-on-secondary: #fff;
