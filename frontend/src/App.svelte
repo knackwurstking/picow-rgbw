@@ -1,7 +1,7 @@
 <script lang="ts">
     import { onMount } from "svelte";
 
-    import Checkbox from "@smui/checkbox";
+    import Checkbox from "@smui/checkbox"; // TODO: replace with my own checkbox
     import List, {
         Item,
         Text,
@@ -9,7 +9,7 @@
         SecondaryText,
         Separator,
         Meta,
-    } from "@smui/list";
+    } from "@smui/list"; // TODO: repace with my own list stuff
 
     import Group from "./lib/components/custom/button/Group.svelte";
     import Button from "./lib/components/custom/button/Button.svelte";
