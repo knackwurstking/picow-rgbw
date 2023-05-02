@@ -14,6 +14,7 @@
     import Group from "svelteui/src/button/Group.svelte";
     import Button from "svelteui/src/button/Button.svelte";
     import Label from "svelteui/src/button/Label.svelte";
+    //import List from "svelteui/src/list/List.svelte";
 
     import StatusLED from "svelteui/src/misc/StatusLED.svelte";
     import ColorPicker from "svelteui/src/misc/ColorPicker.svelte";
