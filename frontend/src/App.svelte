@@ -2,7 +2,7 @@
     import { onMount } from "svelte";
 
     import Checkbox from "@smui/checkbox"; // TODO: replace with my own checkbox
-    import List, {
+    import {
         Item,
         Text,
         PrimaryText,
@@ -11,10 +11,9 @@
         Meta,
     } from "@smui/list"; // TODO: repace with my own list stuff
 
-    import Group from "svelteui/src/button/Group.svelte";
-    import Button from "svelteui/src/button/Button.svelte";
-    import Label from "svelteui/src/button/Label.svelte";
-    //import List from "svelteui/src/list/List.svelte";
+    //import Button from "svelteui/src/button/Button.svelte";
+    import List from "svelteui/src/list";
+    import Button, { Group, Label } from "svelteui/src/button";
 
     import StatusLED from "svelteui/src/misc/StatusLED.svelte";
     import ColorPicker from "svelteui/src/misc/ColorPicker.svelte";
@@ -211,7 +210,7 @@
         <fieldset class="devices">
             <legend>Devices</legend>
 
-            <List checkList>
+            <List>
                 {#each devices as device}
                     <Item style="height: 65px;">
                         <Text>
@@ -356,6 +355,8 @@
     }
 
     main .x-scroll fieldset.devices {
+        position: relative;
+
         min-width: calc(100vw - 32px);
         width: calc(100vw - 32px);
         max-width: calc(100vw - 32px);
@@ -364,12 +365,13 @@
         margin-left: 8px;
 
         overflow: hidden;
-        overflow-y: auto;
-        scroll-behavior: smooth;
+
         scroll-snap-align: center;
     }
 
     main .x-scroll fieldset.control {
+        position: relative;
+
         min-width: calc(100vw - 32px);
         width: calc(100vw - 32px);
         max-width: calc(100vw - 32px);
