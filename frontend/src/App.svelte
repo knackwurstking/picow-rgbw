@@ -55,12 +55,12 @@
     // NOTE: Actions
     let actionButtonLabel: "SET" | "ON" = "ON";
 
-    function _itemcheck(data: any | null) {
-        // TODO: ...
+    function _itemcheck(data: Device | null) {
+        // TODO: add to selected
     }
 
-    function _itemuncheck(data: any | null) {
-        // TODO: ...
+    function _itemuncheck(data: Device | null) {
+        // TODO: remove from selected
     }
 
     // Turn selected off selected devices. (action button handler)
@@ -212,8 +212,9 @@
             <legend>Devices</legend>
 
             <List
-                checkable={true}
-                multiple={true}
+                checkable
+                multiple
+                checklist
                 on:itemcheck={({ detail }) => _itemcheck(detail.data || null)}
                 on:itemuncheck={({ detail }) =>
                     _itemuncheck(detail.data || null)}
