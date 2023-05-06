@@ -210,7 +210,6 @@
             >
                 {#each devices as device}
                     <Item
-                        height={65}
                         primaryText={device.addr}
                         secondaryText={`[${device.rgbw
                             .map((gp) => gp.duty)
@@ -218,7 +217,7 @@
                     >
                         <Meta slot="right">
                             <Checkbox
-                                style="margin-right: 28px; margin-top: -18px;"
+                                style="margin-right: 28px; float: right;"
                                 bind:group={selected}
                                 value={device}
                             />
@@ -228,6 +227,7 @@
                                   position: absolute;
                                   top: 4px;
                                   right: 4px;
+                                  font-size: 0.8rem;
                                 "
                                 active={!device.offline}
                             />
