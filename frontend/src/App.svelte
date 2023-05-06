@@ -204,7 +204,12 @@
             <legend>Devices</legend>
 
             <List
-                on:itemselect={(item) => {
+                checkable={true}
+                multiple={true}
+                on:itemcheck={(item) => {
+                    // TODO: ...
+                }}
+                on:itemuncheck={(item) => {
                     // TODO: ...
                 }}
             >
@@ -214,6 +219,7 @@
                         secondaryText={`[${device.rgbw
                             .map((gp) => gp.duty)
                             .join(",")}]`}
+                        value={device}
                     >
                         <Meta slot="right">
                             <Checkbox
