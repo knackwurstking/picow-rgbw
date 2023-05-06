@@ -2,17 +2,10 @@
     import { onMount } from "svelte";
 
     import Checkbox from "@smui/checkbox"; // TODO: replace with my own checkbox
-    import {
-        Item,
-        Text,
-        PrimaryText,
-        SecondaryText,
-        Separator,
-        Meta,
-    } from "@smui/list"; // TODO: repace with my own list stuff
+    import { Separator } from "@smui/list"; // TODO: repace with my own list stuff
 
     //import Button from "svelteui/src/button/Button.svelte";
-    import List from "svelteui/src/list";
+    import List, { Item } from "svelteui/src/list";
     import Button, { Group, Label } from "svelteui/src/button";
 
     import StatusLED from "svelteui/src/misc/StatusLED.svelte";
@@ -212,18 +205,20 @@
 
             <List>
                 {#each devices as device}
-                    <Item style="height: 65px;">
-                        <Text>
-                            <PrimaryText>{device.addr}</PrimaryText>
+                    <Item
+                        height={65}
+                        primaryText={device.addr}
+                        secondaryText={`[${device.rgbw
+                            .map((gp) => gp.duty)
+                            .join(",")}]`}
+                    >
+                        <!-- TODO: Meta content here... -->
+                    </Item>
 
-                            <SecondaryText>
-                                [{device.rgbw.map((gp) => gp.duty).join(",")}]
-                            </SecondaryText>
-                        </Text>
-
+                    <!--Item style="height: 65px;">
                         <Meta>
                             <Checkbox
-                                style="margin-right: 8px;"
+                                style="margin-right: 40px;"
                                 bind:group={selected}
                                 value={device}
                             />
@@ -237,7 +232,7 @@
                                 active={!device.offline}
                             />
                         </Meta>
-                    </Item>
+                    </Item -->
                     <Separator />
                 {/each}
             </List>
