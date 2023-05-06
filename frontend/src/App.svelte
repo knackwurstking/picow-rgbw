@@ -5,7 +5,7 @@
     import { Separator } from "@smui/list"; // TODO: repace with my own list stuff
 
     //import Button from "svelteui/src/button/Button.svelte";
-    import List, { Item } from "svelteui/src/list";
+    import List, { Item, Meta } from "svelteui/src/list";
     import Button, { Group, Label } from "svelteui/src/button";
 
     import StatusLED from "svelteui/src/misc/StatusLED.svelte";
@@ -203,7 +203,11 @@
         <fieldset class="devices">
             <legend>Devices</legend>
 
-            <List>
+            <List
+                on:itemselect={(item) => {
+                    // TODO: ...
+                }}
+            >
                 {#each devices as device}
                     <Item
                         height={65}
@@ -212,7 +216,22 @@
                             .map((gp) => gp.duty)
                             .join(",")}]`}
                     >
-                        <!-- TODO: Meta content here... -->
+                        <Meta slot="right">
+                            <Checkbox
+                                style="margin-right: 28px; margin-top: -18px;"
+                                bind:group={selected}
+                                value={device}
+                            />
+
+                            <StatusLED
+                                style="
+                                  position: absolute;
+                                  top: 4px;
+                                  right: 4px;
+                                "
+                                active={!device.offline}
+                            />
+                        </Meta>
                     </Item>
 
                     <!--Item style="height: 65px;">
