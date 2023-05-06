@@ -55,6 +55,14 @@
     // NOTE: Actions
     let actionButtonLabel: "SET" | "ON" = "ON";
 
+    function _itemcheck(data: any | null) {
+        // TODO: ...
+    }
+
+    function _itemuncheck(data: any | null) {
+        // TODO: ...
+    }
+
     // Turn selected off selected devices. (action button handler)
     function _off() {
         api.postDevices(
@@ -206,12 +214,9 @@
             <List
                 checkable={true}
                 multiple={true}
-                on:itemcheck={(item) => {
-                    // TODO: ...
-                }}
-                on:itemuncheck={(item) => {
-                    // TODO: ...
-                }}
+                on:itemcheck={({ detail }) => _itemcheck(detail.data || null)}
+                on:itemuncheck={({ detail }) =>
+                    _itemuncheck(detail.data || null)}
             >
                 {#each devices as device}
                     <Item
