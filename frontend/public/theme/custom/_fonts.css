@@ -1,14 +1,14 @@
 @font-face {
-  font-family: 'Material Icons';
-  font-style: normal;
-  font-weight: 400;
-  src: url(/fonts/smui-icons.woff2) format('woff2');
-}
-
-@font-face {
   font-family: FiraCode;
   src: local(FiraCode),
     url("/fonts/FiraCode.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url(/fonts/material-icons.woff2) format('woff2');
 }
 
 .material-icons {

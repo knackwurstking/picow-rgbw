@@ -1,37 +1,11 @@
 @charset "UTF-8";
-@import "/theme/custom/_root.css";
+
 @import "/theme/custom/_fonts.css";
+@import "/theme/custom/_base.css";
+@import "/theme/custom/_root.css";
+
 @import "/theme/custom/_button.css";
 @import "/theme/custom/_slider.css";
 @import "/theme/custom/_list.css";
+
 @import "/theme/custom/_ripple.css";
-
-html,
-body {
-  margin: 0;
-  padding: 0;
-
-  background-color: var(--theme-background);
-  color: var(--theme-color);
-}
-
-html {
-  font-size: 100%;
-}
-
-body {
-  font-size: 1rem;
-}
-
-*:not(.material-icons) {
-  font-family: FiraCode !important;
-  box-sizing: border-box;
-}
-
-a {
-  color: var(--theme-link);
-}
-
-a:visited {
-  color: var(--theme-link--visited);
-}
