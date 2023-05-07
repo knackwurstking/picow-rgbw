@@ -1,0 +1,27 @@
+@keyframes ripple {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  transform: scale(0);
+  animation: ripple 600ms linear;
+  background-color: var(--theme-ripple-color);
+}
+
+/* button ripple */
+.custom-button.unelevated:not(:disabled) > .ripple {
+  background-color: var(--theme-ripple-on-primary);
+}
+
+.custom-button.outlined:not(:disabled) > .ripple {
+  background-color: var(--theme-ripple-primary);
+}
+
+.custom-button.outlined:not(:disabled).secondary > .ripple {
+  background-color: var(--theme-ripple-secondary);
+}

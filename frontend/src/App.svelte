@@ -2,7 +2,7 @@
     import { onMount } from "svelte";
 
     import Checkbox from "@smui/checkbox"; // TODO: replace with my own checkbox
-    import { Separator } from "@smui/list"; // TODO: repace with my own list stuff
+    import { Separator } from "@smui/list"; // TODO: replace with my own list stuff
 
     //import Button from "svelteui/src/button/Button.svelte";
     import List, { Item, Meta } from "svelteui/src/list";
@@ -140,7 +140,7 @@
 
             devices = data;
 
-            // load previous selected devcies from the localStorage
+            // load previous selected devices from the localStorage
             const l: string[] = JSON.parse(
                 window.localStorage.getItem("selected") || "[]"
             );
@@ -188,8 +188,7 @@
 </script>
 
 <svelte:head>
-    <link rel="stylesheet" href="/theme/svelte-dark.css" />
-    <link rel="stylesheet" href="/theme/custom-dark.css" />
+    <link rel="stylesheet" href="/theme/custom/main.css" />
 
     <title>Pico Web | Home</title>
 </svelte:head>

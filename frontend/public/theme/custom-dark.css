@@ -13,57 +13,7 @@
     url("/fonts/FiraCode.ttf") format("truetype");
 }
 
-:root {
-  /* colors */
-  --theme-background: #000000;
-  --theme-color: #ffffff;
 
-  --theme-link: #40b3ff;
-  --theme-link--visited: #007dcf;
-
-  --theme-primary: #3eff00;
-  --theme-secondary: #5d4d78;
-  --theme-surface: #212125;
-
-  --theme-on-primary: #ffffff;
-  --theme-on-secondary: #ffffff;
-  --theme-on-surface: #ffffff;
-
-  --theme-disabled-label-background: rgba(255, 255, 255, 0.12);
-  --theme-disabled-label-color: rgba(255, 255, 255, 0.38);
-
-  /* global border settings */
-  --theme-border-color: rgba(255, 255, 255, 0.12);
-  --theme-border-radius: 4px;
-
-  /* button specific stuff */
-  --theme-button-font-size: 0.875rem;
-  --theme-button-letter-spacing: 0.0892857143em;
-  --theme-button-font-weight: 500;
-  --theme-button-height: 36px;
-
-  /* ripple effect colors */
-  --theme-ripple-color: rgba(255,255,255, 0.7);
-
-  --theme-ripple-primary: rgba(62, 255, 0, 0.7);
-  --theme-ripple-secondary: rgba(93, 77, 120, 0.7);
-  --theme-ripple-surface: rgba(33, 33, 37, 0.7);
-
-  --theme-ripple-on-primary: rgba(255, 255, 255, 0.7);
-  --theme-ripple-on-secondary: rgba(255, 255, 255, 0.7);
-  --theme-ripple-on-surface: rgba(255, 255, 255, 0.7);
-
-  /* TODO: remove this --mdc* stuff */
-  --mdc-theme-primary: var(--theme-primary);
-  --mdc-theme-secondary: var(--theme-secondary);
-  --mdc-theme-surface: var(--theme-surface);
-
-  --mdc-theme-on-primary: var(--theme-on-primary);
-  --mdc-theme-on-secondary: var(--theme-on-secondary);
-  --mdc-theme-on-surface: var(--theme-on-surface);
-
-  --mdc-shape-medium: var(--theme-border-radius);
-}
 
 .material-icons {
   font-family: 'Material Icons';
@@ -226,12 +176,19 @@ a:visited {
   background-color: var(--theme-ripple-secondary);
 }
 
-
 .custom-button.outlined:disabled {
   color: var(--theme-disabled-label-color);
   background-color: transparent;
   border-color: var(--theme-disabled-label-background);
   border: 1px solid var(--theme-border-color);
+}
+
+/* List Component */
+.custom-list {
+  margin: 0;
+  padding: 8px 0;
+  list-style-type: none;
+  line-height: 1.5rem;
 }
 
 @keyframes ripple {

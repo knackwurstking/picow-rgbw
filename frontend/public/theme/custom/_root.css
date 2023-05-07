@@ -1,0 +1,40 @@
+:root {
+  /* colors */
+  --theme-background: #000000;
+  --theme-color: #ffffff;
+
+  --theme-link: #40b3ff;
+  --theme-link--visited: #007dcf;
+
+  --theme-primary: #3eff00;
+  --theme-secondary: #5d4d78;
+  --theme-surface: #212125;
+
+  --theme-on-primary: #ffffff;
+  --theme-on-secondary: #ffffff;
+  --theme-on-surface: #ffffff;
+
+  --theme-disabled-label-background: rgba(255, 255, 255, 0.12);
+  --theme-disabled-label-color: rgba(255, 255, 255, 0.38);
+
+  /* global border settings */
+  --theme-border-color: rgba(255, 255, 255, 0.12);
+  --theme-border-radius: 4px;
+
+  /* button specific stuff */
+  --theme-button-font-size: 0.875rem;
+  --theme-button-letter-spacing: 0.0892857143em;
+  --theme-button-font-weight: 500;
+  --theme-button-height: 36px;
+
+  /* ripple effect colors */
+  --theme-ripple-color: rgba(255,255,255, 0.7);
+
+  --theme-ripple-primary: rgba(62, 255, 0, 0.7);
+  --theme-ripple-secondary: rgba(93, 77, 120, 0.7);
+  --theme-ripple-surface: rgba(33, 33, 37, 0.7);
+
+  --theme-ripple-on-primary: rgba(255, 255, 255, 0.7);
+  --theme-ripple-on-secondary: rgba(255, 255, 255, 0.7);
+  --theme-ripple-on-surface: rgba(255, 255, 255, 0.7);
+}
