@@ -25,3 +25,12 @@
 .custom-button.outlined:not(:disabled).secondary > .ripple {
   background-color: var(--theme-ripple-secondary);
 }
+
+/* list ripple */
+.custom-list:not(.checklist) .custom-list-item .ripple {
+  /* TODO: using the primary ripple color here */
+}
+
+.custom-list:not(.checklist) .custom-list-item.checked .ripple {
+  /* TODO: using the primary ripple color here */
+}

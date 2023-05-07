@@ -1,9 +1,3 @@
-/*
- * TODO: Handle ".checked:not(.checklist)" (using primary and
- *       secondary color if not .checklist)
- * TODO: Handle first (left) and last (right) __meta element
- */
-
 .custom-list {
   position: relative;
   width: 100%;
@@ -24,6 +18,14 @@
   flex-direction: row;
   font-size: 1rem;
   overflow: hidden;
+}
+
+.custom-list-item > .custom-list-item__meta:first-child {
+  /* TODO: left meta */
+}
+
+.custom-list-item > .custom-list-item__meta:last-child {
+  /* TODO: right meta */
 }
 
 .custom-list-item__text {
