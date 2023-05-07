@@ -1,10 +1,9 @@
 <script lang="ts">
     import { onMount } from "svelte";
 
-    import Checkbox from "@smui/checkbox"; // TODO: replace with my own checkbox
     import { Separator } from "@smui/list"; // TODO: replace with my own list stuff
 
-    //import Button from "svelteui/src/button/Button.svelte";
+    import Checkbox from "svelteui/src/checkbox";
     import List, { Item, Meta } from "svelteui/src/list";
     import Button, { Group, Label } from "svelteui/src/button";
 
@@ -56,11 +55,16 @@
     let actionButtonLabel: "SET" | "ON" = "ON";
 
     function _itemcheck(data: Device | null) {
-        // TODO: add to selected
+        if (!!selected.find((d) => d.addr === data.addr)) return;
+        selected.push(data);
+        selected = selected;
     }
 
     function _itemuncheck(data: Device | null) {
-        // TODO: remove from selected
+        let i: number = 0;
+        for (i; i < selected.length; i++)
+            if (selected[i].addr === data.addr) break;
+        selected = [...selected.slice(0, i), ...selected.slice(i + 1)];
     }
 
     // Turn selected off selected devices. (action button handler)
@@ -228,9 +232,11 @@
                     >
                         <Meta slot="right">
                             <Checkbox
+                                disableUserActions
                                 style="margin-right: 28px; float: right;"
-                                bind:group={selected}
-                                value={device}
+                                checked={!!selected.find(
+                                    (d) => d.addr === device.addr
+                                )}
                             />
 
                             <StatusLED

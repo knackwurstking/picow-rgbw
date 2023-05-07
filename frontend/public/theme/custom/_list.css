@@ -20,6 +20,10 @@
   overflow: hidden;
 }
 
+.custom-list:not(.checklist) .custom-list-item.checked {
+  background-color: var(--theme-list-item-primary);
+}
+
 .custom-list-item > .custom-list-item__meta:first-child {
   /* TODO: left meta */
 }
