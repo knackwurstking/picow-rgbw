@@ -1,0 +1,31 @@
+.custom-list {
+}
+
+.custom-list.checklist {
+  /* NOTE: disable checked (color) handling */
+}
+
+.custom-list-item {
+}
+
+.custom-list-item.checked {
+}
+
+.custom-list-item__text {
+}
+
+.custom-list-item__primary-text {
+}
+
+.custom-list-item__secondary-text {
+}
+
+.custom-list-item__text .custom-list-item__primary-text {
+}
+
+.custom-list-item__text .custom-list-item__secondary-text {
+}
+
+.custom-list-item__meta {
+  /* NOTE: first child and last child (*__meta) */
+}
