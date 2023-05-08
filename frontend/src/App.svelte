@@ -17,6 +17,7 @@
     // NOTE: Devices
     let devices: Device[] = [];
     let selected: string[] = [];
+    $: console.debug("selected:", selected);
 
     $: selected.length &&
         window.localStorage.setItem("selected", JSON.stringify(selected));
@@ -50,18 +51,6 @@
 
     // NOTE: Actions
     let actionButtonLabel: "SET" | "ON" = "ON";
-
-    function _itemcheck(data: Device | null) {
-        if (!!selected.find((a) => a === data.addr)) return;
-        selected.push(data.addr);
-        selected = selected;
-    }
-
-    function _itemuncheck(data: Device | null) {
-        let i: number = 0;
-        for (i; i < selected.length; i++) if (selected[i] === data.addr) break;
-        selected = [...selected.slice(0, i), ...selected.slice(i + 1)];
-    }
 
     // Turn selected off selected devices. (action button handler)
     function _off() {
@@ -206,28 +195,21 @@
         <fieldset class="devices">
             <legend>Devices</legend>
 
-            <List
-                checkable
-                multiple
-                checklist
-                on:itemcheck={({ detail }) => _itemcheck(detail.data || null)}
-                on:itemuncheck={({ detail }) =>
-                    _itemuncheck(detail.data || null)}
-            >
+            <List checkable multiple checklist bind:group={selected}>
                 {#each devices as device}
                     <Item
                         primaryText={device.addr}
                         secondaryText={`[${device.rgbw
                             .map((gp) => gp.duty)
                             .join(",")}]`}
-                        value={device}
+                        value={device.addr}
                         checked={!!selected.find((a) => a === device.addr)}
                     >
                         <Meta slot="right">
                             <Checkbox
                                 disableUserActions
                                 style="margin-right: 28px; float: right;"
-                                bind:group={selected}
+                                group={selected}
                                 value={device.addr}
                             />
 
