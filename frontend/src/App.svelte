@@ -1,10 +1,8 @@
 <script lang="ts">
     import { onMount } from "svelte";
 
-    //import { Separator } from "@smui/list"; // TODO: replace with my own list stuff
-
     import Checkbox from "svelteui/src/checkbox";
-    import List, { Item, Meta } from "svelteui/src/list";
+    import List, { Item, Meta, Separator } from "svelteui/src/list";
     import Button, { Group, Label } from "svelteui/src/button";
 
     import StatusLED from "svelteui/src/misc/StatusLED.svelte";
@@ -211,7 +209,7 @@
                             />
                         </Meta>
                     </Item>
-                    <!--Separator /-->
+                    <Separator />
                 {/each}
             </List>
         </fieldset>
