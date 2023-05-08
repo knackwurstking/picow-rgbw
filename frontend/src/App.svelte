@@ -16,19 +16,16 @@
 
     // NOTE: Devices
     let devices: Device[] = [];
-    let selected: Device[] = [];
+    let selected: string[] = [];
 
     $: selected.length &&
-        window.localStorage.setItem(
-            "selected",
-            JSON.stringify(selected.map((d) => d.addr))
-        );
+        window.localStorage.setItem("selected", JSON.stringify(selected));
 
     $: {
         const newSelected = [];
-        for (const s of selected) {
-            if (!!devices.find((d) => d.addr === s.addr)) {
-                newSelected.push(s);
+        for (const a of selected) {
+            if (!!devices.find((d) => d.addr === a)) {
+                newSelected.push(a);
             }
         }
         selected = newSelected;
@@ -55,23 +52,22 @@
     let actionButtonLabel: "SET" | "ON" = "ON";
 
     function _itemcheck(data: Device | null) {
-        if (!!selected.find((d) => d.addr === data.addr)) return;
-        selected.push(data);
+        if (!!selected.find((a) => a === data.addr)) return;
+        selected.push(data.addr);
         selected = selected;
     }
 
     function _itemuncheck(data: Device | null) {
         let i: number = 0;
-        for (i; i < selected.length; i++)
-            if (selected[i].addr === data.addr) break;
+        for (i; i < selected.length; i++) if (selected[i] === data.addr) break;
         selected = [...selected.slice(0, i), ...selected.slice(i + 1)];
     }
 
     // Turn selected off selected devices. (action button handler)
     function _off() {
         api.postDevices(
-            ...selected.map((d) => ({
-                addr: d.addr,
+            ...selected.map((a) => ({
+                addr: a,
                 rgbw: [0, 0, 0, 0],
             }))
         );
@@ -81,20 +77,17 @@
     function _set() {
         if (actionButtonLabel === "ON") {
             api.postDevices(
-                ...selected.map((d) => {
+                ...selected.map((a) => {
                     let c = color;
 
                     const storedColor = window.localStorage.getItem(
-                        `color:${d.addr}`
+                        `color:${a}`
                     );
                     if (storedColor) {
                         c = JSON.parse(storedColor);
                     }
 
-                    return {
-                        addr: d.addr,
-                        rgbw: c,
-                    };
+                    return { addr: a, rgbw: c };
                 })
             );
 
@@ -103,11 +96,8 @@
 
         if (actionButtonLabel === "SET") {
             api.postDevices(
-                ...selected.map((d) => {
-                    return {
-                        addr: d.addr,
-                        rgbw: color,
-                    };
+                ...selected.map((a) => {
+                    return { addr: a, rgbw: color };
                 })
             );
 
@@ -148,7 +138,9 @@
             const l: string[] = JSON.parse(
                 window.localStorage.getItem("selected") || "[]"
             );
-            selected = devices.filter((d) => l.find((a) => a === d.addr));
+            selected = devices
+                .filter((d) => l.find((a) => a === d.addr))
+                .map((d) => d.addr);
         });
 
         // sse: "devices" (store color)
@@ -229,13 +221,14 @@
                             .map((gp) => gp.duty)
                             .join(",")}]`}
                         value={device}
+                        checked={!!selected.find((a) => a === device.addr)}
                     >
                         <Meta slot="right">
                             <Checkbox
                                 disableUserActions
                                 style="margin-right: 28px; float: right;"
                                 checked={!!selected.find(
-                                    (d) => d.addr === device.addr
+                                    (a) => a === device.addr
                                 )}
                             />
 
@@ -250,25 +243,6 @@
                             />
                         </Meta>
                     </Item>
-
-                    <!--Item style="height: 65px;">
-                        <Meta>
-                            <Checkbox
-                                style="margin-right: 40px;"
-                                bind:group={selected}
-                                value={device}
-                            />
-
-                            <StatusLED
-                                style="
-                                  position: absolute;
-                                  top: 4px;
-                                  right: 4px;
-                                "
-                                active={!device.offline}
-                            />
-                        </Meta>
-                    </Item -->
                     <Separator />
                 {/each}
             </List>
