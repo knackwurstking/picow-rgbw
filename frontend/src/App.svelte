@@ -1,7 +1,7 @@
 <script lang="ts">
     import { onMount } from "svelte";
 
-    import { Separator } from "@smui/list"; // TODO: replace with my own list stuff
+    //import { Separator } from "@smui/list"; // TODO: replace with my own list stuff
 
     import Checkbox from "svelteui/src/checkbox";
     import List, { Item, Meta } from "svelteui/src/list";
@@ -211,7 +211,7 @@
                             />
                         </Meta>
                     </Item>
-                    <Separator />
+                    <!--Separator /-->
                 {/each}
             </List>
         </fieldset>
