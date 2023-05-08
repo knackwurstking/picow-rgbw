@@ -1,3 +1,4 @@
+import "svelteui/src/theme/custom/main.css";
 import App from "./App.svelte";
 
 const app = new App({

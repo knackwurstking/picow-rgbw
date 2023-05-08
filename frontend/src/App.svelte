@@ -162,8 +162,6 @@
 </script>
 
 <svelte:head>
-    <link rel="stylesheet" href="/theme/custom/main.css" />
-
     <title>Pico Web | Home</title>
 </svelte:head>
 
