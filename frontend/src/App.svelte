@@ -13,24 +13,11 @@
     import api, { type Device, type Duty } from "./lib/api";
 
     let mounted = false;
+    let actionButtonLabel: "SET" | "ON" = "ON";
 
     // NOTE: Devices
     let devices: Device[] = [];
     let selected: string[] = [];
-    $: console.debug("selected:", selected);
-
-    $: selected.length &&
-        window.localStorage.setItem("selected", JSON.stringify(selected));
-
-    $: {
-        const newSelected = [];
-        for (const a of selected) {
-            if (!!devices.find((d) => d.addr === a)) {
-                newSelected.push(a);
-            }
-        }
-        selected = newSelected;
-    }
 
     // NOTE: Controls
     let control: HTMLDivElement;
@@ -42,15 +29,17 @@
 
     let color: Duty[];
 
+    // update local storage if selected (group) changed
+    $: !!selected.length &&
+        window.localStorage.setItem("selected", JSON.stringify(selected));
+
+    // update local storage if color (rgbw) changed
     $: {
         color = [r, g, b, w];
         if (mounted) {
             window.localStorage.setItem("color", JSON.stringify(color));
         }
     }
-
-    // NOTE: Actions
-    let actionButtonLabel: "SET" | "ON" = "ON";
 
     // Turn selected off selected devices. (action button handler)
     function _off() {
