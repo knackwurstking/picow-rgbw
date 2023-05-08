@@ -227,9 +227,8 @@
                             <Checkbox
                                 disableUserActions
                                 style="margin-right: 28px; float: right;"
-                                checked={!!selected.find(
-                                    (a) => a === device.addr
-                                )}
+                                bind:group={selected}
+                                value={device.addr}
                             />
 
                             <StatusLED
