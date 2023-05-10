@@ -110,7 +110,7 @@ func IsUrlError(err error) bool {
 	switch err.(type) {
 	case *url.Error:
 		return true
+	default:
+		return false
 	}
-
-	return false
 }
