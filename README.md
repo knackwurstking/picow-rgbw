@@ -140,5 +140,5 @@ curl -X POST http://localhost:50833/api/v1/picow\
 - [ ] ~On a GET devices request also send a (background) request to get the
       current duty for each device, data will be updated via sse event~
 - [ ] Scan method (`pico.Handler.Scan`) still missing
-- [ ] Fix rgbw control update on a device select if 0,0,0,0
-- [ ] Redesign the whole frontend
+- [x] Redesign the whole frontend
+- [ ] update the backend to the new picow-rgbw server (branch dev)
