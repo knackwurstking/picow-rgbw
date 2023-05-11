@@ -9,6 +9,7 @@ import (
 	"strings"
 )
 
+// TODO: update...
 func GetDuty(addr string) (duty [4]Duty, err error) {
 	url := fmt.Sprintf("http://%s%s", addr, PathGetDuty())
 
@@ -42,6 +43,7 @@ func GetDuty(addr string) (duty [4]Duty, err error) {
 }
 
 // GetPins returns a list with rgbw pins in use (-1 if not in use)
+// TODO: update...
 func GetPins(addr string) (pins [4]GpPin, err error) {
 	url := fmt.Sprintf("http://%s%s", addr, PathGetPins())
 
@@ -74,6 +76,7 @@ func GetPins(addr string) (pins [4]GpPin, err error) {
 	return pins, nil
 }
 
+// TODO: update...
 func SetDuty(addr string, rgbw [4]Duty) (err error) {
 	url := fmt.Sprintf("http://%s%s",
 		addr, PathSetDuty(rgbw[0], rgbw[1], rgbw[2], rgbw[3]))
@@ -90,6 +93,7 @@ func SetDuty(addr string, rgbw [4]Duty) (err error) {
 	return nil
 }
 
+// TODO: update...
 func SetPins(addr string, pins [4]GpPin) (err error) {
 	url := fmt.Sprintf("http://%s%s",
 		addr, PathSetPins(pins[0], pins[1], pins[2], pins[3]))
