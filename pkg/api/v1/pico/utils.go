@@ -65,6 +65,19 @@ func GetColor(addr string) (color [4]Duty, err error) {
 	return color, nil
 }
 
+// GetGp (GPIO) pins from picow device in use for rgbw
+func GetGp(addr string) (gps [4]GpPin, err error) {
+	// TODO: dial to picow device
+
+	// TODO: send command
+
+	// TODO: read response into data
+
+	// TODO: parse data
+
+	return
+}
+
 // GetPins returns a list with rgbw pins in use (-1 if not in use)
 // TODO: update...
 func GetPins(addr string) (pins [4]GpPin, err error) {
