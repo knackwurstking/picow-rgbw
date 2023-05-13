@@ -49,13 +49,13 @@ func (p *PicoW) postPico(w http.ResponseWriter, r *http.Request) {
 	}
 
 	go func() {
-		err := device.GetPins()
+		err := device.GetGpPins()
 		if err != nil {
 			log.Warn.Printf("Get pins: %s", err.Error())
 			return
 		}
 
-		_ = device.GetDuty()
+		_ = device.GetColor()
 
 		if update {
 			p.pico.Add(device)

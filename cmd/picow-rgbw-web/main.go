@@ -18,13 +18,11 @@ const (
 	applicationName = "picow-rgbw-web"
 )
 
-var (
-	config = Config{
-		Port:    50833,
-		Debug:   isDebug(),
-		Handler: pico.NewHandler(),
-	}
-)
+var config = Config{
+	Port:    50833,
+	Debug:   isDebug(),
+	Handler: pico.NewHandler(),
+}
 
 func isDebug() bool {
 	switch os.Getenv("DEBUG") {
@@ -104,12 +102,12 @@ func initPicoDevices() {
 
 		if !update {
 			// get pins, even after set pins (in case of a failure)
-			err := device.GetPins()
+			err := device.GetGpPins()
 			if err != nil {
 				log.Error.Printf("Get pins failed: %s", err.Error())
 			}
 
-			err = device.GetDuty()
+			err = device.GetColor()
 			if err != nil {
 				log.Error.Printf("Get duty failed: %s", err.Error())
 			}
@@ -140,12 +138,12 @@ func initPicoDevices() {
 		}
 
 		log.Debug.Printf("Set pins (%v): %+v", pins, device)
-		err := device.SetPins(pins)
+		err := device.SetGpPins(pins)
 		if err != nil {
 			log.Error.Printf("Set pins (%v): %s", pins, err.Error())
 		} else {
 			log.Debug.Printf("Set duty (%v): %+v", duty, device)
-			err = device.SetDuty(duty)
+			err = device.SetColor(duty)
 			if err != nil {
 				log.Error.Println("Set duty (%v): %s", duty, err.Error())
 			}

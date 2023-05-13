@@ -114,7 +114,7 @@ func (d *Devices) putDevices(w http.ResponseWriter, r *http.Request) {
 			}
 
 			log.Debug.Printf("Set rgbw (%v) for %s", rd.RGBW, device.Addr)
-			if err := device.SetDuty(rd.RGBW); err != nil {
+			if err := device.SetColor(rd.RGBW); err != nil {
 				statusCh <- http.StatusInternalServerError
 				return
 			}
