@@ -97,10 +97,13 @@ func initPicoDevices() {
 		log.Debug.Printf("Init pico device %+v", device)
 		for _, pin := range device.RGBW {
 			if pin != nil {
+				// TODO: just update the devices pin and duty and return
 				update = true // A pin was set for this device
 				break
 			}
 		}
+
+		// TODO: pins not confiured, do set pins and duty
 
 		if !update {
 			// get pins, even after set pins (in case of a failure)
