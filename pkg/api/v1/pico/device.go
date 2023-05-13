@@ -87,10 +87,13 @@ func (device *Device) GetGpPins() error {
 func (device *Device) SetGpPins(pins [4]GpPin) error {
 	err := SetGpPins(device.Addr, pins)
 	device.Offline = IsOffline(err)
-	if err == nil {
-		for i, gp := range device.RGBW {
-			gp.Nr = pins[i]
-		}
+	device.Offline = IsOffline(err)
+	if err != nil {
+		return err
+	}
+
+	for i, gp := range device.RGBW {
+		gp.Nr = pins[i]
 	}
 
 	device.update()
