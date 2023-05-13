@@ -21,38 +21,36 @@ func NewDevice(addr string, rgbw [4]*Gp) *Device {
 	}
 }
 
-// GetDuty from pico device
-func (d *Device) GetDuty() error {
-	duty, err := GetDuty(d.Addr)
+// GetDuty from picow device
+func (device *Device) GetColor() error {
+	color, err := GetColor(device.Addr)
+	device.Offline = IsOffline(err)
 	if err != nil {
-		if IsUrlError(err) {
-			d.Offline = true
-		}
-
 		return err
 	}
 
-	for i, n := range duty {
-		if d.RGBW[i] == nil {
-			d.RGBW[i] = NewGp(GpPinDisabled)
+	for i, d := range color {
+		if device.RGBW[i] == nil {
+			device.RGBW[i] = NewGp(GpPinDisabled)
 		}
 
-		if n < DutyMin {
-			d.RGBW[i].Duty = Duty(DutyMin)
-		} else if n > DutyMax {
-			d.RGBW[i].Duty = Duty(DutyMax)
+		if d < DutyMin {
+			device.RGBW[i].Duty = Duty(DutyMin)
+		} else if d > DutyMax {
+			device.RGBW[i].Duty = Duty(DutyMax)
 		} else {
-			d.RGBW[i].Duty = Duty(n)
+			device.RGBW[i].Duty = Duty(d)
 		}
 	}
 
-	d.Offline = false
+	device.Offline = false
 
-	d.update()
+	device.update()
 	return nil
 }
 
 // SetDuty to pico device for RGBW (use -1 or 0 for a disabled pin)
+// TODO: Update SetDuty to SetColor using SetColor function from utils
 func (d *Device) SetDuty(duty [4]Duty) error {
 	err := SetDuty(d.Addr, duty)
 	if err == nil {
@@ -72,6 +70,7 @@ func (d *Device) SetDuty(duty [4]Duty) error {
 }
 
 // GetPins from pico device
+// TODO: Update GetPins to GetGP using GetGP function from utils
 func (d *Device) GetPins() error {
 	pins, err := GetPins(d.Addr)
 	if err != nil {
@@ -97,6 +96,7 @@ func (d *Device) GetPins() error {
 }
 
 // Set will POST the RGBW pins to pico device (use -1 for a disabled pin)
+// TODO: Update SetPins to SetGP using SetGP function from utils
 func (d *Device) SetPins(pins [4]GpPin) error {
 	err := SetPins(d.Addr, pins)
 	if err == nil {

@@ -1,45 +1,68 @@
 package pico
 
 import (
+	"bytes"
 	"fmt"
 	"io"
+	"net"
 	"net/http"
-	"net/url"
 	"strconv"
 	"strings"
 )
 
-// TODO: update...
-func GetDuty(addr string) (duty [4]Duty, err error) {
-	url := fmt.Sprintf("http://%s%s", addr, PathGetDuty())
+type DialError struct {
+	err error
+}
 
-	r, err := http.Get(url)
+func (d *DialError) Error() string {
+	return d.err.Error()
+}
+
+func IsOffline(err error) bool {
+	switch err.(type) {
+	case *DialError:
+		return true
+	default:
+		return false
+	}
+}
+
+// GetColor from picow device
+func GetColor(addr string) (color [4]Duty, err error) {
+	// dial to picow device
+	conn, err := net.Dial("tcp", addr)
 	if err != nil {
-		return duty, err
+		return color, &DialError{err}
 	}
 
-	defer r.Body.Close()
-	if r.StatusCode != http.StatusOK {
-		return duty, fmt.Errorf("%s: %s", url, r.Status)
-	}
-
-	data, err := io.ReadAll(r.Body)
+	// send command
+	n, err := conn.Write([]byte(TCPGetColorCommand))
 	if err != nil {
-		return duty, err
-	} else if len(data) == 0 {
-		return duty, err
+		return color, err
+	} else if n == 0 {
+		return color, fmt.Errorf("no data written to %s", addr)
 	}
 
-	for i, n := range strings.Split(strings.Trim(string(data), " \n"), " ") {
-		d, err := strconv.Atoi(n)
+	// read response into data
+	data := make([]byte, TCPGetColorSize)
+	n, err = conn.Read(data)
+	if err != nil {
+		return color, err
+	} else if n == 0 {
+		return color, fmt.Errorf("missing data from %s", addr)
+	}
+	data = bytes.Trim(data, " \r\n")
+
+	// parse data
+	for i, p := range strings.Split(string(data), " ") {
+		d, err := strconv.Atoi(p)
 		if err != nil {
-			return duty, err
+			return color, err
 		}
-
-		duty[i] = Duty(d)
+		color[i] = Duty(d)
 	}
 
-	return duty, nil
+	return color, nil
 }
 
 // GetPins returns a list with rgbw pins in use (-1 if not in use)
@@ -108,13 +131,4 @@ func SetPins(addr string, pins [4]GpPin) (err error) {
 	}
 
 	return nil
-}
-
-func IsUrlError(err error) bool {
-	switch err.(type) {
-	case *url.Error:
-		return true
-	default:
-		return false
-	}
 }

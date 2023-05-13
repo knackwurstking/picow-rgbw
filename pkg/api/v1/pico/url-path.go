@@ -4,10 +4,6 @@ import (
 	"fmt"
 )
 
-func PathGetDuty() string {
-	return "/rgbw/get_duty"
-}
-
 func PathGetPins() string {
 	return "/rgbw/get_pins"
 }
