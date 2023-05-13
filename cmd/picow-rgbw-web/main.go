@@ -90,6 +90,7 @@ func initFlags() {
 
 func initPicoDevices() {
 	for _, device := range config.Handler.Devices {
+		// NOTE: I don't like this part
 		update := false
 
 		log.Debug.Printf("Init pico device %+v", device)
