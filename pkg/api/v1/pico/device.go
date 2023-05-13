@@ -21,7 +21,7 @@ func NewDevice(addr string, rgbw [4]*Gp) *Device {
 	}
 }
 
-// GetDuty from picow device
+// GetColor from picow device
 func (device *Device) GetColor() error {
 	color, err := GetColor(device.Addr)
 	device.Offline = IsOffline(err)
@@ -49,7 +49,7 @@ func (device *Device) GetColor() error {
 	return nil
 }
 
-// SetDuty to pico device for RGBW (use -1 or 0 for a disabled pin)
+// SetDuty to picow device for RGBW (use -1 or 0 for a disabled pin)
 // TODO: Update SetDuty to SetColor using SetColor function from utils
 func (d *Device) SetDuty(duty [4]Duty) error {
 	err := SetDuty(d.Addr, duty)
