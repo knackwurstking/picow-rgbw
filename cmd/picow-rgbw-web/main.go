@@ -91,6 +91,7 @@ func initFlags() {
 func initPicoDevices() {
 	for _, device := range config.Handler.Devices {
 		// NOTE: I don't like this part
+		// TODO: rewrite this section get and set pins and duty based config config.json
 		update := false
 
 		log.Debug.Printf("Init pico device %+v", device)
