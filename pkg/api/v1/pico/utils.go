@@ -78,14 +78,16 @@ func GetColor(addr string) (color [4]Duty, err error) {
 	return color, nil
 }
 
-func SetColor(addr string) error {
-	_, err := RunCommand(addr, TCPSetColorCommand, TCPSetColorReadSize)
+func SetColor(addr string, color [4]Duty) error {
+	command := fmt.Sprintf(TCPSetColorCommand,
+		color[0], color[1], color[2], color[3])
+	_, err := RunCommand(addr, command, TCPSetColorReadSize)
 	return err
 }
 
-// GetGp (GPIO) pins from picow device in use for rgbw
-func GetGp(addr string) (gps [4]GpPin, err error) {
-	data, err := RunCommand(addr, TCPGetGpCommand, TCPGetGpReadSize)
+// GetGpPins (GPIO) pins from picow device in use for rgbw
+func GetGpPins(addr string) (gps [4]GpPin, err error) {
+	data, err := RunCommand(addr, TCPGetGpPinsCommand, TCPGetGpPinsReadSize)
 	if err != nil {
 		return gps, err
 	}
@@ -102,7 +104,10 @@ func GetGp(addr string) (gps [4]GpPin, err error) {
 	return
 }
 
-func SetGp(addr string) error {
-	_, err := RunCommand(addr, TCPSetGpCommand, TCPSetGpReadSize)
+func SetGpPins(addr string, gps [4]GpPin) error {
+	command := fmt.Sprintf(TCPSetGpPinsCommand,
+		gps[0], gps[1], gps[2], gps[3])
+
+	_, err := RunCommand(addr, command, TCPSetGpPinsReadSize)
 	return err
 }

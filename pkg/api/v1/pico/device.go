@@ -43,75 +43,57 @@ func (device *Device) GetColor() error {
 		}
 	}
 
-	device.Offline = false
-
 	device.update()
 	return nil
 }
 
 // SetDuty to picow device for RGBW (use -1 or 0 for a disabled pin)
-// TODO: Update SetDuty to SetColor using SetColor function from utils
-func (d *Device) SetDuty(duty [4]Duty) error {
-	err := SetDuty(d.Addr, duty)
-	if err == nil {
-		for i, gp := range d.RGBW {
-			gp.Duty = duty[i]
-		}
+func (device *Device) SetColor(duty [4]Duty) error {
+	err := SetColor(device.Addr, duty)
+	device.Offline = IsOffline(err)
+	if err != nil {
+		return err
 	}
 
-	if IsUrlError(err) {
-		d.Offline = true
-	} else {
-		d.Offline = false
+	for i, gp := range device.RGBW {
+		gp.Duty = duty[i]
 	}
 
-	d.update()
+	device.update()
 	return err
 }
 
 // GetPins from pico device
-// TODO: Update GetPins to GetGP using GetGP function from utils
-func (d *Device) GetPins() error {
-	pins, err := GetPins(d.Addr)
+func (device *Device) GetGpPins() error {
+	gpPins, err := GetGpPins(device.Addr)
+	device.Offline = IsOffline(err)
 	if err != nil {
-		if IsUrlError(err) {
-			d.Offline = true
-		}
-
 		return err
 	}
 
-	for i, n := range pins {
-		if n >= GpPinMin && n <= GpPinMax {
-			d.RGBW[i] = NewGp(GpPin(n))
+	for i, p := range gpPins {
+		if p >= GpPinMin && p <= GpPinMax {
+			device.RGBW[i] = NewGp(p)
 		} else {
-			d.RGBW[i] = NewGp(GpPinDisabled)
+			device.RGBW[i] = NewGp(GpPinDisabled)
 		}
 	}
 
-	d.Offline = false
-
-	d.update()
+	device.update()
 	return nil
 }
 
 // Set will POST the RGBW pins to pico device (use -1 for a disabled pin)
-// TODO: Update SetPins to SetGP using SetGP function from utils
-func (d *Device) SetPins(pins [4]GpPin) error {
-	err := SetPins(d.Addr, pins)
+func (device *Device) SetGpPins(pins [4]GpPin) error {
+	err := SetGpPins(device.Addr, pins)
+	device.Offline = IsOffline(err)
 	if err == nil {
-		for i, gp := range d.RGBW {
+		for i, gp := range device.RGBW {
 			gp.Nr = pins[i]
 		}
 	}
 
-	if IsUrlError(err) {
-		d.Offline = true
-	} else {
-		d.Offline = false
-	}
-
-	d.update()
+	device.update()
 	return err
 }
 
