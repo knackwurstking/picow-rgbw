@@ -22,6 +22,7 @@ var config = Config{
 	Port:    50833,
 	Debug:   isDebug(),
 	Handler: pico.NewHandler(),
+	Version: false,
 }
 
 func isDebug() bool {
@@ -39,6 +40,7 @@ type Config struct {
 	HTTP    bool          `json:"http"`
 	Debug   bool          `json:"debug"`
 	Handler *pico.Handler `json:"pico-handler"`
+	Version bool          `json:"-"`
 }
 
 func init() {
@@ -80,12 +82,20 @@ func initFlags() {
 	flag.IntVar(&config.Port, "port", config.Port, "Server port.")
 	flag.BoolVar(&config.HTTP, "http", config.HTTP, "Start HTTP server.")
 	flag.BoolVar(&config.Debug, "debug", config.Debug, "Enable debug log.")
+	flag.BoolVar(&config.Version, "version", config.Version,
+		"Display verison and exit.")
 
+	// TODO: add "--version" flag
 	// TODO: Add flags for... (Need to finish the scanner first)
 	//	...scan - enables the pico device scan
 	//	...scan-range - 192.168.178.0 or 192.168.0.0
 
 	flag.Parse()
+
+	if config.Version {
+		echoVersion()
+		os.Exit(0)
+	}
 }
 
 func initPicoDevices() {
