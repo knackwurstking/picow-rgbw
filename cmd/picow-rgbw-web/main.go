@@ -115,7 +115,7 @@ func initPicoDevices() {
 			break
 		}
 
-		doSetupDevices(device)
+		doGetDevices(device)
 	}
 
 	// Start the devices scanner
@@ -170,7 +170,7 @@ func doUpdateDevices(device *pico.Device) {
 	}
 }
 
-func doSetupDevices(device *pico.Device) {
+func doGetDevices(device *pico.Device) {
 	// get pins, even after set pins (in case of a failure)
 	err := device.GetGpPins()
 	if err != nil {
