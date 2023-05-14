@@ -89,70 +89,24 @@ func initFlags() {
 }
 
 func initPicoDevices() {
-	for _, device := range config.Handler.Devices {
-		// NOTE: I don't like this part
-		// TODO: rewrite this section get and set pins and duty based config config.json
-		update := false
+	updated := false
 
+	for _, device := range config.Handler.Devices {
 		log.Debug.Printf("Init pico device %+v", device)
+
 		for _, pin := range device.RGBW {
 			if pin != nil {
-				// TODO: just update the devices pin and duty and return
-				update = true // A pin was set for this device
+				doUpdateDevices(device)
+				updated = true
 				break
 			}
 		}
 
-		// TODO: pins not confiured, do set pins and duty
-
-		if !update {
-			// get pins, even after set pins (in case of a failure)
-			err := device.GetGpPins()
-			if err != nil {
-				log.Error.Printf("Get pins failed: %s", err.Error())
-			}
-
-			err = device.GetColor()
-			if err != nil {
-				log.Error.Printf("Get duty failed: %s", err.Error())
-			}
-
-			continue
+		if updated {
+			break
 		}
 
-		pins := [4]pico.GpPin{
-			pico.GpPinDisabled,
-			pico.GpPinDisabled,
-			pico.GpPinDisabled,
-			pico.GpPinDisabled,
-		}
-		duty := [4]pico.Duty{
-			pico.DutyMin,
-			pico.DutyMin,
-			pico.DutyMin,
-			pico.DutyMin,
-		}
-
-		for i, p := range device.RGBW {
-			if p == nil {
-				continue
-			}
-
-			pins[i] = p.Nr
-			duty[i] = p.Duty
-		}
-
-		log.Debug.Printf("Set pins (%v): %+v", pins, device)
-		err := device.SetGpPins(pins)
-		if err != nil {
-			log.Error.Printf("Set pins (%v): %s", pins, err.Error())
-		} else {
-			log.Debug.Printf("Set duty (%v): %+v", duty, device)
-			err = device.SetColor(duty)
-			if err != nil {
-				log.Error.Println("Set duty (%v): %s", duty, err.Error())
-			}
-		}
+		doSetupDevices(device)
 	}
 
 	// Start the devices scanner
@@ -168,6 +122,55 @@ func initPicoDevices() {
 		} else {
 			config.Handler.Devices = devices
 		}
+	}
+}
+
+func doUpdateDevices(device *pico.Device) {
+	pins := [4]pico.GpPin{
+		pico.GpPinDisabled,
+		pico.GpPinDisabled,
+		pico.GpPinDisabled,
+		pico.GpPinDisabled,
+	}
+	duty := [4]pico.Duty{
+		pico.DutyMin,
+		pico.DutyMin,
+		pico.DutyMin,
+		pico.DutyMin,
+	}
+
+	for i, p := range device.RGBW {
+		if p == nil {
+			continue
+		}
+
+		pins[i] = p.Nr
+		duty[i] = p.Duty
+	}
+
+	log.Debug.Printf("Set pins (%v): %+v", pins, device)
+	err := device.SetGpPins(pins)
+	if err != nil {
+		log.Error.Printf("Set pins (%v): %s", pins, err.Error())
+	} else {
+		log.Debug.Printf("Set duty (%v): %+v", duty, device)
+		err = device.SetColor(duty)
+		if err != nil {
+			log.Error.Println("Set duty (%v): %s", duty, err.Error())
+		}
+	}
+}
+
+func doSetupDevices(device *pico.Device) {
+	// get pins, even after set pins (in case of a failure)
+	err := device.GetGpPins()
+	if err != nil {
+		log.Error.Printf("Get pins failed: %s", err.Error())
+	}
+
+	err = device.GetColor()
+	if err != nil {
+		log.Error.Printf("Get duty failed: %s", err.Error())
 	}
 }
 
