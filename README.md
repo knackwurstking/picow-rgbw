@@ -142,3 +142,4 @@ curl -X POST http://localhost:50833/api/v1/picow\
 - [ ] Scan method (`pico.Handler.Scan`) still missing
 - [x] Redesign the whole frontend
 - [x] update the backend to the new picow-rgbw server (branch dev)
+- [ ] need to test config.json with multiple devices configured (somthing's wierd)
