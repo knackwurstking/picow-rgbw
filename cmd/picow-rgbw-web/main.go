@@ -85,7 +85,6 @@ func initFlags() {
 	flag.BoolVar(&config.Version, "version", config.Version,
 		"Display verison and exit.")
 
-	// TODO: add "--version" flag
 	// TODO: Add flags for... (Need to finish the scanner first)
 	//	...scan - enables the pico device scan
 	//	...scan-range - 192.168.178.0 or 192.168.0.0
