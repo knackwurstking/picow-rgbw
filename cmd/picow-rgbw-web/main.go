@@ -83,7 +83,7 @@ func initFlags() {
 	flag.BoolVar(&config.HTTP, "http", config.HTTP, "Start HTTP server.")
 	flag.BoolVar(&config.Debug, "debug", config.Debug, "Enable debug log.")
 	flag.BoolVar(&config.Version, "version", config.Version,
-		"Display verison and exit.")
+		"Display version and exit.")
 
 	// TODO: Add flags for... (Need to finish the scanner first)
 	//	...scan - enables the pico device scan
@@ -112,7 +112,7 @@ func initPicoDevices() {
 		}
 
 		if updated {
-			break
+			continue
 		}
 
 		doGetDevices(device)
