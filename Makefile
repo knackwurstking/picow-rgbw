@@ -1,9 +1,10 @@
-name=picow-rgbw-web
+name_web=picow-rgbw-web
+build_path=./build
 bin_path=~/.local/bin
 config_path=~/.config/
 systemd_path=~/.config/systemd/user
 
-build:
+build_web:
 	@cd .. && (\
 		git clone --branch=main https://github.com/knackwurstking/svelteui.git || ( \
 			cd svelteui && git pull \
@@ -11,21 +12,20 @@ build:
 	)
 	@cd frontend && npm install && npm run build
 	@go mod tidy
-	@go build -o ./${name} ./cmd/${name}
+	@go build -o ${build_path}/${name_web} ./cmd/${name_web}
 
-install:
-	@go build -o ${bin_path}/${name} ./cmd/${name}
-	@mkdir -p ${bin_path} && cp ./${name} ${bin_path}/${name}
-	@if [ ! -e ${config_path}/${name}/config.json ]; then \
-		mkdir -p ${config_path}/${name}; \
-		cp ./config/example.config.json ${config_path}/${name}/config.json; \
+install_web:
+	@mkdir -p ${bin_path} && cp ${build_path}/${name_web} ${bin_path}/${name_web}
+	@if [ ! -e ${config_path}/${name_web}/config.json ]; then \
+		mkdir -p ${config_path}/${name_web}; \
+		cp ./cmd/picow-rgbw-web/config/example.config.json ${config_path}/${name_web}/config.json; \
 	fi
-	@if [ ! -e ${systemd_path}/${name}.service ]; \
+	@if [ ! -e ${systemd_path}/${name_web}.service ]; \
 		then mkdir -p ${systemd_path}; \
-		cp ./config/${name}.service ${systemd_path}/${name}.service; \
+		cp ./cmd/picow-rgbw-web/config/${name_web}.service ${systemd_path}/${name_web}.service; \
 	fi
 
-service:
+service_web:
 	systemctl --user daemon-reload
 	systemctl --user restart picow-rgbw-web
 	systemctl --user enable picow-rgbw-web

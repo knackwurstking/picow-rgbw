@@ -1,7 +1,7 @@
-# picow-rgbw-web
+# picow-rgbw
 
 <!--toc:start-->
-- [picow-rgbw-web](#picow-rgbw-web)
+- [picow-rgbw](#picow-rgbw)
   - [Getting Started](#getting-started)
   - [Api v1 Routing Table](#api-v1-routing-table)
   - [Api V1](#api-v1)
