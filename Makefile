@@ -15,6 +15,7 @@ build_web:
 	@go build -o ${build_path}/${name_web} ./cmd/${name_web}
 
 install_web:
+	@systemctl --user stop picow-rgbw-web || exit 0
 	@mkdir -p ${bin_path} && cp ${build_path}/${name_web} ${bin_path}/${name_web}
 	@if [ ! -e ${config_path}/${name_web}/config.json ]; then \
 		mkdir -p ${config_path}/${name_web}; \
