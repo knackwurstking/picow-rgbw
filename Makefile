@@ -4,7 +4,7 @@ bin_path=~/.local/bin
 config_path=~/.config/
 systemd_path=~/.config/systemd/user
 
-build_web:
+build:
 	@cd .. && (\
 		git clone --branch=main https://github.com/knackwurstking/svelteui.git || ( \
 			cd svelteui && git pull \
@@ -14,7 +14,7 @@ build_web:
 	@go mod tidy
 	@go build -o ${build_path}/${name_web} ./cmd/${name_web}
 
-install_web:
+install:
 	@systemctl --user stop picow-rgbw-web || exit 0
 	@mkdir -p ${bin_path} && cp ${build_path}/${name_web} ${bin_path}/${name_web}
 	@if [ ! -e ${config_path}/${name_web}/config.json ]; then \
@@ -26,7 +26,7 @@ install_web:
 		cp ./cmd/picow-rgbw-web/config/${name_web}.service ${systemd_path}/${name_web}.service; \
 	fi
 
-service_web:
+service:
 	systemctl --user daemon-reload
 	systemctl --user restart picow-rgbw-web
 	systemctl --user enable picow-rgbw-web

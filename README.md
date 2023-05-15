@@ -27,9 +27,9 @@ sudo apt install nodejs
 Build and install with make (as user, no sudo).
 
 ```bash
-make build_web
-make install_web
-make service_web
+make build
+make install
+make service
 ```
 
 ## Api v1 Routing Table
