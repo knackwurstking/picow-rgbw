@@ -239,10 +239,7 @@
     <!-- Actions "OFF", "ON|SET" -->
     <fieldset class="action">
         <legend>Action</legend>
-        <Group
-            variant="unelevated"
-            style="display: flex; justify-content: stretch;"
-        >
+        <Group style="display: flex; justify-content: stretch;">
             <Button
                 variant="unelevated"
                 color="primary"
