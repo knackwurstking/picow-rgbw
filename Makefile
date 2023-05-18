@@ -14,6 +14,7 @@ build:
 	)
 	@cd frontend && npm install && npm run build
 	@go mod tidy
+	@echo "build ${name_web} -> ${build_path}/${name_web}"
 	@go build -v -o ${build_path}/${name_web} ./cmd/${name_web}
 
 install:
