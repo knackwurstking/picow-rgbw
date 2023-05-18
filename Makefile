@@ -4,6 +4,8 @@ bin_path=~/.local/bin
 config_path=~/.config/
 systemd_path=~/.config/systemd/user
 
+.PHONY: build
+
 build:
 	@cd .. && (\
 		git clone --branch=main https://github.com/knackwurstking/svelteui.git || ( \
@@ -12,7 +14,6 @@ build:
 	)
 	@cd frontend && npm install && npm run build
 	@go mod tidy
-	@rm -r ${build_path}/${name_web} || exit 0
 	@go build -v -o ${build_path}/${name_web} ./cmd/${name_web}
 
 install:
