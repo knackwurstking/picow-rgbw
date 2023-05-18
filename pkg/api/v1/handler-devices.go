@@ -10,6 +10,11 @@ import (
 	"github.com/knackwurstking/picow-rgbw-web/pkg/log"
 )
 
+type RequestDevice struct {
+	Addr string       `json:"addr"`
+	RGBW [4]pico.Duty `json:"rgbw"`
+}
+
 type Devices struct {
 	prefix string
 	pico   *pico.Handler
@@ -31,7 +36,7 @@ func (d *Devices) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		case http.MethodGet:
 			d.devices(w, r)
 		case http.MethodPost:
-			d.putDevices(w, r)
+			d.postDevices(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -79,14 +84,14 @@ func (d *Devices) device(w http.ResponseWriter, r *http.Request, id int) {
 	http.NotFound(w, r)
 }
 
-func (d *Devices) putDevices(w http.ResponseWriter, r *http.Request) {
+func (d *Devices) postDevices(w http.ResponseWriter, r *http.Request) {
 	if !hasJSONContent(w, r) {
 		return
 	}
 
 	// read body data
 	defer r.Body.Close()
-	var data []RequestPostDevice
+	var data []RequestDevice
 	if err := json.NewDecoder(r.Body).Decode(&data); err != nil {
 		http.Error(w, http.StatusText(http.StatusBadRequest),
 			http.StatusBadRequest)
@@ -100,7 +105,7 @@ func (d *Devices) putDevices(w http.ResponseWriter, r *http.Request) {
 
 	for _, reqDevice := range data {
 		doneCount += 1
-		go func(rd RequestPostDevice, statusCh chan int, doneCh chan struct{}) {
+		go func(rd RequestDevice, statusCh chan int, doneCh chan struct{}) {
 			defer func() {
 				doneCh <- struct{}{}
 			}()
