@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/knackwurstking/picow-rgbw-web/pkg/api/v1/pico"
-	"github.com/knackwurstking/picow-rgbw-web/pkg/middleware"
+	"github.com/knackwurstking/picow-rgbw-web/pkg/server/middleware"
 )
 
 func New(addr string, p *pico.Handler) *http.Server {

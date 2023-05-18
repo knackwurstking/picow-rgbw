@@ -10,7 +10,6 @@ import (
 
 	"github.com/knackwurstking/picow-rgbw-web/pkg/api/v1/pico"
 	"github.com/knackwurstking/picow-rgbw-web/pkg/log"
-	"github.com/knackwurstking/picow-rgbw-web/pkg/scanner"
 	"github.com/knackwurstking/picow-rgbw-web/pkg/server"
 )
 
@@ -85,10 +84,6 @@ func initFlags() {
 	flag.BoolVar(&config.Version, "version", config.Version,
 		"Display version and exit.")
 
-	// TODO: Add flags for... (Need to finish the scanner first)
-	//	...scan - enables the pico device scan
-	//	...scan-range - 192.168.178.0 or 192.168.0.0
-
 	flag.Parse()
 
 	if config.Version {
@@ -116,21 +111,6 @@ func initPicoDevices() {
 		}
 
 		doGetDevices(device)
-	}
-
-	// Start the devices scanner
-	if ip, err := scanner.GetLocalIP(); err != nil {
-		log.Warn.Println(err.Error())
-	} else {
-		ip = strings.Join(strings.Split(ip, ".")[:3], ".") + ".0"
-		log.Debug.Printf("Scan for pico devices (scan-range: %s)", ip)
-
-		// NOTE: Scan method is work in progress
-		if devices, err := config.Handler.Scan(ip); err != nil {
-			log.Warn.Println(err.Error())
-		} else {
-			config.Handler.Devices = devices
-		}
 	}
 }
 
