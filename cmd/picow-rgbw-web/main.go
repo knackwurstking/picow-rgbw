@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
-	"strings"
 
 	"github.com/knackwurstking/picow-rgbw-web/pkg/api/v1/pico"
 	"github.com/knackwurstking/picow-rgbw-web/pkg/log"
