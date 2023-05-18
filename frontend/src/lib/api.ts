@@ -88,6 +88,7 @@ export class Api {
         const listeners = this.events[type];
         for (const l of listeners) {
             if (l == listener) {
+                // @ts-expect-error
                 this.events[type] = [
                     ...listeners.slice(0, i),
                     ...listeners.slice(i + 1),
