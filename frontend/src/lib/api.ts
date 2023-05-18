@@ -59,11 +59,13 @@ export class Api {
         }
     }
 
-    // TODO: need add some types here (#overrides?)
+    addEventListener(type: "offline", listener: () => Promise<void> | void): void
+    addEventListener(type: "devices", listener: (data: Device[]) => Promise<void> | void): void
+    addEventListener(type: "device", listener: (data: Device) => Promise<void> | void): void
     addEventListener(
-        type: string,
-        listener: (data: any) => Promise<void> | void
-    ) {
+        type: ("offline" | "devices" | "device"),
+        listener: any
+    ): void {
         if (!(type in this.events)) {
             return;
         }
@@ -71,11 +73,13 @@ export class Api {
         this.events[type].push(listener);
     }
 
-    // TODO: need add some types here (#overrides?)
+    removeEventListener(type: "offline", listener: () => Promise<void> | void): void
+    removeEventListener(type: "devices", listener: (data: Device[]) => Promise<void> | void): void
+    removeEventListener(type: "device", listener: (data: Device) => Promise<void> | void): void
     removeEventListener(
-        type: string,
-        listener: (data: any) => Promise<void> | void
-    ) {
+        type: ("offline" | "devices" | "device"),
+        listener: any
+    ): void {
         if (!(type in this.events)) {
             return;
         }

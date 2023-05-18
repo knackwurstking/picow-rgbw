@@ -105,7 +105,7 @@
         });
 
         // sse: "devices"
-        api.addEventListener("devices", (data: Device[]) => {
+        api.addEventListener("devices", (data) => {
             console.debug(`[app, event] "devices"`);
 
             devices = data;
@@ -120,7 +120,7 @@
         });
 
         // sse: "devices" (store color)
-        api.addEventListener("devices", async (data: Device[]) => {
+        api.addEventListener("devices", async (data) => {
             console.debug(`[app, event] "devices" (store color)`);
 
             data.forEach((d) => {
@@ -133,7 +133,7 @@
         });
 
         // sse: "device", "device" (store color)
-        api.addEventListener("device", (data: Device) => {
+        api.addEventListener("device", (data) => {
             console.debug(`[app, event] "device"`, data);
 
             const device = devices.find((d) => d.addr === data.addr);
@@ -145,7 +145,7 @@
             devices = devices;
         });
 
-        api.addEventListener("device", async (data: Device) => {
+        api.addEventListener("device", async (data) => {
             console.debug(`[app, event] "device" (store color)`);
 
             if (data.rgbw.find((gp) => gp.duty > 0))
