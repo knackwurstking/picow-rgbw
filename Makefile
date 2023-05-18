@@ -12,7 +12,8 @@ build:
 	)
 	@cd frontend && npm install && npm run build
 	@go mod tidy
-	@go build -o ${build_path}/${name_web} ./cmd/${name_web}
+	@rm -r ${build_path}/${name_web} || exit 0
+	@go build -v -o ${build_path}/${name_web} ./cmd/${name_web}
 
 install:
 	@systemctl --user stop picow-rgbw-web || exit 0
