@@ -1,43 +1,3 @@
-export type GpPin = number;
-export type Duty = number;
-
-export interface Gp {
-    nr: GpPin;
-    duty: Duty;
-}
-
-export interface Device {
-    addr: string;
-    offline: boolean;
-    rgbw: Gp[];
-}
-
-export interface ReqPutDevice {
-    addr: string;
-    rgbw: Duty[];
-}
-
-export interface ApiPathsV1 {
-    devices: () => string;
-    postDevices: () => string;
-    device: (id: string) => string;
-}
-
-export interface ApiPaths {
-    v1: ApiPathsV1;
-}
-
-export interface Events {
-    devices: ((data: Device[]) => Promise<void> | void)[];
-    device: ((data: Device) => Promise<void> | void)[];
-    offline: (() => Promise<void> | void)[];
-}
-
-export interface Sources {
-    devices: EventSource | null;
-    device: EventSource | null;
-}
-
 export class Api {
     protocol: "http:" | "https:";
     host: string;
@@ -99,6 +59,7 @@ export class Api {
         }
     }
 
+    // TODO: need add some types here (#overrides?)
     addEventListener(
         type: string,
         listener: (data: any) => Promise<void> | void
@@ -110,6 +71,7 @@ export class Api {
         this.events[type].push(listener);
     }
 
+    // TODO: need add some types here (#overrides?)
     removeEventListener(
         type: string,
         listener: (data: any) => Promise<void> | void
