@@ -10,6 +10,7 @@ export class Api {
         this.protocol = "http:";
         this.host = "";
         this.version = "v1";
+
         this.paths = {
             v1: {
                 devices: () => "/api/v1/devices",
@@ -17,6 +18,7 @@ export class Api {
                 device: (id) => `/api/v1/devices/${id}`,
             },
         };
+
         this.events = {
             devices: [],
             device: [],
@@ -27,6 +29,7 @@ export class Api {
             devices: null,
             device: null,
         }
+
         this.sse();
     }
 
@@ -104,12 +107,13 @@ export class Api {
 
             const path = "/api/v1/events/" + p;
             if (this.sources[p]) {
-                this.sources[p].close()
+                this.sources[p].close();
             }
-            this.sources[p] = new EventSource(path);
+
+            const source = (this.sources[p] = new EventSource(path));
 
             if (p === "devices") { // Only "devices" will handle the reconnect
-                this.sources[p].onerror = () => {
+                source.onerror = () => {
                     console.error(`Oops, sse EventSource for "${p}" failed. Try re-connect...`);
 
                     setTimeout(() => {
@@ -123,7 +127,7 @@ export class Api {
                 };
             }
 
-            this.sources[p].addEventListener("update", (ev) => {
+            source.addEventListener("update", (ev) => {
                 for (const l of this.events[p]) {
                     l(JSON.parse(ev.data));
                 }
