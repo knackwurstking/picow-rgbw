@@ -7,6 +7,8 @@
   export let g = 100;
   export let b = 100;
   export let w = 100;
+
+  let items: Color[] = [];
 </script>
 
 <fieldset class="control">
@@ -18,7 +20,7 @@
     <!-- TODO: manage scenes here (Quick and Easy) -->
   </div>
 
-  <ColorStorage />
+  <ColorStorage bind:items />
   <ColorPicker bind:r bind:g bind:b bind:w />
 </fieldset>
 

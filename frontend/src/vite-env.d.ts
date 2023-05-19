@@ -40,3 +40,8 @@ declare interface Sources {
   devices: EventSource | null;
   device: EventSource | null;
 }
+
+//
+// Color Storage
+//
+declare type Color = [int, int, int, int]
