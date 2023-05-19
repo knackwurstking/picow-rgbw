@@ -1,6 +1,8 @@
 <script lang="ts">
   import ColorPicker from "svelteui/src/misc/ColorPicker.svelte";
 
+  import ColorStorage from "./ControlColorStorage.svelte";
+
   export let r = 100;
   export let g = 100;
   export let b = 100;
@@ -16,10 +18,7 @@
     <!-- TODO: manage scenes here (Quick and Easy) -->
   </div>
 
-  <div class="store">
-    <!-- TODO: store color presets (rgb) -->
-  </div>
-
+  <ColorStorage />
   <ColorPicker bind:r bind:g bind:b bind:w />
 </fieldset>
 
