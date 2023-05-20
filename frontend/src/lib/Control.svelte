@@ -8,7 +8,14 @@
   export let b = 100;
   export let w = 100;
 
-  let items: Color[] = [];
+  let items: Color[] = [
+    // NOTE: placeholder items...
+    [100, 100, 100, 100],
+    [90, 0, 0, 0],
+    [100, 100, 50, 0],
+    [0, 100, 0, 0],
+    [0, 50, 80, 0],
+  ];
 </script>
 
 <fieldset class="control">
