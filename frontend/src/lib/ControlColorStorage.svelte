@@ -1,36 +1,32 @@
 <script lang="ts">
-  import List, { Item, Meta } from "svelteui/src/list";
-
   export let items: Color[] = [];
 
   // TODO: load stored items from the `localStorage`
 </script>
 
-<div class="container debug">
-  <div class="actions debug2" />
-  <div class="content debug2">
-    <List class="debug" style="height: 100%;" orientation="vertical">
+<div class="container">
+  <div class="actions" />
+  <div class="content">
+    <ul class="custom-list" style="height: 100%;">
       {#each items as item}
-        <Item class="debug2" style="width: 50px;" value={item}>
-          <Meta>
-            <div class="color-container__outer debug">
-              <div class="color-container__inner debug">
-                {item[0]}
-                {item[1]}
-                {item[2]}
-              </div>
+        <li class="custom-list-item" style="width: 50px;">
+          <div class="color-container__outer">
+            <div class="color-container__inner">
+              {item[0]}
+              {item[1]}
+              {item[2]}
             </div>
-          </Meta>
-        </Item>
+          </div>
+        </li>
       {/each}
-    </List>
+    </ul>
   </div>
 </div>
 
 <style>
   .container {
     position: relative;
-    overflow: hidden;
+    height: 250px;
   }
 
   .container .actions {
@@ -44,24 +40,21 @@
     width: 100%;
   }
 
+  .container .content .custom-list .custom-list-item {
+    display: block;
+    float: left;
+    width: fit-content;
+    height: 100%;
+  }
+
   .container .content .color-container__outer {
     width: 100%;
     height: 100%;
   }
 
   .container .content .color-container__inner {
-    width: 46px;
-  }
-
-  :global(.debug) {
-    border: 1px solid red;
-  }
-
-  :global(.debug2) {
-    border: 1px solid blue;
-  }
-
-  :global(.debug3) {
-    border: 1px solid green;
+    width: calc(100% - 4px);
+    height: clac(100% - 4px);
+    margin: 2px;
   }
 </style>
