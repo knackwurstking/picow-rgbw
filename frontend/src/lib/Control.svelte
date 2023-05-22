@@ -15,6 +15,11 @@
     [100, 100, 50, 0],
     [0, 100, 0, 0],
     [0, 50, 80, 0],
+    [100, 100, 100, 100],
+    [90, 0, 0, 0],
+    [100, 100, 50, 0],
+    [0, 100, 0, 0],
+    [0, 50, 80, 0],
   ];
 </script>
 
@@ -27,8 +32,12 @@
     <!-- TODO: manage scenes here (Quick and Easy) -->
   </div>
 
-  <ColorStorage bind:items />
-  <ColorPicker bind:r bind:g bind:b bind:w />
+  <div class="store">
+    <ColorStorage bind:items />
+  </div>
+  <div class="picker">
+    <ColorPicker bind:r bind:g bind:b bind:w />
+  </div>
 </fieldset>
 
 <style>
