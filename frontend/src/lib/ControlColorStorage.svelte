@@ -5,13 +5,24 @@
 </script>
 
 <div class="container">
-  <div class="actions" />
+  <div class="actions">
+    <!-- TODO: actions list "+" for add and more (right align) -->
+  </div>
   <div class="content">
     <ul class="custom-list" style="height: 100%;">
       {#each items as item}
         <li class="custom-list-item" style="width: 50px;">
           <div class="color-container__outer">
-            <div class="color-container__inner" />
+            <div
+              class="color-container__inner"
+              style={`
+                background-color: rgba(
+                  ${(item[0] / 100) * 255},
+                  ${(item[1] / 100) * 255},
+                  ${(item[2] / 100) * 255},
+                1.0);
+              `}
+            />
           </div>
         </li>
       {/each}
@@ -46,8 +57,6 @@
     display: flex;
     align-items: flex-start;
     overflow-x: auto;
-
-    border: 1px solid red;
   }
 
   .container .content .custom-list .custom-list-item {
