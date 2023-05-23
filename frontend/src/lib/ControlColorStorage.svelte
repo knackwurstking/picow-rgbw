@@ -1,12 +1,30 @@
 <script lang="ts">
+  import { createEventDispatcher } from "svelte";
+
+  const dispatch = createEventDispatcher();
+
   export let items: Color[] = [];
+
+  function _clickAdd() {
+    dispatch("itemadd");
+  }
+
+  function _clickEdit() {
+    dispatch("itemedit");
+  }
+
+  function _clickDelete() {
+    dispatch("itemdelete");
+  }
 </script>
 
 <div class="container">
   <div class="actions">
-    <span class="material-symbols-outlined">add</span>
-    <span class="material-symbols-outlined">edit</span>
-    <span class="material-symbols-outlined">delete</span>
+    <span class="material-symbols-outlined" on:click={_clickAdd}> add </span>
+    <span class="material-symbols-outlined" on:click={_clickEdit}> edit </span>
+    <span class="material-symbols-outlined" on:click={_clickDelete}>
+      delete
+    </span>
     <div class="spacer" />
   </div>
   <div class="content">
