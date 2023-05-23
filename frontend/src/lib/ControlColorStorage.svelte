@@ -1,12 +1,13 @@
 <script lang="ts">
   export let items: Color[] = [];
-
-  // TODO: load stored items from the `localStorage`
 </script>
 
 <div class="container">
   <div class="actions">
-    <!-- TODO: actions list "+" for add and more (right align) -->
+    <span class="material-symbols-outlined">add</span>
+    <span class="material-symbols-outlined">edit</span>
+    <span class="material-symbols-outlined">delete</span>
+    <div class="spacer" />
   </div>
   <div class="content">
     <ul class="custom-list" style="height: 100%;">
@@ -38,12 +39,21 @@
   }
 
   .container .actions {
-    display: absolute;
+    display: flex;
+    flex-direction: row-reverse;
+
+    position: relative;
     top: 0;
     right: 0;
-    height: calc(1rem + 8px);
+  }
 
-    border: 1px solid green;
+  .container .actions .spacer {
+    width: 100%;
+  }
+
+  .container .actions .material-symbols-outlined {
+    padding: 10px;
+    margin: 2px 4px;
   }
 
   .container .content {
