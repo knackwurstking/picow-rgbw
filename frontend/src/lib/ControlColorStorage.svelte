@@ -20,8 +20,11 @@
 
 <div class="container">
   <div class="actions">
+    <!-- svelte-ignore a11y-click-events-have-key-events -->
     <span class="material-symbols-outlined" on:click={_clickAdd}> add </span>
+    <!-- svelte-ignore a11y-click-events-have-key-events -->
     <span class="material-symbols-outlined" on:click={_clickEdit}> edit </span>
+    <!-- svelte-ignore a11y-click-events-have-key-events -->
     <span class="material-symbols-outlined" on:click={_clickDelete}>
       delete
     </span>
