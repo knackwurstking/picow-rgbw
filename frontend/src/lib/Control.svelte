@@ -8,6 +8,7 @@
   export let b = 100;
   export let w = 100;
 
+  // TODO: load stored items from the `localStorage`
   let items: Color[] = [
     // NOTE: placeholder items...
     [100, 100, 100, 100],
