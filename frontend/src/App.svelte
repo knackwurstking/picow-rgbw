@@ -3,6 +3,7 @@
 
   import Button, { Group, Label } from "svelteui/src/button";
 
+  import type { Device, Duty } from "./lib/api";
   import api from "./lib/api";
   import Devices from "./lib/Devices.svelte";
   import Control from "./lib/Control.svelte";

@@ -3,6 +3,8 @@
   import Checkbox from "svelteui/src/checkbox";
   import StatusLED from "svelteui/src/misc/StatusLED.svelte";
 
+  import type { Device } from "./api";
+
   export let devices: Device[];
   export let selected: string[];
 </script>
