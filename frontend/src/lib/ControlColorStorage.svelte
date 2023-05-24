@@ -1,6 +1,8 @@
 <script lang="ts">
   import { createEventDispatcher } from "svelte";
 
+  import IconButton from "svelteui/src/icon-button";
+
   const dispatch = createEventDispatcher();
 
   export let items: Color[] = [];
@@ -16,16 +18,8 @@
 
 <div class="container">
   <div class="actions">
-    <!-- svelte-ignore a11y-click-events-have-key-events -->
-    <span class="material-symbols-outlined" on:click={_clickAdd}> add </span>
-
-    <!-- svelte-ignore a11y-click-events-have-key-events -->
-    <!--span class="material-symbols-outlined" on:click={_clickEdit}> edit </span-->
-
-    <!-- svelte-ignore a11y-click-events-have-key-events -->
-    <span class="material-symbols-outlined" on:click={_clickDelete}>
-      delete
-    </span>
+    <IconButton style="margin-right: 0;" on:click={_clickAdd}>add</IconButton>
+    <IconButton on:click={_clickDelete}>delete</IconButton>
     <div class="spacer" />
   </div>
   <div class="content">
@@ -68,16 +62,6 @@
 
   .container .actions .spacer {
     width: 100%;
-  }
-
-  .container .actions .material-symbols-outlined {
-    padding: 10px 5px;
-    margin: 2px 4px;
-    cursor: pointer;
-  }
-
-  .container .actions .material-symbols-outlined:first-child {
-    margin-right: 0;
   }
 
   .container .content {
