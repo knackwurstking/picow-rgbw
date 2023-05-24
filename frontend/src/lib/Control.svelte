@@ -8,28 +8,31 @@
   export let b = 100;
   export let w = 100;
 
-  // TODO: load stored items from the `localStorage`
-  let items: Color[] = [
-    // NOTE: placeholder items...
-    [100, 100, 100, 100],
-    [90, 0, 0, 0],
-    [100, 100, 50, 0],
-    [0, 100, 0, 0],
-    [0, 50, 80, 0],
-    [100, 100, 100, 100],
-    [90, 0, 0, 0],
-    [100, 100, 50, 0],
-    [0, 100, 0, 0],
-    [0, 50, 80, 0],
-  ];
+  let items: Color[] = [];
 
   function itemadd() {
-    // TODO: add current rgbw to items
+    for (let i = 0; i < items.length; i++) {
+      const item = items[i];
+
+      if (item[0] === r && item[1] === g && item[2] === b && item[3] === w) {
+        items = [items[i], ...items.slice(0, i), ...items.slice(i + 1)];
+        return;
+      }
+    }
+
+    items.unshift([r, g, b, w]);
+    items = items;
   }
 
   function itemdelete() {
-    // TODO: select items from list and delete (needs some
-    //       select prop in ColorStorage component)
+    for (let i = 0; i < items.length; i++) {
+      const item = items[i];
+
+      if (item[0] === r && item[1] === g && item[2] === b && item[3] === w) {
+        items = [...items.slice(0, i), ...items.slice(i + 1)];
+        return;
+      }
+    }
   }
 </script>
 
