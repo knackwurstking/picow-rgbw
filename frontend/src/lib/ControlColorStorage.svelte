@@ -73,6 +73,7 @@
   .container .actions .material-symbols-outlined {
     padding: 10px 5px;
     margin: 2px 4px;
+    cursor: pointer;
   }
 
   .container .actions .material-symbols-outlined:first-child {
