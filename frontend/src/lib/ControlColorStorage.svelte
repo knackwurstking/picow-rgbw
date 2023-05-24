@@ -71,8 +71,12 @@
   }
 
   .container .actions .material-symbols-outlined {
-    padding: 10px;
+    padding: 10px 5px;
     margin: 2px 4px;
+  }
+
+  .container .actions .material-symbols-outlined:first-child {
+    margin-right: 0;
   }
 
   .container .content {
@@ -80,6 +84,9 @@
     width: 100%;
     overflow-x: auto;
     overflow-y: hidden;
+
+    border: 1px solid var(--theme-border-color);
+    border-radius: var(--theme-border-radius);
   }
 
   .container .content .custom-list {
