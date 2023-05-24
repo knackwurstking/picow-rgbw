@@ -22,6 +22,15 @@
     [0, 100, 0, 0],
     [0, 50, 80, 0],
   ];
+
+  function itemadd() {
+    // TODO: add current rgbw to items
+  }
+
+  function itemdelete() {
+    // TODO: select items from list and delete (needs some
+    //       select prop in ColorStorage component)
+  }
 </script>
 
 <fieldset class="control">
@@ -34,7 +43,7 @@
   </div>
 
   <div class="store">
-    <ColorStorage bind:items />
+    <ColorStorage bind:items on:itemadd={itemadd} on:itemdelete={itemdelete} />
   </div>
   <div class="picker">
     <ColorPicker bind:r bind:g bind:b bind:w />
