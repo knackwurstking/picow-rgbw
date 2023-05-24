@@ -39,12 +39,12 @@ export interface PutDeviceRequestData {
 }
 
 export class Api {
-  protocol: "http:" | "https:";
-  host: string;
-  version: "v1";
-  paths: ApiPaths;
-  events: Events;
-  sources: Sources;
+  public protocol: "http:" | "https:";
+  public host: string;
+  public version: "v1";
+  public paths: ApiPaths;
+  public events: Events;
+  public sources: Sources;
 
   constructor() {
     this.protocol = "http:";
