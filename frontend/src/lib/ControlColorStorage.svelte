@@ -14,6 +14,10 @@
   function _clickDelete() {
     dispatch("itemdelete");
   }
+
+  function _clickItemSelected(item: Color) {
+    dispatch("itemselected", item);
+  }
 </script>
 
 <div class="container">
@@ -27,7 +31,12 @@
   <div class="content">
     <ul class="custom-list" style="height: 100%;">
       {#each items as item}
-        <li class="custom-list-item" style="width: 50px;">
+        <!-- svelte-ignore a11y-click-events-have-key-events -->
+        <li
+          class="custom-list-item"
+          style="width: 50px;"
+          on:click={() => _clickItemSelected(item)}
+        >
           <div class="color-container__outer">
             <div
               class="color-container__inner"
