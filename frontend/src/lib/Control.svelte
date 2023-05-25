@@ -8,7 +8,13 @@
   export let b = 100;
   export let w = 100;
 
-  let items: Color[] = [];
+  let items: Color[] = JSON.parse(
+    localStorage.getItem("color-storage") || "[]"
+  );
+
+  function store() {
+    localStorage.setItem("color-storage", JSON.stringify(items));
+  }
 
   function itemadd() {
     for (let i = 0; i < items.length; i++) {
@@ -16,12 +22,14 @@
 
       if (item[0] === r && item[1] === g && item[2] === b && item[3] === w) {
         items = [items[i], ...items.slice(0, i), ...items.slice(i + 1)];
+        store();
         return;
       }
     }
 
     items.unshift([r, g, b, w]);
     items = items;
+    store();
   }
 
   function itemdelete() {
@@ -30,6 +38,7 @@
 
       if (item[0] === r && item[1] === g && item[2] === b && item[3] === w) {
         items = [...items.slice(0, i), ...items.slice(i + 1)];
+        store();
         return;
       }
     }
