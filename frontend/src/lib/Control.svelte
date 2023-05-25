@@ -38,9 +38,9 @@
   function itemselected(ev: CustomEvent<Color>) {
     const color = ev.detail;
     r = color[0];
-    r = color[1];
-    r = color[2];
-    r = color[3];
+    g = color[1];
+    b = color[2];
+    w = color[3];
   }
 </script>
 
