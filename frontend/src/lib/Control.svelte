@@ -1,5 +1,5 @@
 <script lang="ts">
-  import ColorPicker from "svelteui/src/misc/ColorPicker.svelte";
+  import ColorPicker from "svelteui/misc/ColorPicker.svelte";
 
   import ColorStorage from "./ControlColorStorage.svelte";
 

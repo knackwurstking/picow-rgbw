@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
 
-  import Button, { Group, Label } from "svelteui/src/button";
+  import Button, { Group, Label } from "svelteui/button";
 
   import type { Device, Duty } from "./lib/api";
   import api from "./lib/api";

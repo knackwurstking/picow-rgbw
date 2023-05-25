@@ -1,7 +1,7 @@
 <script lang="ts">
-  import List, { Item, Meta, Separator } from "svelteui/src/list";
-  import Checkbox from "svelteui/src/checkbox";
-  import StatusLED from "svelteui/src/misc/StatusLED.svelte";
+  import List, { Item, Meta, Separator } from "svelteui/list";
+  import Checkbox from "svelteui/checkbox";
+  import StatusLED from "svelteui/misc/StatusLED.svelte";
 
   import type { Device } from "./api";
 
