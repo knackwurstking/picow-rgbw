@@ -62,7 +62,7 @@
     />
   </div>
   <div class="picker">
-    <ColorPicker bind:r bind:g bind:b bind:w />
+    <ColorPicker style="user-select: none;" bind:r bind:g bind:b bind:w />
   </div>
 </fieldset>
 
