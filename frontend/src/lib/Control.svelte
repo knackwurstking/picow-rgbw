@@ -34,6 +34,14 @@
       }
     }
   }
+
+  function itemselected(ev: CustomEvent<Color>) {
+    const color = ev.detail;
+    r = color[0];
+    r = color[1];
+    r = color[2];
+    r = color[3];
+  }
 </script>
 
 <fieldset class="control">
@@ -46,7 +54,12 @@
   </div>
 
   <div class="store">
-    <ColorStorage bind:items on:itemadd={itemadd} on:itemdelete={itemdelete} />
+    <ColorStorage
+      bind:items
+      on:itemadd={itemadd}
+      on:itemdelete={itemdelete}
+      on:itemselected={itemselected}
+    />
   </div>
   <div class="picker">
     <ColorPicker bind:r bind:g bind:b bind:w />
