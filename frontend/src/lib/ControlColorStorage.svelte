@@ -22,10 +22,14 @@
 
 <div class="container">
   <div class="actions">
-    <IconButton style="margin: 4px; margin-right: 0;" on:click={_clickAdd}
-      >add</IconButton
-    >
-    <IconButton style="margin: 4px;" on:click={_clickDelete}>delete</IconButton>
+    <IconButton
+      style="margin: 4px; margin-right: 0;"
+      on:click={_clickAdd}
+    >add</IconButton>
+    <IconButton
+      style="margin: 4px;"
+      on:click={_clickDelete}
+    >delete</IconButton>
     <div class="spacer" />
   </div>
   <div class="content">
