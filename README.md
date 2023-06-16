@@ -136,5 +136,7 @@ curl -X POST http://localhost:50833/api/v1/picow\
 
 ## TODOs
 
-- [ ] frontend: control: add a color storage
+- [x] frontend: control: add a color storage
 - [ ] frontend: devices: add some device setup popup for changing the name ('host:port')
+- [ ] backend: Fix crash if device goes offline?
+- [ ] backend: if device is offline on a set duty cycle command set configured pins first
