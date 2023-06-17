@@ -1,21 +1,27 @@
 # picow-rgbw
 
-<!--toc:start-->
-- [picow-rgbw](#picow-rgbw)
-  - [Getting Started](#getting-started)
-  - [Api v1 Routing Table](#api-v1-routing-table)
-  - [Api V1](#api-v1)
-    - [**GET** _"/api/v1/devices"_](#get-apiv1devices)
-    - [**POST** _"/api/v1/devices"_](#post-apiv1devices)
-    - [**GET** _"/api/v1/devices/:id"_](#get-apiv1devicesid)
-    - [**GET** _"/api/v1/events/device-update"_](#get-apiv1eventsdevice-update)
-    - [**POST** _"/api/v1/picow"_](#post-apiv1picow)
-  - [TODOs](#todos)
-<!--toc:end-->
-
 Web server for controlling all [picow-rgbw](https://github.com/knackwurstking/picow-rgbw.git) driven devices.
 
-## Getting Started
+# Index
+
+<!-- vscode-markdown-toc -->
+* 1. [Getting Started](#GettingStarted)
+* 2. [Api v1 Routing Table](#Apiv1RoutingTable)
+* 3. [Api V1](#ApiV1)
+	* 3.1. [**GET** _"/api/v1/devices"_](#GET_apiv1devices_)
+	* 3.2. [**POST** _"/api/v1/devices"_](#POST_apiv1devices_)
+	* 3.3. [**GET** _"/api/v1/devices/:id"_](#GET_apiv1devices:id_)
+	* 3.4. [**GET** _"/api/v1/events/device-update"_](#GET_apiv1eventsdevice-update_)
+	* 3.5. [**POST** _"/api/v1/picow"_](#POST_apiv1picow_)
+* 4. [TODOs](#TODOs)
+
+<!-- vscode-markdown-toc-config
+	numbering=true
+	autoSave=true
+	/vscode-markdown-toc-config -->
+<!-- /vscode-markdown-toc --># picow-rgbw
+
+##  1. <a name='GettingStarted'></a>Getting Started
 
 Install the latest node js version.
 
@@ -32,7 +38,7 @@ make install
 make service
 ```
 
-## Api v1 Routing Table
+##  2. <a name='Apiv1RoutingTable'></a>Api v1 Routing Table
 
 TODO: find a better way for this
 
@@ -44,12 +50,12 @@ TODO: find a better way for this
 | SSE    | [`/api/v1/events/device-update`](#get-apiv1eventsdevice-update) |
 | POST   | [`/api/v1/picow`](#post-apiv1picow)                             |
 
-## Api V1
+##  3. <a name='ApiV1'></a>Api V1
 
 > package: [v1](internal/api/v1)  
 > package: [pico](internal/api/v1/pico)
 
-### **GET** _"/api/v1/devices"_
+###  3.1. <a name='GET_apiv1devices_'></a>**GET** _"/api/v1/devices"_
 
 Get all pico devices and data about rgbw pins.
 
@@ -77,7 +83,7 @@ Example Response
 ]
 ```
 
-### **POST** _"/api/v1/devices"_
+###  3.2. <a name='POST_apiv1devices_'></a>**POST** _"/api/v1/devices"_
 
 Update device(s) duty for rgbw pins
 
@@ -91,7 +97,7 @@ curl -X POST http://localhost:50833/api/v1/devices \
 
 No Response (http status 200 on success)
 
-### **GET** _"/api/v1/devices/:id"_
+###  3.3. <a name='GET_apiv1devices:id_'></a>**GET** _"/api/v1/devices/:id"_
 
 Get pico device and data per id (rgbw index)
 ([device index from devices list](#devices-list))
@@ -116,11 +122,11 @@ Example Response
 }
 ```
 
-### **GET** _"/api/v1/events/device-update"_
+###  3.4. <a name='GET_apiv1eventsdevice-update_'></a>**GET** _"/api/v1/events/device-update"_
 
 > work in progress
 
-### **POST** _"/api/v1/picow"_
+###  3.5. <a name='POST_apiv1picow_'></a>**POST** _"/api/v1/picow"_
 
 Register a new raspberry pico device on the web server to handle.
 (The [picow-rgbw](https://github.com/knackwurstking/picow-rgbw.git) will do
@@ -134,7 +140,7 @@ curl -X POST http://localhost:50833/api/v1/picow\
   -d '{"addr": "192.168.178.50:80"}'
 ```
 
-## TODOs
+##  4. <a name='TODOs'></a>TODOs
 
 - [x] frontend: control: add a color storage
 - [ ] frontend: devices: add some device setup popup for changing the name ('host:port')
