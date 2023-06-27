@@ -2,6 +2,7 @@ package sse
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"sync"
 
@@ -28,12 +29,18 @@ func (c *Connection) Write(event string, data any) error {
 
 	n, err := c.Writer.Write([]byte("event: " + event + "\n"))
 	if err != nil || n == 0 {
+		if err == nil {
+			err = fmt.Errorf("no data written")
+		}
 		return err
 	}
 	c.Flusher.Flush()
 
 	n, err = c.Writer.Write(append([]byte("data: "), d...))
 	if err != nil || n == 0 {
+		if err == nil {
+			err = fmt.Errorf("no data written")
+		}
 		return err
 	}
 	c.Flusher.Flush()
