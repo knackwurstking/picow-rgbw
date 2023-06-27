@@ -26,14 +26,14 @@ func (c *Connection) Write(event string, data any) error {
 	}
 	d = append(d, []byte("\n\n")...)
 
-	_, err = c.Writer.Write([]byte("event: " + event + "\n"))
-	if err != nil {
+	n, err := c.Writer.Write([]byte("event: " + event + "\n"))
+	if err != nil || n == 0 {
 		return err
 	}
 	c.Flusher.Flush()
 
-	_, err = c.Writer.Write(append([]byte("data: "), d...))
-	if err != nil {
+	n, err = c.Writer.Write(append([]byte("data: "), d...))
+	if err != nil || n == 0 {
 		return err
 	}
 	c.Flusher.Flush()
